@@ -41,13 +41,16 @@ where
 }
 
 #[derive(Debug)]
-struct DeriveAppender;
+struct Parser;
 
-impl bindgen::callbacks::ParseCallbacks for DeriveAppender {
+impl bindgen::callbacks::ParseCallbacks for Parser {
     fn add_derives(&self, info: &bindgen::callbacks::DeriveInfo<'_>) -> Vec<String> {
         let mut derive_traits = vec![];
-        if matches!(info.name, "rd_kafka_resp_err_t") {
-            derive_traits.push("::num_enum::TryFromPrimitive".to_string());
+        match info.name {
+            "rd_kafka_resp_err_t" | "rd_kafka_conf_res_t" => {
+                derive_traits.push("::num_enum::TryFromPrimitive".to_string());
+            }
+            _ => {}
         }
 
         derive_traits
@@ -74,7 +77,7 @@ fn generate_bindings() {
         .raw_line("#[cfg(unix)]")
         .raw_line("use libc::{addrinfo, mode_t};")
         .default_macro_constant_type(bindgen::MacroTypeVariation::Signed)
-        .parse_callbacks(Box::new(DeriveAppender))
+        .parse_callbacks(Box::new(Parser))
         .generate()
         .expect("bindings to be generated")
         .write_to_file(bindings_path.as_path())

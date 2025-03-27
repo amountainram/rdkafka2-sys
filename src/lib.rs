@@ -107,7 +107,6 @@ extern crate zstd_sys;
 extern crate lz4_sys;
 
 pub use bindings::*;
-pub use helpers::*;
 pub use types::*;
 
 /// FFI bindings.
@@ -121,5 +120,4 @@ pub use types::*;
     clippy::all
 )]
 pub mod bindings;
-pub mod helpers;
 pub mod types;

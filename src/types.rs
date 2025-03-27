@@ -1,7 +1,7 @@
 //! Aliases for types defined in the auto-generated bindings.
 
-use crate::{bindings, helpers};
-use num_enum::IntoPrimitive;
+use crate::bindings;
+use num_enum::TryFromPrimitive;
 use std::{convert::TryFrom, error::Error, ffi::CStr, fmt};
 
 // TYPES
@@ -113,7 +113,8 @@ pub use bindings::rd_kafka_ConfigSource_t as RDKafkaConfigSource;
 // Errors enum
 
 /// Native rdkafka error code.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, ::num_enum::TryFromPrimitive)]
+#[repr(i32)]
 #[non_exhaustive]
 pub enum RDKafkaErrorCode {
     #[doc(hidden)]
@@ -470,32 +471,37 @@ pub enum RDKafkaErrorCode {
 impl RDKafkaErrorCode {
     /// Returns native err name only (no description)
     pub fn name(&self) -> String {
-        let err = RDKafkaRespErr::try_from(*self as i32)
-            .unwrap_or(RDKafkaRespErr::RD_KAFKA_RESP_ERR_UNKNOWN);
-        let cstr = unsafe { bindings::rd_kafka_err2name(err) };
+        let cstr = unsafe { bindings::rd_kafka_err2name((*self).into()) };
         unsafe { CStr::from_ptr(cstr) }
             .to_string_lossy()
             .into_owned()
+    }
+
+    pub fn error(&self) -> Option<&Self> {
+        (!matches!(self, RDKafkaErrorCode::NoError)).then_some(self)
+    }
+}
+
+impl From<RDKafkaErrorCode> for RDKafkaRespErr {
+    fn from(err: RDKafkaErrorCode) -> Self {
+        // UNWRAP: seemless conversion
+        Self::try_from(err as i32).unwrap()
     }
 }
 
 impl From<RDKafkaRespErr> for RDKafkaErrorCode {
     fn from(err: RDKafkaRespErr) -> RDKafkaErrorCode {
-        helpers::rd_kafka_resp_err_t_to_rdkafka_error(err)
+        // UNWRAP: seemless conversion
+        Self::try_from(err as i32).unwrap()
     }
 }
 
 impl fmt::Display for RDKafkaErrorCode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let description = match RDKafkaRespErr::try_from(*self as i32) {
-            Ok(err) => {
-                let cstr = unsafe { bindings::rd_kafka_err2str(err) };
-                unsafe { CStr::from_ptr(cstr) }
-                    .to_string_lossy()
-                    .into_owned()
-            }
-            Err(_) => "Unknown error".to_owned(),
-        };
+        let cstr = unsafe { bindings::rd_kafka_err2str((*self).into()) };
+        let description = unsafe { CStr::from_ptr(cstr) }
+            .to_string_lossy()
+            .into_owned();
 
         write!(f, "{:?} ({})", self, description)
     }
@@ -503,70 +509,30 @@ impl fmt::Display for RDKafkaErrorCode {
 
 impl Error for RDKafkaErrorCode {}
 
-/// Native rdkafka ApiKeys / protocol requests
-#[derive(Debug, Clone, Copy, PartialEq, Eq, IntoPrimitive)]
-#[repr(i16)]
-#[non_exhaustive]
-pub enum RDKafkaApiKey {
-    Produce = 0,
-    Fetch = 1,
-    ListOffsets = 2,
-    Metadata = 3,
-    LeaderAndIsr = 4,
-    StopReplica = 5,
-    UpdateMetadata = 6,
-    ControlledShutdown = 7,
-    OffsetCommit = 8,
-    OffsetFetch = 9,
-    FindCoordinator = 10,
-    JoinGroup = 11,
-    Heartbeat = 12,
-    LeaveGroup = 13,
-    SyncGroup = 14,
-    DescribeGroups = 15,
-    ListGroups = 16,
-    SaslHandshake = 17,
-    ApiVersion = 18,
-    CreateTopics = 19,
-    DeleteTopics = 20,
-    DeleteRecords = 21,
-    InitProducerId = 22,
-    OffsetForLeaderEpoch = 23,
-    AddPartitionsToTxn = 24,
-    AddOffsetsToTxn = 25,
-    EndTxn = 26,
-    WriteTxnMarkers = 27,
-    TxnOffsetCommit = 28,
-    DescribeAcls = 29,
-    CreateAcls = 30,
-    DeleteAcls = 31,
-    DescribeConfigs = 32,
-    AlterConfigs = 33,
-    AlterReplicaLogDirs = 34,
-    DescribeLogDirs = 35,
-    SaslAuthenticate = 36,
-    CreatePartitions = 37,
-    CreateDelegationToken = 38,
-    RenewDelegationToken = 39,
-    ExpireDelegationToken = 40,
-    DescribeDelegationToken = 41,
-    DeleteGroups = 42,
-    ElectLeaders = 43,
-    IncrementalAlterConfigs = 44,
-    AlterPartitionReassignments = 45,
-    ListPartitionReassignments = 46,
-    OffsetDelete = 47,
-    DescribeClientQuotas = 48,
-    AlterClientQuotas = 49,
-    DescribeUserScramCredentials = 50,
-    AlterUserScramCredentials = 51,
-    Vote = 52,
-    BeginQuorumEpoch = 53,
-    EndQuorumEpoch = 54,
-    DescribeQuorum = 55,
-    AlterIsr = 56,
-    UpdateFeatures = 57,
-    Envelope = 58,
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq, TryFromPrimitive)]
+#[repr(i32)]
+pub enum RDKafkaConfErrorCode {
+    /// Unknown configuration name.
+    UnknownKey = -2,
+    /// Invalid configuration value or
+    /// property or value not supported in
+    /// this build.
+    InvalidValue = -1,
+    /// Ok variant
+    Ok = 0,
+}
+
+impl RDKafkaConfErrorCode {
+    pub fn error(&self) -> Option<&Self> {
+        (!matches!(self, RDKafkaConfErrorCode::Ok)).then_some(self)
+    }
+}
+
+impl From<RDKafkaConfRes> for RDKafkaConfErrorCode {
+    fn from(err: RDKafkaConfRes) -> RDKafkaConfErrorCode {
+        // UNWRAP: seemless conversion
+        Self::try_from(err as i32).unwrap()
+    }
 }
 
 #[cfg(test)]
@@ -581,5 +547,11 @@ mod tests {
             format!("{}", error)
         );
         assert_eq!("PartitionEOF", format!("{:?}", error));
+    }
+
+    #[test]
+    fn test_error_conversion() {
+        let error: RDKafkaErrorCode = RDKafkaRespErr::RD_KAFKA_RESP_ERR__PARTITION_EOF.into();
+        assert_eq!(error, RDKafkaErrorCode::PartitionEOF);
     }
 }

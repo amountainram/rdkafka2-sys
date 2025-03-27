@@ -1,0 +1,19 @@
+[tasks.playground_up]
+workspace = false
+script = '''
+    docker compose \
+        --file playground/docker-compose.yml \
+        up --detach --remove-orphans $@;
+'''
+
+[tasks.playground_down]
+workspace = false
+script = '''
+    docker compose --file playground/docker-compose.yml down
+'''
+
+[tasks.playground_dc]
+workspace = false
+script = '''
+    docker compose --file playground/docker-compose.yml $@
+'''

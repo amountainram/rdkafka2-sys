@@ -1545,7 +1545,7 @@ unsafe extern "C" {
 #[repr(i32)]
 /// @enum rd_kafka_conf_res_t
 /// @brief Configuration result type
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq, :: num_enum :: TryFromPrimitive)]
 pub enum rd_kafka_conf_res_t {
     ///< Unknown configuration name.
     RD_KAFKA_CONF_UNKNOWN = -2,
