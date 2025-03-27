@@ -1,0 +1,2 @@
+imports_granularity = "Crate"
+normalize_doc_attributes = true
