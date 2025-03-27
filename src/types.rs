@@ -467,13 +467,8 @@ pub enum RDKafkaErrorCode {
     EndAll,
 }
 
-impl From<RDKafkaRespErr> for RDKafkaErrorCode {
-    fn from(err: RDKafkaRespErr) -> RDKafkaErrorCode {
-        helpers::rd_kafka_resp_err_t_to_rdkafka_error(err)
-    }
-}
-
 impl RDKafkaErrorCode {
+    /// Returns native err name only (no description)
     pub fn name(&self) -> String {
         let err = RDKafkaRespErr::try_from(*self as i32)
             .unwrap_or(RDKafkaRespErr::RD_KAFKA_RESP_ERR_UNKNOWN);
@@ -481,6 +476,12 @@ impl RDKafkaErrorCode {
         unsafe { CStr::from_ptr(cstr) }
             .to_string_lossy()
             .into_owned()
+    }
+}
+
+impl From<RDKafkaRespErr> for RDKafkaErrorCode {
+    fn from(err: RDKafkaRespErr) -> RDKafkaErrorCode {
+        helpers::rd_kafka_resp_err_t_to_rdkafka_error(err)
     }
 }
 
