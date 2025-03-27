@@ -3,11 +3,12 @@ name = "rdkafka2-sys"
 version = "0.0.0+2.8.0"
 links = "rdkafka"
 keywords = ["kafka", "rdkafka"]
-license = "MIT"
 description = "Native bindings to the librdkafka library"
 categories = ["external-ffi-bindings"]
 edition = "2024"
 rust-version = "1.85"
+license = "MIT"
+license-file = "LICENSE"
 
 [dependencies]
 curl-sys = { version = "0.4.80", optional = true }
@@ -86,3 +87,7 @@ external_lz4 = ["external-lz4"]
 # docs.rs doesn't allow writing to ~/.cargo/registry (reasonably), so we have to
 # use the CMake build for a proper out-of-tree build.
 features = ["cmake-build"]
+
+[package.metadata]
+include = ["LICENSE", "LICENSE-librdkafka", "NOTICE"]
+original-work = ["https://github.com/fede1024/rust-rdkafka (MIT)"]

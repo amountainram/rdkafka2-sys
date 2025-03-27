@@ -54,6 +54,12 @@ impl bindgen::callbacks::ParseCallbacks for DeriveAppender {
     }
 }
 
+fn copy_license() {
+    let license_path = Path::new("librdkafka").join("LICENSE");
+    fs::copy(license_path, Path::new("LICENSE-librdkafka"))
+        .expect("librdkafka license to be copied");
+}
+
 fn generate_bindings() {
     let header_path = Path::new("librdkafka").join("src").join("rdkafka.h");
     let bindings_path = Path::new("src").join("bindings.rs");
@@ -90,8 +96,6 @@ fn generate_bindings() {
 }
 
 fn main() {
-    generate_bindings();
-
     if env::var("CARGO_FEATURE_DYNAMIC_LINKING").is_ok() {
         eprintln!("librdkafka will be linked dynamically");
 
@@ -138,6 +142,9 @@ fn main() {
         eprintln!("Building and linking librdkafka statically");
         build_librdkafka();
     }
+
+    generate_bindings();
+    copy_license();
 }
 
 #[cfg(not(feature = "cmake-build"))]
