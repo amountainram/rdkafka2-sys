@@ -535,6 +535,23 @@ impl From<RDKafkaConfRes> for RDKafkaConfErrorCode {
     }
 }
 
+impl fmt::Display for RDKafkaConfErrorCode {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "{}",
+            match self {
+                RDKafkaConfErrorCode::UnknownKey => "Unknown configuration key name",
+                RDKafkaConfErrorCode::InvalidValue =>
+                    "Invalid configuration value or not supported",
+                RDKafkaConfErrorCode::Ok => "Ok",
+            }
+        )
+    }
+}
+
+impl Error for RDKafkaConfErrorCode {}
+
 #[cfg(test)]
 mod tests {
     use super::*;
