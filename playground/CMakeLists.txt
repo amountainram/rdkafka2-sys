@@ -1,5 +1,18 @@
 set(CMAKE_C_FLAGS "-Wall -Wextra -pedantic")
 
-add_executable(simple_producer producer/main.c)
-target_include_directories(simple_producer PRIVATE librdkafka/src)
-target_link_libraries(simple_producer PRIVATE rdkafka)
+aux_source_directory(async_producer async_producer_SOURCE_DIR)
+add_executable(
+    async_producer
+    ${async_producer_SOURCE_DIR}
+    ${logc_SOURCE_DIR}/src/log.c
+)
+target_include_directories(
+    async_producer PRIVATE
+    librdkafka/src
+    ${logc_SOURCE_DIR}/src
+    ${cds_SOURCE_DIR}/include
+    ${cjson_SOURCE_DIR}
+)
+target_link_libraries(async_producer PRIVATE rdkafka PRIVATE cds PRIVATE cjson)
+target_compile_options(async_producer PRIVATE "-DLOG_USE_COLOR")
+
