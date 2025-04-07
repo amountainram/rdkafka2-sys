@@ -110,6 +110,8 @@ pub use bindings::rd_kafka_ResourceType_t as RDKafkaResourceType;
 /// Config source.
 pub use bindings::rd_kafka_ConfigSource_t as RDKafkaConfigSource;
 
+pub const RD_KAFKA_PARTITION_UA: i32 = -1;
+
 // Errors enum
 
 /// Native rdkafka error code.
