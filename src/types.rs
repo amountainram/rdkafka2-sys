@@ -479,7 +479,7 @@ impl RDKafkaErrorCode {
             .into_owned()
     }
 
-    pub fn error(&self) -> Option<&Self> {
+    pub fn error(self) -> Option<Self> {
         (!matches!(self, RDKafkaErrorCode::NoError)).then_some(self)
     }
 }
@@ -553,6 +553,51 @@ impl fmt::Display for RDKafkaConfErrorCode {
 }
 
 impl Error for RDKafkaConfErrorCode {}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, ::num_enum::TryFromPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
+pub enum RDKafkaEventType {
+    None = bindings::RD_KAFKA_EVENT_NONE,
+    Dr = bindings::RD_KAFKA_EVENT_DR,
+    Fetch = bindings::RD_KAFKA_EVENT_FETCH,
+    Log = bindings::RD_KAFKA_EVENT_LOG,
+    Error = bindings::RD_KAFKA_EVENT_ERROR,
+    Rebalance = bindings::RD_KAFKA_EVENT_REBALANCE,
+    //
+    OffsetCommit = bindings::RD_KAFKA_EVENT_OFFSET_COMMIT,
+    Stats = bindings::RD_KAFKA_EVENT_STATS,
+    //
+    CreateTopicsResult = bindings::RD_KAFKA_EVENT_CREATETOPICS_RESULT,
+    DeleteTopicsResult = bindings::RD_KAFKA_EVENT_DELETETOPICS_RESULT,
+    CreatePartitionsResult = bindings::RD_KAFKA_EVENT_CREATEPARTITIONS_RESULT,
+    AlterConfigsResult = bindings::RD_KAFKA_EVENT_ALTERCONFIGS_RESULT,
+    DescribeConfigsResult = bindings::RD_KAFKA_EVENT_DESCRIBECONFIGS_RESULT,
+    DeleteRecordsResult = bindings::RD_KAFKA_EVENT_DELETERECORDS_RESULT,
+    DeleteGroupsResult = bindings::RD_KAFKA_EVENT_DELETEGROUPS_RESULT,
+    DeleteConsumerGroupOffsetsResult = bindings::RD_KAFKA_EVENT_DELETECONSUMERGROUPOFFSETS_RESULT,
+    //
+    OauthbearerTokenRefresh = bindings::RD_KAFKA_EVENT_OAUTHBEARER_TOKEN_REFRESH,
+    Background = 0x200,
+    //
+    CreateAclsResult = bindings::RD_KAFKA_EVENT_CREATEACLS_RESULT,
+    DescribeAclsResult = bindings::RD_KAFKA_EVENT_DESCRIBEACLS_RESULT,
+    DeleteAclsResult = bindings::RD_KAFKA_EVENT_DELETEACLS_RESULT,
+    ListConsumerGroupsResult = bindings::RD_KAFKA_EVENT_LISTCONSUMERGROUPS_RESULT,
+    DescribeConsumerGroupsResult = bindings::RD_KAFKA_EVENT_DESCRIBECONSUMERGROUPS_RESULT,
+    ListConsumerGroupOffsetsResult = bindings::RD_KAFKA_EVENT_LISTCONSUMERGROUPOFFSETS_RESULT,
+    AlterConsumerGroupOffsetsResult = bindings::RD_KAFKA_EVENT_ALTERCONSUMERGROUPOFFSETS_RESULT,
+    IncrementalAlterConfigsResult = bindings::RD_KAFKA_EVENT_INCREMENTALALTERCONFIGS_RESULT,
+    //
+    DescribeUserScramCredentialsResult =
+        bindings::RD_KAFKA_EVENT_DESCRIBEUSERSCRAMCREDENTIALS_RESULT,
+    AlterUserScramCredentialsResult = bindings::RD_KAFKA_EVENT_ALTERUSERSCRAMCREDENTIALS_RESULT,
+    //
+    DescribeTopicsResult = bindings::RD_KAFKA_EVENT_DESCRIBETOPICS_RESULT,
+    DescribeClusterResult = bindings::RD_KAFKA_EVENT_DESCRIBECLUSTER_RESULT,
+    ListOffsetsResult = bindings::RD_KAFKA_EVENT_LISTOFFSETS_RESULT,
+    ElectLeadersResult = 0x800000,
+}
 
 #[cfg(test)]
 mod tests {

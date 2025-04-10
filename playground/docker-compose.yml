@@ -2,9 +2,8 @@
 services:
   kafka:
     image: apache/kafka:3.9.0@sha256:fbc7d7c428e3755cf36518d4976596002477e4c052d1f80b5b9eafd06d0fff2f
-    # container_name: rdkafka2-sys-playground-kafka
-    # networks:
-    #   - internal
+    networks:
+      - rdkafka2-sys-playground
     ports:
       - "9092:9092"
       - "9997:9997"
@@ -39,9 +38,8 @@ services:
 
   kafbat-ui:
     image: ghcr.io/kafbat/kafka-ui:v1.2.0@sha256:185da4ad3e88538a0f4da067f4c7bb23aa0efa608c74d115f0876919b5d3a91b
-    # container_name: rdkafka2-sys-playground-kafka-ui
-    # networks:
-    #   - internal
+    networks:
+      - rdkafka2-sys-playground
     ports:
       - '8080:8080'
     depends_on:
@@ -63,3 +61,5 @@ services:
       retries: 3
       start_period: 30s
 
+networks:
+  rdkafka2-sys-playground:
