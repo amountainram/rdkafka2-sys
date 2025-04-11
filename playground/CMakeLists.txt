@@ -26,6 +26,8 @@ target_include_directories(
     admin_client PRIVATE
     librdkafka/src
     ${logc_SOURCE_DIR}/src
+    ${cjson_SOURCE_DIR}
 )
-target_link_libraries(admin_client PRIVATE rdkafka)
+target_link_libraries(admin_client PRIVATE rdkafka PRIVATE cjson)
 target_compile_options(admin_client PRIVATE "-DLOG_USE_COLOR")
+target_compile_definitions(admin_client PRIVATE BIN_NAME="$<TARGET_FILE_NAME:admin_client>")

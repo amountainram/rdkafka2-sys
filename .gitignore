@@ -1,6 +1,7 @@
 .vscode/
 .idea/
 
+.local/
 .cache/
 build/
 target/

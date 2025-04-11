@@ -1,4 +1,7 @@
+#define _GNU_SOURCE
+
 #include <errno.h>
+#include <getopt.h>
 #include <log.h>
 #include <rdkafka.h>
 #include <semaphore.h>
@@ -9,61 +12,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 
 #include "kafka-util.h"
-
-static _Atomic bool running = true;
-
-typedef struct signal_completion_s
-{
-    int ret;
-    sem_t s;
-} signal_completion_t;
-
-int signal_init(signal_completion_t **s_out)
-{
-    int ret = 0;
-    signal_completion_t *s = NULL;
-    if ((s = malloc(sizeof(signal_completion_t))) == NULL)
-    {
-        *s_out = NULL;
-        return -1;
-    }
-
-    s->ret = EXIT_FAILURE;
-    if ((ret = sem_init(&s->s, 0, 0)) == -1)
-    {
-        log_error("error while sem posting: %s", strerror(errno));
-        free(s);
-        *s_out = NULL;
-    }
-
-    *s_out = s;
-    return ret;
-}
-
-void signal_destroy(signal_completion_t *s)
-{
-    sem_destroy(&s->s);
-    free(s);
-}
-
-void signal_complete(signal_completion_t *s, int ret)
-{
-    s->ret = ret;
-    if (sem_post(&s->s) == -1)
-        log_error("error while sem posting: %s", strerror(errno));
-}
-
-void sig_handler(int signal)
-{
-    (void)signal;
-    atomic_store_explicit(&running, false, memory_order_relaxed);
-}
+#include "signal_completion.h"
 
 int help(const char *command, const char *opts)
 {
-    fprintf(stderr, "Usage: admin_client %s %s\n", command, opts);
+    fprintf(stderr, "Usage: " BIN_NAME " %s %s\n", command, opts);
     return EXIT_FAILURE;
 }
 
@@ -198,19 +154,19 @@ int handle_signal(signal_completion_t *channel)
     return ret;
 }
 
-int create_topics(int argc, char **topics)
+int create_topics(int num_topics, char **topics, const char *config_path)
 {
     int ret = EXIT_SUCCESS;
-    if (argc < 1)
+    if (num_topics < 1)
         return help("create-topics", "<topic1> [topic2] ...");
 
     rd_kafka_t *rk = NULL;
-    if (create_kafka_admin_client(&rk) == -1)
+    if (create_kafka_admin_client(&rk, config_path) == -1)
         return EXIT_FAILURE;
 
     rd_kafka_NewTopic_t **new_topics = NULL;
     if ((new_topics = (rd_kafka_NewTopic_t **)malloc(
-             argc * sizeof(rd_kafka_NewTopic_t *))) == NULL)
+             num_topics * sizeof(rd_kafka_NewTopic_t *))) == NULL)
     {
         log_error("cannot allocate new topics: %s", strerror(errno));
         ret = EXIT_FAILURE;
@@ -218,7 +174,7 @@ int create_topics(int argc, char **topics)
     }
 
     int i;
-    for (i = 0; i < argc; ++i)
+    for (i = 0; i < num_topics; ++i)
         create_new_topic_instance(topics[i], new_topics + i);
 
     rd_kafka_queue_t *q = rd_kafka_queue_get_background(rk);
@@ -230,34 +186,33 @@ int create_topics(int argc, char **topics)
         goto cleanup;
 
     rd_kafka_AdminOptions_set_opaque(opts, (void *)channel);
-    rd_kafka_CreateTopics(rk, new_topics, argc, opts, q);
+    rd_kafka_CreateTopics(rk, new_topics, num_topics, opts, q);
 
     ret = handle_signal(channel);
 
     // ******* CLEANUP ******** //
     rd_kafka_queue_destroy(q);
-    for (i = 0; i < argc; ++i)
-        rd_kafka_NewTopic_destroy(new_topics[i]);
-    free(new_topics);
+    rd_kafka_NewTopic_destroy_array(new_topics, num_topics);
     rd_kafka_AdminOptions_destroy(opts);
+    free(new_topics);
 cleanup:
     rd_kafka_destroy(rk);
     return ret;
 }
 
-int delete_topics(int argc, char **topics)
+int delete_topics(int num_topics, char **topics, const char *config_path)
 {
     int ret = EXIT_SUCCESS;
-    if (argc < 1)
+    if (num_topics < 1)
         return help("delete-topics", "<topic1> [topic2] ...");
 
     rd_kafka_t *rk = NULL;
-    if (create_kafka_admin_client(&rk) == -1)
+    if (create_kafka_admin_client(&rk, config_path) == -1)
         return EXIT_FAILURE;
 
     rd_kafka_DeleteTopic_t **delete_topics = NULL;
     if ((delete_topics = (rd_kafka_DeleteTopic_t **)malloc(
-             argc * sizeof(rd_kafka_DeleteTopic_t *))) == NULL)
+             num_topics * sizeof(rd_kafka_DeleteTopic_t *))) == NULL)
     {
         log_error("cannot allocate new topics: %s", strerror(errno));
         ret = EXIT_FAILURE;
@@ -265,7 +220,7 @@ int delete_topics(int argc, char **topics)
     }
 
     int i;
-    for (i = 0; i < argc; ++i)
+    for (i = 0; i < num_topics; ++i)
         create_delete_topic_instance(topics[i], delete_topics + i);
 
     rd_kafka_queue_t *q = rd_kafka_queue_get_background(rk);
@@ -277,23 +232,101 @@ int delete_topics(int argc, char **topics)
         goto cleanup;
 
     rd_kafka_AdminOptions_set_opaque(opts, (void *)channel);
-    rd_kafka_DeleteTopics(rk, delete_topics, argc, opts, q);
+    rd_kafka_DeleteTopics(rk, delete_topics, num_topics, opts, q);
 
     ret = handle_signal(channel);
 
     // ******* CLEANUP ******** //
     rd_kafka_queue_destroy(q);
-    for (i = 0; i < argc; ++i)
-        rd_kafka_DeleteTopic_destroy(delete_topics[i]);
-    free(delete_topics);
+    rd_kafka_DeleteTopic_destroy_array(delete_topics, num_topics);
     rd_kafka_AdminOptions_destroy(opts);
+    free(delete_topics);
 cleanup:
+    rd_kafka_destroy(rk);
+    return ret;
+}
+
+struct metadata_command_opts
+{
+    bool follow;
+};
+
+void clear_screen(void)
+{
+    printf("\033[2J\033[H");
+    fflush(stdout);
+}
+
+int metadata(int num_topics, char **topic_names,
+             const struct metadata_command_opts *opts, const char *config_path)
+{
+    (void)num_topics;
+    (void)topic_names;
+
+#define LOCAL_TIMEOUT_SEC 2
+#define LOCAL_TIMEOUT LOCAL_TIMEOUT_SEC * 5000
+    int ret = EXIT_SUCCESS;
+    rd_kafka_t *rk = NULL;
+    rd_kafka_resp_err_t err;
+    if (create_kafka_admin_client(&rk, config_path) == -1)
+        return EXIT_FAILURE;
+
+    rd_kafka_metadata_t *meta;
+
+    if (opts->follow)
+    {
+        time_t now, exec_time;
+        while (1)
+        {
+            if (!atomic_load_explicit(&running, memory_order_relaxed))
+                break;
+            now = time(NULL);
+            if ((err = rd_kafka_metadata(
+                     rk, 0, NULL, (const rd_kafka_metadata_t **)&meta,
+                     LOCAL_TIMEOUT)) != RD_KAFKA_RESP_ERR_NO_ERROR)
+            {
+                rd_kafka_metadata_destroy(meta);
+                log_error("Cannot retrieve metadata: %s",
+                          rd_kafka_err2str(err));
+                ret = EXIT_FAILURE;
+                break;
+            }
+            exec_time = time(NULL) - now;
+
+            clear_screen();
+            printf("Time: %s\n", ctime(&now));
+            print_metadata_table(meta);
+            rd_kafka_metadata_destroy(meta);
+            fflush(stdout);
+
+            if (exec_time >= 0)
+                sleep(LOCAL_TIMEOUT - exec_time);
+        }
+    }
+    else
+    {
+        if ((err = rd_kafka_metadata(
+                 rk, 0, NULL, (const rd_kafka_metadata_t **)&meta,
+                 LOCAL_TIMEOUT)) != RD_KAFKA_RESP_ERR_NO_ERROR)
+        {
+            rd_kafka_metadata_destroy(meta);
+            log_error("Cannot retrieve metadata: %s", rd_kafka_err2str(err));
+            ret = EXIT_FAILURE;
+        }
+        else
+        {
+            print_metadata_table(meta);
+            rd_kafka_metadata_destroy(meta);
+        }
+    }
+
     rd_kafka_destroy(rk);
     return ret;
 }
 
 int main(int argc, char **argv)
 {
+    char *config_path = getenv("ADMIN_CLIENT_CONFIG_FILE");
     char *log_level = NULL;
     if ((log_level = getenv("LOG_LEVEL")) == NULL)
         log_level = "2";
@@ -305,10 +338,32 @@ int main(int argc, char **argv)
     {
         char *command = argv[1];
         if (strcmp(command, "create-topics") == 0 || strcmp(command, "ct") == 0)
-            return create_topics(argc - 2, argv + 2);
+            return create_topics(argc - 2, argv + 2, config_path);
         else if (strcmp(command, "delete-topics") == 0 ||
                  strcmp(command, "dt") == 0)
-            return delete_topics(argc - 2, argv + 2);
+            return delete_topics(argc - 2, argv + 2, config_path);
+        else if (strcmp(command, "metadata") == 0 || strcmp(command, "m") == 0)
+        {
+            int opt;
+            int option_index = 0;
+            struct metadata_command_opts m_opts;
+            static struct option long_options[] = {
+                {"follow", no_argument, 0, 'f'}, {0, 0, 0, 0}};
+            while ((opt = getopt_long(argc, argv, "f", long_options,
+                                      &option_index)) != -1)
+            {
+                switch (opt)
+                {
+                case 'f':
+                    m_opts.follow = true;
+                    break;
+                default:
+                    return help("metadata", "[-f|--follow]");
+                }
+            }
+
+            return metadata(argc - 2, argv + 2, &m_opts, config_path);
+        }
     }
 
     return help("[command]", "[options]");
