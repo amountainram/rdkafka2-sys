@@ -2,11 +2,9 @@
 //! a C library for the [Apache Kafka] protocol with producer, consumer, and
 //! admin clients.
 //!
-//! For a safe wrapper, see the [rdkafka] crate.
-//!
 //! ## Version
 //!
-//! The rdkafka-sys version number is in the format `X.Y.Z+RX.RY.RZ`, where
+//! The rdkafka2-sys version number is in the format `X.Y.Z+RX.RY.RZ`, where
 //! `X.Y.Z` is the version of this crate and follows SemVer conventions, while
 //! `RX.RY.RZ` is the version of the bundled librdkafka.
 //!
@@ -33,16 +31,16 @@
 //! By default a submodule with the librdkafka sources will be used to compile
 //! and statically link the library.
 //!
+//! The **`cmake-build`** feature builds librdkafka with its [CMake] build
+//! system, rather than its default [mklove]-based build system. This feature
+//! requires that CMake is installed on the build machine.
+//!
 //! The **`dynamic-linking`** feature can be used to link rdkafka to a locally
 //! installed version of librdkafka: if the feature is enabled, the build script
 //! will use `pkg-config` to check the version of the library installed in the
 //! system, and it will configure the compiler to dynamically link against it.
 //! The system version of librdkafka must exactly match the version of
 //! librdkafka bundled with this crate.
-//!
-//! The **`cmake-build`** feature builds librdkafka with its [CMake] build
-//! system, rather than its default [mklove]-based build system. This feature
-//! requires that CMake is installed on the build machine.
 //!
 //! The following features directly correspond to librdkafka features (i.e.,
 //! flags you would pass to `configure` if you were compiling manually).
@@ -73,10 +71,10 @@
 //!     limitations with lz4-sys, it is not yet possible to dynamically link
 //!     against the system's version of liblz4.
 //!
-//! All features are disabled by default unless noted otherwise above. The build
-//! process is defined in [`build.rs`].
+//! The `libz` and `cmake-build` features are enabled by default.
+//! The build process is defined in [`build.rs`].
 //!
-//! [`build.rs`]: https://github.com/fede1024/rust-rdkafka/tree/master/rdkafka-sys/build.rs
+//! [`build.rs`]: https://github.com/amountainram/rdkafka2-sys/tree/master/build.rs
 //! [Apache Kafka]: https://kafka.apache.org
 //! [CMake]: https://cmake.org
 //! [libz-sys]: https://crates.io/crates/libz-sys
@@ -120,4 +118,5 @@ pub use types::*;
     clippy::all
 )]
 pub mod bindings;
+/// Enums and structs porting to Rust.
 pub mod types;

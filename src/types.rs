@@ -1,14 +1,19 @@
-use crate::bindings::{self, *};
-use num_enum::TryFromPrimitive;
+use crate::bindings::{
+    self, rd_kafka_conf_res_t, rd_kafka_err2name, rd_kafka_err2str, rd_kafka_resp_err_t,
+    rd_kafka_type_t,
+};
 use std::{convert::TryFrom, error::Error, ffi::CStr, fmt};
 
 /// Unknown partition constant
 pub const RD_KAFKA_PARTITION_UA: i32 = -1;
 
+/// Kafka client types
 #[derive(Debug, Clone, Copy, PartialEq, Eq, ::num_enum::TryFromPrimitive)]
 #[repr(u32)]
 pub enum RDKafkaType {
+    /// Producer client
     Producer = rd_kafka_type_t::RD_KAFKA_PRODUCER as u32,
+    /// Consumer client
     Consumer = rd_kafka_type_t::RD_KAFKA_CONSUMER as u32,
 }
 
@@ -429,7 +434,7 @@ impl fmt::Display for RDKafkaErrorCode {
 impl Error for RDKafkaErrorCode {}
 
 /// Errors for rdkafka configuration
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq, TryFromPrimitive)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq, ::num_enum::TryFromPrimitive)]
 #[repr(i32)]
 pub enum RDKafkaConfErrorCode {
     /// Unknown configuration name.
