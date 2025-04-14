@@ -9,7 +9,14 @@ categories = ["external-ffi-bindings"]
 edition = "2024"
 rust-version = "1.85"
 license = "MIT"
-include = ["build.rs", "/src", "LICENSE", "LICENSE-librdkafka", "NOTICE"]
+include = [
+    "build.rs",
+    "/src",
+    "/librdkafka/tests/librdkafka.suppressions",
+    "LICENSE",
+    "LICENSE-librdkafka",
+    "NOTICE",
+]
 
 [dependencies]
 curl-sys = { version = "0.4", optional = true }

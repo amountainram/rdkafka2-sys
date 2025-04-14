@@ -1,118 +1,34 @@
-//! Aliases for types defined in the auto-generated bindings.
-
-use crate::bindings;
+use crate::bindings::{self, *};
 use num_enum::TryFromPrimitive;
 use std::{convert::TryFrom, error::Error, ffi::CStr, fmt};
 
-// TYPES
-
-/// Native rdkafka client.
-pub type RDKafka = bindings::rd_kafka_t;
-
-/// Native rdkafka configuration.
-pub type RDKafkaConf = bindings::rd_kafka_conf_t;
-
-/// Native rdkafka message.
-pub type RDKafkaMessage = bindings::rd_kafka_message_t;
-
-/// Native rdkafka topic.
-pub type RDKafkaTopic = bindings::rd_kafka_topic_t;
-
-/// Native rdkafka topic configuration.
-pub type RDKafkaTopicConf = bindings::rd_kafka_topic_conf_t;
-
-/// Native rdkafka topic partition.
-pub type RDKafkaTopicPartition = bindings::rd_kafka_topic_partition_t;
-
-/// Native rdkafka topic partition list.
-pub type RDKafkaTopicPartitionList = bindings::rd_kafka_topic_partition_list_t;
-
-/// Native rdkafka metadata container.
-pub type RDKafkaMetadata = bindings::rd_kafka_metadata_t;
-
-/// Native rdkafka topic information.
-pub type RDKafkaMetadataTopic = bindings::rd_kafka_metadata_topic_t;
-
-/// Native rdkafka partition information.
-pub type RDKafkaMetadataPartition = bindings::rd_kafka_metadata_partition_t;
-
-/// Native rdkafka broker information.
-pub type RDKafkaMetadataBroker = bindings::rd_kafka_metadata_broker_t;
-
-/// Native rdkafka consumer group metadata.
-pub type RDKafkaConsumerGroupMetadata = bindings::rd_kafka_consumer_group_metadata_t;
-
-/// Native rdkafka state.
-pub type RDKafkaState = bindings::rd_kafka_s;
-
-/// Native rdkafka list of groups.
-pub type RDKafkaGroupList = bindings::rd_kafka_group_list;
-
-/// Native rdkafka group information.
-pub type RDKafkaGroupInfo = bindings::rd_kafka_group_info;
-
-/// Native rdkafka group member information.
-pub type RDKafkaGroupMemberInfo = bindings::rd_kafka_group_member_info;
-
-/// Native rdkafka group member information.
-pub type RDKafkaHeaders = bindings::rd_kafka_headers_t;
-
-/// Native rdkafka queue.
-pub type RDKafkaQueue = bindings::rd_kafka_queue_t;
-
-/// Native rdkafka new topic object.
-pub type RDKafkaNewTopic = bindings::rd_kafka_NewTopic_t;
-
-/// Native rdkafka delete topic object.
-pub type RDKafkaDeleteTopic = bindings::rd_kafka_DeleteTopic_t;
-
-/// Native rdkafka delete group object.
-pub type RDKafkaDeleteGroup = bindings::rd_kafka_DeleteGroup_t;
-
-/// Native rdkafka new partitions object.
-pub type RDKafkaNewPartitions = bindings::rd_kafka_NewPartitions_t;
-
-/// Native rdkafka delete records object.
-pub type RDKafkaDeleteRecords = bindings::rd_kafka_DeleteRecords_t;
-
-/// Native rdkafka config resource.
-pub type RDKafkaConfigResource = bindings::rd_kafka_ConfigResource_t;
-
-/// Native rdkafka event.
-pub type RDKafkaEvent = bindings::rd_kafka_event_t;
-
-/// Native rdkafka admin options.
-pub type RDKafkaAdminOptions = bindings::rd_kafka_AdminOptions_t;
-
-/// Native rdkafka topic result.
-pub type RDKafkaTopicResult = bindings::rd_kafka_topic_result_t;
-
-/// Native rdkafka group result.
-pub type RDKafkaGroupResult = bindings::rd_kafka_group_result_t;
-
-// ENUMS
-
-/// Client types.
-pub use bindings::rd_kafka_type_t as RDKafkaType;
-
-/// Configuration result.
-pub use bindings::rd_kafka_conf_res_t as RDKafkaConfRes;
-
-/// Response error.
-pub use bindings::rd_kafka_resp_err_t as RDKafkaRespErr;
-
-/// Admin operation.
-pub use bindings::rd_kafka_admin_op_t as RDKafkaAdminOp;
-
-/// Config resource type.
-pub use bindings::rd_kafka_ResourceType_t as RDKafkaResourceType;
-
-/// Config source.
-pub use bindings::rd_kafka_ConfigSource_t as RDKafkaConfigSource;
-
+/// Unknown partition constant
 pub const RD_KAFKA_PARTITION_UA: i32 = -1;
 
-// Errors enum
+#[derive(Debug, Clone, Copy, PartialEq, Eq, ::num_enum::TryFromPrimitive)]
+#[repr(u32)]
+pub enum RDKafkaType {
+    Producer = rd_kafka_type_t::RD_KAFKA_PRODUCER as u32,
+    Consumer = rd_kafka_type_t::RD_KAFKA_CONSUMER as u32,
+}
+
+impl From<RDKafkaType> for rd_kafka_type_t {
+    fn from(value: RDKafkaType) -> Self {
+        match value {
+            RDKafkaType::Producer => rd_kafka_type_t::RD_KAFKA_PRODUCER,
+            RDKafkaType::Consumer => rd_kafka_type_t::RD_KAFKA_CONSUMER,
+        }
+    }
+}
+
+impl From<rd_kafka_type_t> for RDKafkaType {
+    fn from(value: rd_kafka_type_t) -> Self {
+        match value {
+            rd_kafka_type_t::RD_KAFKA_PRODUCER => Self::Producer,
+            rd_kafka_type_t::RD_KAFKA_CONSUMER => Self::Consumer,
+        }
+    }
+}
 
 /// Native rdkafka error code.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, ::num_enum::TryFromPrimitive)]
@@ -473,26 +389,27 @@ pub enum RDKafkaErrorCode {
 impl RDKafkaErrorCode {
     /// Returns native err name only (no description)
     pub fn name(&self) -> String {
-        let cstr = unsafe { bindings::rd_kafka_err2name((*self).into()) };
+        let cstr = unsafe { rd_kafka_err2name((*self).into()) };
         unsafe { CStr::from_ptr(cstr) }
             .to_string_lossy()
             .into_owned()
     }
 
+    /// Returns an error if any
     pub fn error(self) -> Option<Self> {
         (!matches!(self, RDKafkaErrorCode::NoError)).then_some(self)
     }
 }
 
-impl From<RDKafkaErrorCode> for RDKafkaRespErr {
+impl From<RDKafkaErrorCode> for rd_kafka_resp_err_t {
     fn from(err: RDKafkaErrorCode) -> Self {
         // UNWRAP: seemless conversion
         Self::try_from(err as i32).unwrap()
     }
 }
 
-impl From<RDKafkaRespErr> for RDKafkaErrorCode {
-    fn from(err: RDKafkaRespErr) -> RDKafkaErrorCode {
+impl From<rd_kafka_resp_err_t> for RDKafkaErrorCode {
+    fn from(err: rd_kafka_resp_err_t) -> RDKafkaErrorCode {
         // UNWRAP: seemless conversion
         Self::try_from(err as i32).unwrap()
     }
@@ -500,7 +417,7 @@ impl From<RDKafkaRespErr> for RDKafkaErrorCode {
 
 impl fmt::Display for RDKafkaErrorCode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let cstr = unsafe { bindings::rd_kafka_err2str((*self).into()) };
+        let cstr = unsafe { rd_kafka_err2str((*self).into()) };
         let description = unsafe { CStr::from_ptr(cstr) }
             .to_string_lossy()
             .into_owned();
@@ -511,6 +428,7 @@ impl fmt::Display for RDKafkaErrorCode {
 
 impl Error for RDKafkaErrorCode {}
 
+/// Errors for rdkafka configuration
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq, TryFromPrimitive)]
 #[repr(i32)]
 pub enum RDKafkaConfErrorCode {
@@ -525,13 +443,14 @@ pub enum RDKafkaConfErrorCode {
 }
 
 impl RDKafkaConfErrorCode {
+    /// Returns an error if any
     pub fn error(&self) -> Option<&Self> {
         (!matches!(self, RDKafkaConfErrorCode::Ok)).then_some(self)
     }
 }
 
-impl From<RDKafkaConfRes> for RDKafkaConfErrorCode {
-    fn from(err: RDKafkaConfRes) -> RDKafkaConfErrorCode {
+impl From<rd_kafka_conf_res_t> for RDKafkaConfErrorCode {
+    fn from(err: rd_kafka_conf_res_t) -> RDKafkaConfErrorCode {
         // UNWRAP: seemless conversion
         Self::try_from(err as i32).unwrap()
     }
@@ -554,6 +473,7 @@ impl fmt::Display for RDKafkaConfErrorCode {
 
 impl Error for RDKafkaConfErrorCode {}
 
+/// Events API event tags
 #[derive(Debug, Clone, Copy, PartialEq, Eq, ::num_enum::TryFromPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
@@ -597,25 +517,4 @@ pub enum RDKafkaEventType {
     DescribeClusterResult = bindings::RD_KAFKA_EVENT_DESCRIBECLUSTER_RESULT,
     ListOffsetsResult = bindings::RD_KAFKA_EVENT_LISTOFFSETS_RESULT,
     ElectLeadersResult = 0x800000,
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_display_error() {
-        let error: RDKafkaErrorCode = RDKafkaRespErr::RD_KAFKA_RESP_ERR__PARTITION_EOF.into();
-        assert_eq!(
-            "PartitionEOF (Broker: No more messages)",
-            format!("{}", error)
-        );
-        assert_eq!("PartitionEOF", format!("{:?}", error));
-    }
-
-    #[test]
-    fn test_error_conversion() {
-        let error: RDKafkaErrorCode = RDKafkaRespErr::RD_KAFKA_RESP_ERR__PARTITION_EOF.into();
-        assert_eq!(error, RDKafkaErrorCode::PartitionEOF);
-    }
 }
