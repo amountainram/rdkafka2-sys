@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      targets:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: ${{ fromJson(inputs.targets) }}
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+          targets: ${{ matrix.target }}
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update;
+          sudo apt-get install -y musl-dev clang libclang-dev cmake libsasl2-dev libssl-dev;
+
+      - name: Cache cargo registry + target
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build for ${{ matrix.target }}
+        run: cargo build --features=ssl,sasl --target ${{ matrix.target }}
+

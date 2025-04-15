@@ -52,31 +52,31 @@ pub const RD_KAFKA_EVENT_DESCRIBECLUSTER_RESULT: i32 = 2097152;
 pub const RD_KAFKA_EVENT_LISTOFFSETS_RESULT: i32 = 4194304;
 pub const RD_KAFKA_EVENT_ELECTLEADERS_RESULT: i32 = 8388608;
 unsafe extern "C" {
-    /// @brief Returns the librdkafka version as integer.
+    /// Returns the librdkafka version as integer.
     ///
-    /// @returns Version integer.
+    /// Returns Version integer.
     ///
     /// @sa See RD_KAFKA_VERSION for how to parse the integer format.
     /// @sa Use rd_kafka_version_str() to retreive the version as a string.
     pub fn rd_kafka_version() -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Returns the librdkafka version as string.
+    /// Returns the librdkafka version as string.
     ///
-    /// @returns Version string
+    /// Returns Version string
     pub fn rd_kafka_version_str() -> *const ::std::os::raw::c_char;
 }
 #[repr(u32)]
 /// @enum rd_kafka_type_t
 ///
-/// @brief rd_kafka_t handle type.
+/// rd_kafka_t handle type.
 ///
 /// @sa rd_kafka_new()
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_type_t {
-    ///< Producer client
+    /// < Producer client
     RD_KAFKA_PRODUCER = 0,
-    ///< Consumer client
+    /// < Consumer client
     RD_KAFKA_CONSUMER = 1,
 }
 #[repr(u32)]
@@ -85,18 +85,18 @@ pub enum rd_kafka_type_t {
 /// @sa rd_kafka_message_timestamp()
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_timestamp_type_t {
-    ///< Timestamp not available
+    /// < Timestamp not available
     RD_KAFKA_TIMESTAMP_NOT_AVAILABLE = 0,
-    ///< Message creation time
+    /// < Message creation time
     RD_KAFKA_TIMESTAMP_CREATE_TIME = 1,
-    ///< Log append time
+    /// < Log append time
     RD_KAFKA_TIMESTAMP_LOG_APPEND_TIME = 2,
 }
 unsafe extern "C" {
-    /// @brief Retrieve supported debug contexts for use with the \c \"debug\"
-    ///        configuration property. (runtime)
+    /// Retrieve supported debug contexts for use with the \c \"debug\"
+    /// configuration property. (runtime)
     ///
-    /// @returns Comma-separated list of available debugging contexts.
+    /// Returns Comma-separated list of available debugging contexts.
     pub fn rd_kafka_get_debug_contexts() -> *const ::std::os::raw::c_char;
 }
 #[repr(C)]
@@ -185,13 +185,13 @@ pub struct rd_kafka_topic_partition_result_s {
 pub type rd_kafka_topic_partition_result_t = rd_kafka_topic_partition_result_s;
 #[repr(i32)]
 /// @enum rd_kafka_resp_err_t
-/// @brief Error codes.
+/// Error codes.
 ///
 /// The negative error codes delimited by two underscores
-/// (\c RD_KAFKA_RESP_ERR__..) denotes errors internal to librdkafka and are
-/// displayed as \c \"Local: \<error string..\>\", while the error codes
-/// delimited by a single underscore (\c RD_KAFKA_RESP_ERR_..) denote broker
-/// errors and are displayed as \c \"Broker: \<error string..\>\".
+/// (`RD_KAFKA_RESP_ERR__..) denotes errors internal to librdkafka and are
+/// displayed as `\"Local: \<error string..\>\", while the error codes
+/// delimited by a single underscore (`RD_KAFKA_RESP_ERR_..) denote broker
+/// errors and are displayed as `\"Broker: \<error string..\>\".
 ///
 /// @sa Use rd_kafka_err2str() to translate an error code a human readable string
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq, :: num_enum :: TryFromPrimitive)]
@@ -324,7 +324,7 @@ pub enum rd_kafka_resp_err_t {
     /// Partition log truncation detected
     RD_KAFKA_RESP_ERR__LOG_TRUNCATION = -139,
     /// A different record in the batch was invalid
-    ///  and this message failed persisting.
+    /// and this message failed persisting.
     RD_KAFKA_RESP_ERR__INVALID_DIFFERENT_RECORD = -138,
     /// End internal error codes
     RD_KAFKA_RESP_ERR__END = -100,
@@ -428,17 +428,17 @@ pub enum rd_kafka_resp_err_t {
     /// Producer attempted a transactional operation in an invalid state
     RD_KAFKA_RESP_ERR_INVALID_TXN_STATE = 48,
     /// Producer attempted to use a producer id which is not
-    ///  currently assigned to its transactional id
+    /// currently assigned to its transactional id
     RD_KAFKA_RESP_ERR_INVALID_PRODUCER_ID_MAPPING = 49,
     /// Transaction timeout is larger than the maximum
-    ///  value allowed by the broker's max.transaction.timeout.ms
+    /// value allowed by the broker's max.transaction.timeout.ms
     RD_KAFKA_RESP_ERR_INVALID_TRANSACTION_TIMEOUT = 50,
     /// Producer attempted to update a transaction while another
-    ///  concurrent operation on the same transaction was ongoing
+    /// concurrent operation on the same transaction was ongoing
     RD_KAFKA_RESP_ERR_CONCURRENT_TRANSACTIONS = 51,
     /// Indicates that the transaction coordinator sending a
-    ///  WriteTxnMarker is no longer the current coordinator for a
-    ///  given producer
+    /// WriteTxnMarker is no longer the current coordinator for a
+    /// given producer
     RD_KAFKA_RESP_ERR_TRANSACTION_COORDINATOR_FENCED = 52,
     /// Transactional Id authorization failed
     RD_KAFKA_RESP_ERR_TRANSACTIONAL_ID_AUTHORIZATION_FAILED = 53,
@@ -499,7 +499,7 @@ pub enum rd_kafka_resp_err_t {
     /// Consumer group has reached maximum size
     RD_KAFKA_RESP_ERR_GROUP_MAX_SIZE_REACHED = 81,
     /// Static consumer fenced by other consumer with same
-    ///  group.instance.id.
+    /// group.instance.id.
     RD_KAFKA_RESP_ERR_FENCED_INSTANCE_ID = 82,
     /// Eligible partition leaders are not available
     RD_KAFKA_RESP_ERR_ELIGIBLE_LEADERS_NOT_AVAILABLE = 83,
@@ -508,7 +508,7 @@ pub enum rd_kafka_resp_err_t {
     /// No partition reassignment is in progress
     RD_KAFKA_RESP_ERR_NO_REASSIGNMENT_IN_PROGRESS = 85,
     /// Deleting offsets of a topic while the consumer group is
-    ///  subscribed to it
+    /// subscribed to it
     RD_KAFKA_RESP_ERR_GROUP_SUBSCRIBED_TO_TOPIC = 86,
     /// Broker failed to validate record
     RD_KAFKA_RESP_ERR_INVALID_RECORD = 87,
@@ -517,7 +517,7 @@ pub enum rd_kafka_resp_err_t {
     /// Throttling quota has been exceeded
     RD_KAFKA_RESP_ERR_THROTTLING_QUOTA_EXCEEDED = 89,
     /// There is a newer producer with the same transactionalId
-    ///  which fences the current one
+    /// which fences the current one
     RD_KAFKA_RESP_ERR_PRODUCER_FENCED = 90,
     /// Request illegally referred to resource that does not exist
     RD_KAFKA_RESP_ERR_RESOURCE_NOT_FOUND = 91,
@@ -526,7 +526,7 @@ pub enum rd_kafka_resp_err_t {
     /// Requested credential would not meet criteria for acceptability
     RD_KAFKA_RESP_ERR_UNACCEPTABLE_CREDENTIAL = 93,
     /// Indicates that the either the sender or recipient of a
-    ///  voter-only request is not one of the expected voters
+    /// voter-only request is not one of the expected voters
     RD_KAFKA_RESP_ERR_INCONSISTENT_VOTER_SET = 94,
     /// Invalid update version
     RD_KAFKA_RESP_ERR_INVALID_UPDATE_VERSION = 95,
@@ -539,34 +539,34 @@ pub enum rd_kafka_resp_err_t {
     /// The member epoch is fenced by the group coordinator
     RD_KAFKA_RESP_ERR_FENCED_MEMBER_EPOCH = 110,
     /// The instance ID is still used by another member in the
-    ///  consumer group
+    /// consumer group
     RD_KAFKA_RESP_ERR_UNRELEASED_INSTANCE_ID = 111,
     /// The assignor or its version range is not supported by the consumer
-    ///  group
+    /// group
     RD_KAFKA_RESP_ERR_UNSUPPORTED_ASSIGNOR = 112,
     /// The member epoch is stale
     RD_KAFKA_RESP_ERR_STALE_MEMBER_EPOCH = 113,
     /// Client sent a push telemetry request with an invalid or outdated
-    ///  subscription ID.
+    /// subscription ID.
     RD_KAFKA_RESP_ERR_UNKNOWN_SUBSCRIPTION_ID = 117,
     /// Client sent a push telemetry request larger than the maximum size
-    ///  the broker will accept.
+    /// the broker will accept.
     RD_KAFKA_RESP_ERR_TELEMETRY_TOO_LARGE = 118,
     /// Client sent a push telemetry request larger than the maximum size
-    ///  the broker will accept.
+    /// the broker will accept.
     RD_KAFKA_RESP_ERR_END_ALL = 119,
 }
-/// @brief Error code value, name and description.
-///        Typically for use with language bindings to automatically expose
-///        the full set of librdkafka error codes.
+/// Error code value, name and description.
+/// Typically for use with language bindings to automatically expose
+/// the full set of librdkafka error codes.
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_err_desc {
-    ///< Error code
+    /// < Error code
     pub code: rd_kafka_resp_err_t,
-    ///< Error name, same as code enum sans prefix
+    /// < Error name, same as code enum sans prefix
     pub name: *const ::std::os::raw::c_char,
-    ///< Human readable error description.
+    /// < Human readable error description.
     pub desc: *const ::std::os::raw::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -581,93 +581,93 @@ const _: () = {
         [::std::mem::offset_of!(rd_kafka_err_desc, desc) - 16usize];
 };
 unsafe extern "C" {
-    /// @brief Returns the full list of error codes.
+    /// Returns the full list of error codes.
     pub fn rd_kafka_get_err_descs(errdescs: *mut *const rd_kafka_err_desc, cntp: *mut usize);
 }
 unsafe extern "C" {
-    /// @brief Returns a human readable representation of a kafka error.
+    /// Returns a human readable representation of a kafka error.
     ///
-    /// @param err Error code to translate
+    /// - `err`: Error code to translate
     pub fn rd_kafka_err2str(err: rd_kafka_resp_err_t) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Returns the error code name (enum name).
+    /// Returns the error code name (enum name).
     ///
-    /// @param err Error code to translate
+    /// - `err`: Error code to translate
     pub fn rd_kafka_err2name(err: rd_kafka_resp_err_t) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Returns the last error code generated by a legacy API call
-    ///        in the current thread.
+    /// Returns the last error code generated by a legacy API call
+    /// in the current thread.
     ///
     /// The legacy APIs are the ones using errno to propagate error value, namely:
-    ///  - rd_kafka_topic_new()
-    ///  - rd_kafka_consume_start()
-    ///  - rd_kafka_consume_stop()
-    ///  - rd_kafka_consume()
-    ///  - rd_kafka_consume_batch()
-    ///  - rd_kafka_consume_callback()
-    ///  - rd_kafka_consume_queue()
-    ///  - rd_kafka_produce()
+    /// - rd_kafka_topic_new()
+    /// - rd_kafka_consume_start()
+    /// - rd_kafka_consume_stop()
+    /// - rd_kafka_consume()
+    /// - rd_kafka_consume_batch()
+    /// - rd_kafka_consume_callback()
+    /// - rd_kafka_consume_queue()
+    /// - rd_kafka_produce()
     ///
-    /// The main use for this function is to avoid converting system \p errno
+    /// The main use for this function is to avoid converting system `errno
     /// values to rd_kafka_resp_err_t codes for legacy APIs.
     ///
     /// @remark The last error is stored per-thread, if multiple rd_kafka_t handles
-    ///         are used in the same application thread the developer needs to
-    ///         make sure rd_kafka_last_error() is called immediately after
-    ///         a failed API call.
+    /// are used in the same application thread the developer needs to
+    /// make sure rd_kafka_last_error() is called immediately after
+    /// a failed API call.
     ///
     /// @remark errno propagation from librdkafka is not safe on Windows
-    ///         and should not be used, use rd_kafka_last_error() instead.
+    /// and should not be used, use rd_kafka_last_error() instead.
     pub fn rd_kafka_last_error() -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Converts the system errno value \p errnox to a rd_kafka_resp_err_t
-    ///        error code upon failure from the following functions:
-    ///  - rd_kafka_topic_new()
-    ///  - rd_kafka_consume_start()
-    ///  - rd_kafka_consume_stop()
-    ///  - rd_kafka_consume()
-    ///  - rd_kafka_consume_batch()
-    ///  - rd_kafka_consume_callback()
-    ///  - rd_kafka_consume_queue()
-    ///  - rd_kafka_produce()
+    /// Converts the system errno value \p errnox to a rd_kafka_resp_err_t
+    /// error code upon failure from the following functions:
+    /// - rd_kafka_topic_new()
+    /// - rd_kafka_consume_start()
+    /// - rd_kafka_consume_stop()
+    /// - rd_kafka_consume()
+    /// - rd_kafka_consume_batch()
+    /// - rd_kafka_consume_callback()
+    /// - rd_kafka_consume_queue()
+    /// - rd_kafka_produce()
     ///
-    /// @param errnox  System errno value to convert
+    /// - `errnox`: System errno value to convert
     ///
-    /// @returns Appropriate error code for \p errnox
+    /// Returns Appropriate error code for \p errnox
     ///
     /// @remark A better alternative is to call rd_kafka_last_error() immediately
-    ///         after any of the above functions return -1 or NULL.
+    /// after any of the above functions return -1 or NULL.
     ///
     /// @deprecated Use rd_kafka_last_error() to retrieve the last error code
-    ///             set by the legacy librdkafka APIs.
+    /// set by the legacy librdkafka APIs.
     ///
     /// @sa rd_kafka_last_error()
     pub fn rd_kafka_errno2err(errnox: ::std::os::raw::c_int) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Returns the thread-local system errno
+    /// Returns the thread-local system errno
     ///
-    /// On most platforms this is the same as \p errno but in case of different
+    /// On most platforms this is the same as `errno but in case of different
     /// runtimes between library and application (e.g., Windows static DLLs)
     /// this provides a means for exposing the errno librdkafka uses.
     ///
     /// @remark The value is local to the current calling thread.
     ///
     /// @deprecated Use rd_kafka_last_error() to retrieve the last error code
-    ///             set by the legacy librdkafka APIs.
+    /// set by the legacy librdkafka APIs.
     pub fn rd_kafka_errno() -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Returns the first fatal error set on this client instance,
-    ///        or RD_KAFKA_RESP_ERR_NO_ERROR if no fatal error has occurred.
+    /// Returns the first fatal error set on this client instance,
+    /// or RD_KAFKA_RESP_ERR_NO_ERROR if no fatal error has occurred.
     ///
-    /// This function is to be used with the Idempotent Producer and \c error_cb
+    /// This function is to be used with the Idempotent Producer and `error_cb
     /// to detect fatal errors.
     ///
-    /// Generally all errors raised by \c error_cb are to be considered
+    /// Generally all errors raised by `error_cb are to be considered
     /// informational and temporary, the client will try to recover from all
     /// errors in a graceful fashion (by retrying, etc).
     ///
@@ -676,15 +676,15 @@ unsafe extern "C" {
     /// Idempotent Producer and the in-order or exactly-once producer guarantees
     /// can't be satisfied.
     ///
-    /// @param rk Client instance.
-    /// @param errstr A human readable error string (nul-terminated) is written to
-    ///               this location that must be of at least \p errstr_size bytes.
-    ///               The \p errstr is only written to if there is a fatal error.
-    /// @param errstr_size Writable size in \p errstr.
+    /// - `rk`: Client instance.
+    /// - `errstr`: A human readable error string (nul-terminated) is written to
+    /// this location that must be of at least `errstr_size bytes.
+    /// The `errstr is only written to if there is a fatal error.
+    /// - `errstr_size`: Writable size in \p errstr.
     ///
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR if no fatal error has been raised, else
-    ///          any other error code.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR if no fatal error has been raised, else
+    /// any other error code.
     pub fn rd_kafka_fatal_error(
         rk: *mut rd_kafka_t,
         errstr: *mut ::std::os::raw::c_char,
@@ -692,21 +692,21 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Trigger a fatal error for testing purposes.
+    /// Trigger a fatal error for testing purposes.
     ///
     /// Since there is no practical way to trigger real fatal errors in the
     /// idempotent producer, this method allows an application to trigger
     /// fabricated fatal errors in tests to check its error handling code.
     ///
-    /// @param rk Client instance.
-    /// @param err The underlying error code.
-    /// @param reason A human readable error reason.
-    ///               Will be prefixed with "test_fatal_error: " to differentiate
-    ///               from real fatal errors.
+    /// - `rk`: Client instance.
+    /// - `err`: The underlying error code.
+    /// - `reason`: A human readable error reason.
+    /// Will be prefixed with "test_fatal_error: " to differentiate
+    /// from real fatal errors.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR if a fatal error was triggered, or
-    ///          RD_KAFKA_RESP_ERR__PREV_IN_PROGRESS if a previous fatal error
-    ///          has already been triggered.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR if a fatal error was triggered, or
+    /// RD_KAFKA_RESP_ERR__PREV_IN_PROGRESS if a previous fatal error
+    /// has already been triggered.
     pub fn rd_kafka_test_fatal_error(
         rk: *mut rd_kafka_t,
         err: rd_kafka_resp_err_t,
@@ -714,13 +714,13 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @returns the error code for \p error or RD_KAFKA_RESP_ERR_NO_ERROR if
-    ///          \p error is NULL.
+    /// Returns the error code for \p error or RD_KAFKA_RESP_ERR_NO_ERROR if
+    /// `error is NULL.
     pub fn rd_kafka_error_code(error: *const rd_kafka_error_t) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @returns the error code name for \p error, e.g, "ERR_UNKNOWN_MEMBER_ID",
-    ///          or an empty string if \p error is NULL.
+    /// Returns the error code name for \p error, e.g, "ERR_UNKNOWN_MEMBER_ID",
+    /// or an empty string if `error is NULL.
     ///
     /// @remark The lifetime of the returned pointer is the same as the error object.
     ///
@@ -728,44 +728,44 @@ unsafe extern "C" {
     pub fn rd_kafka_error_name(error: *const rd_kafka_error_t) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns a human readable error string for \p error,
-    ///          or an empty string if \p error is NULL.
+    /// Returns a human readable error string for \p error,
+    /// or an empty string if `error is NULL.
     ///
     /// @remark The lifetime of the returned pointer is the same as the error object.
     pub fn rd_kafka_error_string(error: *const rd_kafka_error_t) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns 1 if the error is a fatal error, indicating that the client
-    ///          instance is no longer usable, else 0 (also if \p error is NULL).
+    /// Returns 1 if the error is a fatal error, indicating that the client
+    /// instance is no longer usable, else 0 (also if `error is NULL).
     pub fn rd_kafka_error_is_fatal(error: *const rd_kafka_error_t) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @returns 1 if the operation may be retried,
-    ///          else 0 (also if \p error is NULL).
+    /// Returns 1 if the operation may be retried,
+    /// else 0 (also if `error is NULL).
     pub fn rd_kafka_error_is_retriable(error: *const rd_kafka_error_t) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @returns 1 if the error is an abortable transaction error in which case
-    ///          the application must call rd_kafka_abort_transaction() and
-    ///          start a new transaction with rd_kafka_begin_transaction() if it
-    ///          wishes to proceed with transactions.
-    ///          Else returns 0 (also if \p error is NULL).
+    /// Returns 1 if the error is an abortable transaction error in which case
+    /// the application must call rd_kafka_abort_transaction() and
+    /// start a new transaction with rd_kafka_begin_transaction() if it
+    /// wishes to proceed with transactions.
+    /// Else returns 0 (also if `error is NULL).
     ///
     /// @remark The return value of this method is only valid for errors returned
-    ///         by the transactional API.
+    /// by the transactional API.
     pub fn rd_kafka_error_txn_requires_abort(
         error: *const rd_kafka_error_t,
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Free and destroy an error object.
+    /// Free and destroy an error object.
     ///
-    /// @remark As a conveniance it is permitted to pass a NULL \p error.
+    /// @remark As a conveniance it is permitted to pass a NULL `error.
     pub fn rd_kafka_error_destroy(error: *mut rd_kafka_error_t);
 }
 unsafe extern "C" {
-    /// @brief Create a new error object with error \p code and optional
-    ///        human readable error string in \p fmt.
+    /// Create a new error object with error \p code and optional
+    /// human readable error string in `fmt.
     ///
     /// This method is mainly to be used for mocking errors in application test code.
     ///
@@ -776,30 +776,30 @@ unsafe extern "C" {
         ...
     ) -> *mut rd_kafka_error_t;
 }
-/// @brief Generic place holder for a specific Topic+Partition.
+/// Generic place holder for a specific Topic+Partition.
 ///
 /// @sa rd_kafka_topic_partition_list_new()
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_topic_partition_s {
-    ///< Topic name
+    /// < Topic name
     pub topic: *mut ::std::os::raw::c_char,
-    ///< Partition
+    /// < Partition
     pub partition: i32,
-    ///< Offset
+    /// < Offset
     pub offset: i64,
-    ///< Metadata
+    /// < Metadata
     pub metadata: *mut ::std::os::raw::c_void,
-    ///< Metadata size
+    /// < Metadata size
     pub metadata_size: usize,
-    ///< Opaque value for application use
+    /// < Opaque value for application use
     pub opaque: *mut ::std::os::raw::c_void,
-    ///< Error code, depending on use.
+    /// < Error code, depending on use.
     pub err: rd_kafka_resp_err_t,
-    ///< INTERNAL USE ONLY,
-    ///   INITIALIZE TO ZERO, DO NOT TOUCH,
-    ///   DO NOT COPY, DO NOT SHARE WITH OTHER
-    ///   rd_kafka_t INSTANCES.
+    /// < INTERNAL USE ONLY,
+    /// INITIALIZE TO ZERO, DO NOT TOUCH,
+    /// DO NOT COPY, DO NOT SHARE WITH OTHER
+    /// rd_kafka_t INSTANCES.
     pub _private: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -825,20 +825,20 @@ const _: () = {
     ["Offset of field: rd_kafka_topic_partition_s::_private"]
         [::std::mem::offset_of!(rd_kafka_topic_partition_s, _private) - 56usize];
 };
-/// @brief Generic place holder for a specific Topic+Partition.
+/// Generic place holder for a specific Topic+Partition.
 ///
 /// @sa rd_kafka_topic_partition_list_new()
 pub type rd_kafka_topic_partition_t = rd_kafka_topic_partition_s;
 unsafe extern "C" {
-    /// @brief Destroy a rd_kafka_topic_partition_t.
+    /// Destroy a rd_kafka_topic_partition_t.
     /// @remark This must not be called for elements in a topic partition list.
     pub fn rd_kafka_topic_partition_destroy(rktpar: *mut rd_kafka_topic_partition_t);
 }
 unsafe extern "C" {
-    /// @brief Sets the offset leader epoch (use -1 to clear).
+    /// Sets the offset leader epoch (use -1 to clear).
     ///
-    /// @param rktpar Partition object.
-    /// @param leader_epoch Offset leader epoch, use -1 to reset.
+    /// - `rktpar`: Partition object.
+    /// - `leader_epoch`: Offset leader epoch, use -1 to reset.
     ///
     /// @remark See KIP-320 for more information.
     pub fn rd_kafka_topic_partition_set_leader_epoch(
@@ -847,25 +847,25 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @returns the offset leader epoch, if relevant and known,
-    ///          else -1.
+    /// Returns the offset leader epoch, if relevant and known,
+    /// else -1.
     ///
-    /// @param rktpar Partition object.
+    /// - `rktpar`: Partition object.
     ///
     /// @remark See KIP-320 for more information.
     pub fn rd_kafka_topic_partition_get_leader_epoch(
         rktpar: *const rd_kafka_topic_partition_t,
     ) -> i32;
 }
-/// @brief A growable list of Topic+Partitions.
+/// A growable list of Topic+Partitions.
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_topic_partition_list_s {
-    ///< Current number of elements
+    /// < Current number of elements
     pub cnt: ::std::os::raw::c_int,
-    ///< Current allocated size
+    /// < Current allocated size
     pub size: ::std::os::raw::c_int,
-    ///< Element array[]
+    /// < Element array[]
     pub elems: *mut rd_kafka_topic_partition_t,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -881,37 +881,37 @@ const _: () = {
     ["Offset of field: rd_kafka_topic_partition_list_s::elems"]
         [::std::mem::offset_of!(rd_kafka_topic_partition_list_s, elems) - 8usize];
 };
-/// @brief A growable list of Topic+Partitions.
+/// A growable list of Topic+Partitions.
 pub type rd_kafka_topic_partition_list_t = rd_kafka_topic_partition_list_s;
 unsafe extern "C" {
-    /// @brief Create a new list/vector Topic+Partition container.
+    /// Create a new list/vector Topic+Partition container.
     ///
-    /// @param size  Initial allocated size used when the expected number of
-    ///              elements is known or can be estimated.
-    ///              Avoids reallocation and possibly relocation of the
-    ///              elems array.
+    /// - `size`: Initial allocated size used when the expected number of
+    /// elements is known or can be estimated.
+    /// Avoids reallocation and possibly relocation of the
+    /// elems array.
     ///
-    /// @returns A newly allocated Topic+Partition list.
+    /// Returns A newly allocated Topic+Partition list.
     ///
     /// @remark Use rd_kafka_topic_partition_list_destroy() to free all resources
-    ///         in use by a list and the list itself.
+    /// in use by a list and the list itself.
     /// @sa     rd_kafka_topic_partition_list_add()
     pub fn rd_kafka_topic_partition_list_new(
         size: ::std::os::raw::c_int,
     ) -> *mut rd_kafka_topic_partition_list_t;
 }
 unsafe extern "C" {
-    /// @brief Free all resources used by the list and the list itself.
+    /// Free all resources used by the list and the list itself.
     pub fn rd_kafka_topic_partition_list_destroy(rkparlist: *mut rd_kafka_topic_partition_list_t);
 }
 unsafe extern "C" {
-    /// @brief Add topic+partition to list
+    /// Add topic+partition to list
     ///
-    /// @param rktparlist List to extend
-    /// @param topic      Topic name (copied)
-    /// @param partition  Partition id
+    /// - `rktparlist`: List to extend
+    /// - `topic`: Topic name (copied)
+    /// - `partition`: Partition id
     ///
-    /// @returns The object which can be used to fill in additionals fields.
+    /// Returns The object which can be used to fill in additionals fields.
     pub fn rd_kafka_topic_partition_list_add(
         rktparlist: *mut rd_kafka_topic_partition_list_t,
         topic: *const ::std::os::raw::c_char,
@@ -919,12 +919,12 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_topic_partition_t;
 }
 unsafe extern "C" {
-    /// @brief Add range of partitions from \p start to \p stop inclusive.
+    /// Add range of partitions from \p start to \p stop inclusive.
     ///
-    /// @param rktparlist List to extend
-    /// @param topic      Topic name (copied)
-    /// @param start      Start partition of range
-    /// @param stop       Last partition of range (inclusive)
+    /// - `rktparlist`: List to extend
+    /// - `topic`: Topic name (copied)
+    /// - `start`: Start partition of range
+    /// - `stop`: Last partition of range (inclusive)
     pub fn rd_kafka_topic_partition_list_add_range(
         rktparlist: *mut rd_kafka_topic_partition_list_t,
         topic: *const ::std::os::raw::c_char,
@@ -933,13 +933,13 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Delete partition from list.
+    /// Delete partition from list.
     ///
-    /// @param rktparlist List to modify
-    /// @param topic      Topic name to match
-    /// @param partition  Partition to match
+    /// - `rktparlist`: List to modify
+    /// - `topic`: Topic name to match
+    /// - `partition`: Partition to match
     ///
-    /// @returns 1 if partition was found (and removed), else 0.
+    /// Returns 1 if partition was found (and removed), else 0.
     ///
     /// @remark Any held indices to elems[] are unusable after this call returns 1.
     pub fn rd_kafka_topic_partition_list_del(
@@ -949,9 +949,9 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Delete partition from list by elems[] index.
+    /// Delete partition from list by elems[] index.
     ///
-    /// @returns 1 if partition was found (and removed), else 0.
+    /// Returns 1 if partition was found (and removed), else 0.
     ///
     /// @sa rd_kafka_topic_partition_list_del()
     pub fn rd_kafka_topic_partition_list_del_by_idx(
@@ -960,21 +960,21 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Make a copy of an existing list.
+    /// Make a copy of an existing list.
     ///
-    /// @param src   The existing list to copy.
+    /// - `src`: The existing list to copy.
     ///
-    /// @returns A new list fully populated to be identical to \p src
+    /// Returns A new list fully populated to be identical to \p src
     pub fn rd_kafka_topic_partition_list_copy(
         src: *const rd_kafka_topic_partition_list_t,
     ) -> *mut rd_kafka_topic_partition_list_t;
 }
 unsafe extern "C" {
-    /// @brief Set offset to \p offset for \p topic and \p partition
+    /// Set offset to \p offset for \p topic and \p partition
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or
-    ///          RD_KAFKA_RESP_ERR__UNKNOWN_PARTITION if \p partition was not found
-    ///          in the list.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or
+    /// RD_KAFKA_RESP_ERR__UNKNOWN_PARTITION if `partition was not found
+    /// in the list.
     pub fn rd_kafka_topic_partition_list_set_offset(
         rktparlist: *mut rd_kafka_topic_partition_list_t,
         topic: *const ::std::os::raw::c_char,
@@ -983,9 +983,9 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Find element by \p topic and \p partition.
+    /// Find element by \p topic and \p partition.
     ///
-    /// @returns a pointer to the first matching element, or NULL if not found.
+    /// Returns a pointer to the first matching element, or NULL if not found.
     pub fn rd_kafka_topic_partition_list_find(
         rktparlist: *const rd_kafka_topic_partition_list_t,
         topic: *const ::std::os::raw::c_char,
@@ -993,12 +993,12 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_topic_partition_t;
 }
 unsafe extern "C" {
-    /// @brief Sort list using comparator \p cmp.
+    /// Sort list using comparator \p cmp.
     ///
-    /// If \p cmp is NULL the default comparator will be used that
+    /// If `cmp is NULL the default comparator will be used that
     /// sorts by ascending topic name and partition.
     ///
-    /// \p cmp_opaque is provided as the \p cmp_opaque argument to \p cmp.
+    /// `cmp_opaque is provided as the `cmp_opaque argument to `cmp.
     pub fn rd_kafka_topic_partition_list_sort(
         rktparlist: *mut rd_kafka_topic_partition_list_t,
         cmp: ::std::option::Option<
@@ -1014,47 +1014,47 @@ unsafe extern "C" {
 #[repr(u32)]
 /// @enum rd_kafka_vtype_t
 ///
-/// @brief Var-arg tag types
+/// Var-arg tag types
 ///
 /// @sa rd_kafka_producev()
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_vtype_t {
-    ///< va-arg sentinel
+    /// < va-arg sentinel
     RD_KAFKA_VTYPE_END = 0,
-    ///< (const char *) Topic name
+    /// < (const char *) Topic name
     RD_KAFKA_VTYPE_TOPIC = 1,
-    ///< (rd_kafka_topic_t *) Topic handle
+    /// < (rd_kafka_topic_t *) Topic handle
     RD_KAFKA_VTYPE_RKT = 2,
-    ///< (int32_t) Partition
+    /// < (int32_t) Partition
     RD_KAFKA_VTYPE_PARTITION = 3,
-    ///< (void *, size_t) Message value (payload)
+    /// < (void *, size_t) Message value (payload)
     RD_KAFKA_VTYPE_VALUE = 4,
-    ///< (void *, size_t) Message key
+    /// < (void *, size_t) Message key
     RD_KAFKA_VTYPE_KEY = 5,
-    ///< (void *) Per-message application opaque
-    ///            value. This is the same as
-    ///            the _private field in
-    ///            rd_kafka_message_t, also known
-    ///            as the msg_opaque.
+    /// < (void *) Per-message application opaque
+    /// value. This is the same as
+    /// the _private field in
+    /// rd_kafka_message_t, also known
+    /// as the msg_opaque.
     RD_KAFKA_VTYPE_OPAQUE = 6,
-    ///< (int) RD_KAFKA_MSG_F_.. flags
+    /// < (int) RD_KAFKA_MSG_F_.. flags
     RD_KAFKA_VTYPE_MSGFLAGS = 7,
-    ///< (int64_t) Milliseconds since epoch UTC
+    /// < (int64_t) Milliseconds since epoch UTC
     RD_KAFKA_VTYPE_TIMESTAMP = 8,
-    ///< (const char *, const void *, ssize_t)
-    ///   Message Header
+    /// < (const char *, const void *, ssize_t)
+    /// Message Header
     RD_KAFKA_VTYPE_HEADER = 9,
-    ///< (rd_kafka_headers_t *) Headers list
+    /// < (rd_kafka_headers_t *) Headers list
     RD_KAFKA_VTYPE_HEADERS = 10,
 }
-/// @brief VTYPE + argument container for use with rd_kafka_produce_va()
+/// VTYPE + argument container for use with rd_kafka_produce_va()
 ///
 /// See RD_KAFKA_V_..() macros below for which union field corresponds
 /// to which RD_KAFKA_VTYPE_...
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct rd_kafka_vu_s {
-    ///< RD_KAFKA_VTYPE_..
+    /// < RD_KAFKA_VTYPE_..
     pub vtype: rd_kafka_vtype_t,
     pub u: rd_kafka_vu_s__bindgen_ty_1,
 }
@@ -1071,7 +1071,7 @@ pub union rd_kafka_vu_s__bindgen_ty_1 {
     pub header: rd_kafka_vu_s__bindgen_ty_1__bindgen_ty_2,
     pub headers: *mut rd_kafka_headers_t,
     pub ptr: *mut ::std::os::raw::c_void,
-    ///< Padding size for future-proofness
+    /// < Padding size for future-proofness
     pub _pad: [::std::os::raw::c_char; 64usize],
 }
 #[repr(C)]
@@ -1146,44 +1146,44 @@ const _: () = {
         [::std::mem::offset_of!(rd_kafka_vu_s, vtype) - 0usize];
     ["Offset of field: rd_kafka_vu_s::u"][::std::mem::offset_of!(rd_kafka_vu_s, u) - 8usize];
 };
-/// @brief VTYPE + argument container for use with rd_kafka_produce_va()
+/// VTYPE + argument container for use with rd_kafka_produce_va()
 ///
 /// See RD_KAFKA_V_..() macros below for which union field corresponds
 /// to which RD_KAFKA_VTYPE_...
 pub type rd_kafka_vu_t = rd_kafka_vu_s;
 unsafe extern "C" {
-    /// @brief Create a new headers list.
+    /// Create a new headers list.
     ///
-    /// @param initial_count Preallocate space for this number of headers.
-    ///                      Any number of headers may be added, updated and
-    ///                      removed regardless of the initial count.
+    /// - `initial_count`: Preallocate space for this number of headers.
+    /// Any number of headers may be added, updated and
+    /// removed regardless of the initial count.
     pub fn rd_kafka_headers_new(initial_count: usize) -> *mut rd_kafka_headers_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy the headers list. The object and any returned value pointers
-    ///        are not usable after this call.
+    /// Destroy the headers list. The object and any returned value pointers
+    /// are not usable after this call.
     pub fn rd_kafka_headers_destroy(hdrs: *mut rd_kafka_headers_t);
 }
 unsafe extern "C" {
-    /// @brief Make a copy of headers list \p src.
+    /// Make a copy of headers list \p src.
     pub fn rd_kafka_headers_copy(src: *const rd_kafka_headers_t) -> *mut rd_kafka_headers_t;
 }
 unsafe extern "C" {
-    /// @brief Add header with name \p name and value \p val (copied) of size
-    ///        \p size (not including null-terminator).
+    /// Add header with name \p name and value \p val (copied) of size
+    /// `size (not including null-terminator).
     ///
-    /// @param hdrs       Headers list.
-    /// @param name       Header name.
-    /// @param name_size  Header name size (not including the null-terminator).
-    ///                   If -1 the \p name length is automatically acquired using
-    ///                   strlen().
-    /// @param value      Pointer to header value, or NULL (set size to 0 or -1).
-    /// @param value_size Size of header value. If -1 the \p value is assumed to be a
-    ///                   null-terminated string and the length is automatically
-    ///                   acquired using strlen().
+    /// - `hdrs`: Headers list.
+    /// - `name`: Header name.
+    /// - `name_size`: Header name size (not including the null-terminator).
+    /// If -1 the `name length is automatically acquired using
+    /// strlen().
+    /// - `value`: Pointer to header value, or NULL (set size to 0 or -1).
+    /// - `value_size`: Size of header value. If -1 the \p value is assumed to be a
+    /// null-terminated string and the length is automatically
+    /// acquired using strlen().
     ///
-    /// @returns RD_KAFKA_RESP_ERR__READ_ONLY if the headers are read-only,
-    ///          else RD_KAFKA_RESP_ERR_NO_ERROR.
+    /// Returns RD_KAFKA_RESP_ERR__READ_ONLY if the headers are read-only,
+    /// else RD_KAFKA_RESP_ERR_NO_ERROR.
     pub fn rd_kafka_header_add(
         hdrs: *mut rd_kafka_headers_t,
         name: *const ::std::os::raw::c_char,
@@ -1193,32 +1193,32 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Remove all headers for the given key (if any).
+    /// Remove all headers for the given key (if any).
     ///
-    /// @returns RD_KAFKA_RESP_ERR__READ_ONLY if the headers are read-only,
-    ///          RD_KAFKA_RESP_ERR__NOENT if no matching headers were found,
-    ///          else RD_KAFKA_RESP_ERR_NO_ERROR if headers were removed.
+    /// Returns RD_KAFKA_RESP_ERR__READ_ONLY if the headers are read-only,
+    /// RD_KAFKA_RESP_ERR__NOENT if no matching headers were found,
+    /// else RD_KAFKA_RESP_ERR_NO_ERROR if headers were removed.
     pub fn rd_kafka_header_remove(
         hdrs: *mut rd_kafka_headers_t,
         name: *const ::std::os::raw::c_char,
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Find last header in list \p hdrs matching \p name.
+    /// Find last header in list \p hdrs matching \p name.
     ///
-    /// @param hdrs   Headers list.
-    /// @param name   Header to find (last match).
-    /// @param valuep (out) Set to a (null-terminated) const pointer to the value
-    ///               (may be NULL).
-    /// @param sizep  (out) Set to the value's size (not including null-terminator).
+    /// - `hdrs`: Headers list.
+    /// - `name`: Header to find (last match).
+    /// - `valuep`: (out) Set to a (null-terminated) const pointer to the value
+    /// (may be NULL).
+    /// - `sizep`: (out) Set to the value's size (not including null-terminator).
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR if an entry was found, else
-    ///          RD_KAFKA_RESP_ERR__NOENT.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR if an entry was found, else
+    /// RD_KAFKA_RESP_ERR__NOENT.
     ///
-    /// @remark The returned pointer in \p valuep includes a trailing null-terminator
-    ///         that is not accounted for in \p sizep.
+    /// @remark The returned pointer in `valuep includes a trailing null-terminator
+    /// that is not accounted for in `sizep.
     /// @remark The returned pointer is only valid as long as the headers list and
-    ///         the header item is valid.
+    /// the header item is valid.
     pub fn rd_kafka_header_get_last(
         hdrs: *const rd_kafka_headers_t,
         name: *const ::std::os::raw::c_char,
@@ -1227,17 +1227,17 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Iterator for headers matching \p name.
+    /// Iterator for headers matching \p name.
     ///
-    ///        Same semantics as rd_kafka_header_get_last()
+    /// Same semantics as rd_kafka_header_get_last()
     ///
-    /// @param hdrs   Headers to iterate.
-    /// @param idx    Iterator index, start at 0 and increment by one for each call
-    ///               as long as RD_KAFKA_RESP_ERR_NO_ERROR is returned.
-    /// @param name   Header name to match.
-    /// @param valuep (out) Set to a (null-terminated) const pointer to the value
-    ///               (may be NULL).
-    /// @param sizep  (out) Set to the value's size (not including null-terminator).
+    /// - `hdrs`: Headers to iterate.
+    /// - `idx`: Iterator index, start at 0 and increment by one for each call
+    /// as long as RD_KAFKA_RESP_ERR_NO_ERROR is returned.
+    /// - `name`: Header name to match.
+    /// - `valuep`: (out) Set to a (null-terminated) const pointer to the value
+    /// (may be NULL).
+    /// - `sizep`: (out) Set to the value's size (not including null-terminator).
     pub fn rd_kafka_header_get(
         hdrs: *const rd_kafka_headers_t,
         idx: usize,
@@ -1247,9 +1247,9 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Iterator for all headers.
+    /// Iterator for all headers.
     ///
-    ///        Same semantics as rd_kafka_header_get()
+    /// Same semantics as rd_kafka_header_get()
     ///
     /// @sa rd_kafka_header_get()
     pub fn rd_kafka_header_get_all(
@@ -1260,57 +1260,57 @@ unsafe extern "C" {
         sizep: *mut usize,
     ) -> rd_kafka_resp_err_t;
 }
-/// @brief A Kafka message as returned by the \c rd_kafka_consume*() family
-///        of functions as well as provided to the Producer \c dr_msg_cb().
+/// A Kafka message as returned by the \c rd_kafka_consume*() family
+/// of functions as well as provided to the Producer `dr_msg_cb().
 ///
 /// For the consumer this object has two purposes:
-///  - provide the application with a consumed message. (\c err == 0)
-///  - report per-topic+partition consumer errors (\c err != 0)
+/// - provide the application with a consumed message. (`err == 0)
+/// - report per-topic+partition consumer errors (`err != 0)
 ///
-/// The application must check \c err to decide what action to take.
+/// The application must check `err to decide what action to take.
 ///
 /// When the application is finished with a message it must call
 /// rd_kafka_message_destroy() unless otherwise noted.
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_message_s {
-    ///< Non-zero for error signaling.
+    /// < Non-zero for error signaling.
     pub err: rd_kafka_resp_err_t,
-    ///< Topic
+    /// < Topic
     pub rkt: *mut rd_kafka_topic_t,
-    ///< Partition
+    /// < Partition
     pub partition: i32,
-    ///< Producer: original message payload.
-    /// Consumer: Depends on the value of \c err :
-    /// - \c err==0: Message payload.
-    /// - \c err!=0: Error string
+    /// < Producer: original message payload.
+    /// Consumer: Depends on the value of `err :
+    /// - `err==0: Message payload.
+    /// - `err!=0: Error string
     pub payload: *mut ::std::os::raw::c_void,
-    ///< Depends on the value of \c err :
-    /// - \c err==0: Message payload length
-    /// - \c err!=0: Error string length
+    /// < Depends on the value of `err :
+    /// - `err==0: Message payload length
+    /// - `err!=0: Error string length
     pub len: usize,
-    ///< Depends on the value of \c err :
-    /// - \c err==0: Optional message key
+    /// < Depends on the value of `err :
+    /// - `err==0: Optional message key
     pub key: *mut ::std::os::raw::c_void,
-    ///< Depends on the value of \c err :
-    /// - \c err==0: Optional message key length
+    /// < Depends on the value of `err :
+    /// - `err==0: Optional message key length
     pub key_len: usize,
-    ///< Consumer:
+    /// < Consumer:
     /// - Message offset (or offset for error
-    ///   if \c err!=0 if applicable).
-    ///   Producer, dr_msg_cb:
-    ///   Message offset assigned by broker.
-    ///   May be RD_KAFKA_OFFSET_INVALID
-    ///   for retried messages when
-    ///   idempotence is enabled.
+    /// if `err!=0 if applicable).
+    /// Producer, dr_msg_cb:
+    /// Message offset assigned by broker.
+    /// May be RD_KAFKA_OFFSET_INVALID
+    /// for retried messages when
+    /// idempotence is enabled.
     pub offset: i64,
-    ///< Consumer:
-    ///  - rdkafka private pointer:
-    ///    DO NOT MODIFY, DO NOT COPY.
-    ///  Producer:
-    ///  - dr_msg_cb:
-    ///    msg_opaque from produce() call or
-    ///    RD_KAFKA_V_OPAQUE from producev().
+    /// < Consumer:
+    /// - rdkafka private pointer:
+    /// DO NOT MODIFY, DO NOT COPY.
+    /// Producer:
+    /// - dr_msg_cb:
+    /// msg_opaque from produce() call or
+    /// RD_KAFKA_V_OPAQUE from producev().
     pub _private: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -1336,25 +1336,25 @@ const _: () = {
     ["Offset of field: rd_kafka_message_s::_private"]
         [::std::mem::offset_of!(rd_kafka_message_s, _private) - 64usize];
 };
-/// @brief A Kafka message as returned by the \c rd_kafka_consume*() family
-///        of functions as well as provided to the Producer \c dr_msg_cb().
+/// A Kafka message as returned by the \c rd_kafka_consume*() family
+/// of functions as well as provided to the Producer `dr_msg_cb().
 ///
 /// For the consumer this object has two purposes:
-///  - provide the application with a consumed message. (\c err == 0)
-///  - report per-topic+partition consumer errors (\c err != 0)
+/// - provide the application with a consumed message. (`err == 0)
+/// - report per-topic+partition consumer errors (`err != 0)
 ///
-/// The application must check \c err to decide what action to take.
+/// The application must check `err to decide what action to take.
 ///
 /// When the application is finished with a message it must call
 /// rd_kafka_message_destroy() unless otherwise noted.
 pub type rd_kafka_message_t = rd_kafka_message_s;
 unsafe extern "C" {
-    /// @brief Frees resources for \p rkmessage and hands ownership back to rdkafka.
+    /// Frees resources for \p rkmessage and hands ownership back to rdkafka.
     pub fn rd_kafka_message_destroy(rkmessage: *mut rd_kafka_message_t);
 }
 unsafe extern "C" {
-    /// @brief Returns the error string for an errored rd_kafka_message_t or NULL if
-    ///        there was no error.
+    /// Returns the error string for an errored rd_kafka_message_t or NULL if
+    /// there was no error.
     ///
     /// @remark This function MUST NOT be used with the producer.
     pub fn rd_kafka_message_errstr(
@@ -1362,7 +1362,7 @@ unsafe extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Returns the error string for an errored produced rd_kafka_message_t or
+    /// Returns the error string for an errored produced rd_kafka_message_t or
     /// NULL if there was no error.
     ///
     /// @remark This function MUST used with the producer.
@@ -1371,13 +1371,13 @@ unsafe extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Returns the message timestamp for a consumed message.
+    /// Returns the message timestamp for a consumed message.
     ///
     /// The timestamp is the number of milliseconds since the epoch (UTC).
     ///
-    /// \p tstype (if not NULL) is updated to indicate the type of timestamp.
+    /// `tstype (if not NULL) is updated to indicate the type of timestamp.
     ///
-    /// @returns message timestamp, or -1 if not available.
+    /// Returns message timestamp, or -1 if not available.
     ///
     /// @remark Message timestamps require broker version 0.10.0 or later.
     pub fn rd_kafka_message_timestamp(
@@ -1386,47 +1386,47 @@ unsafe extern "C" {
     ) -> i64;
 }
 unsafe extern "C" {
-    /// @brief Returns the latency for a produced message measured from
-    ///        the produce() call.
+    /// Returns the latency for a produced message measured from
+    /// the produce() call.
     ///
-    /// @returns the latency in microseconds, or -1 if not available.
+    /// Returns the latency in microseconds, or -1 if not available.
     pub fn rd_kafka_message_latency(rkmessage: *const rd_kafka_message_t) -> i64;
 }
 unsafe extern "C" {
-    /// @brief Returns the broker id of the broker the message was produced to
-    ///        or fetched from.
+    /// Returns the broker id of the broker the message was produced to
+    /// or fetched from.
     ///
-    /// @returns a broker id if known, else -1.
+    /// Returns a broker id if known, else -1.
     pub fn rd_kafka_message_broker_id(rkmessage: *const rd_kafka_message_t) -> i32;
 }
 unsafe extern "C" {
-    /// @brief Get the message header list.
+    /// Get the message header list.
     ///
-    /// The returned pointer in \p *hdrsp is associated with the \p rkmessage and
+    /// The returned pointer in `*hdrsp is associated with the `rkmessage and
     /// must not be used after destruction of the message object or the header
     /// list is replaced with rd_kafka_message_set_headers().
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR if headers were returned,
-    ///          RD_KAFKA_RESP_ERR__NOENT if the message has no headers,
-    ///          or another error code if the headers could not be parsed.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR if headers were returned,
+    /// RD_KAFKA_RESP_ERR__NOENT if the message has no headers,
+    /// or another error code if the headers could not be parsed.
     ///
     /// @remark Headers require broker version 0.11.0.0 or later.
     ///
     /// @remark As an optimization the raw protocol headers are parsed on
-    ///         the first call to this function.
+    /// the first call to this function.
     pub fn rd_kafka_message_headers(
         rkmessage: *const rd_kafka_message_t,
         hdrsp: *mut *mut rd_kafka_headers_t,
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Get the message header list and detach the list from the message
-    ///        making the application the owner of the headers.
-    ///        The application must eventually destroy the headers using
-    ///        rd_kafka_headers_destroy().
-    ///        The message's headers will be set to NULL.
+    /// Get the message header list and detach the list from the message
+    /// making the application the owner of the headers.
+    /// The application must eventually destroy the headers using
+    /// rd_kafka_headers_destroy().
+    /// The message's headers will be set to NULL.
     ///
-    ///        Otherwise same semantics as rd_kafka_message_headers()
+    /// Otherwise same semantics as rd_kafka_message_headers()
     ///
     /// @sa rd_kafka_message_headers
     pub fn rd_kafka_message_detach_headers(
@@ -1435,14 +1435,14 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Replace the message's current headers with a new list.
+    /// Replace the message's current headers with a new list.
     ///
-    /// @param rkmessage The message to set headers.
-    /// @param hdrs New header list. The message object assumes ownership of
-    ///             the list, the list will be destroyed automatically with
-    ///             the message object.
-    ///             The new headers list may be updated until the message object
-    ///             is passed or returned to librdkafka.
+    /// - `rkmessage`: The message to set headers.
+    /// - `hdrs`: New header list. The message object assumes ownership of
+    /// the list, the list will be destroyed automatically with
+    /// the message object.
+    /// The new headers list may be updated until the message object
+    /// is passed or returned to librdkafka.
     ///
     /// @remark The existing headers object, if any, will be destroyed.
     pub fn rd_kafka_message_set_headers(
@@ -1451,76 +1451,76 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Returns the number of header key/value pairs
+    /// Returns the number of header key/value pairs
     ///
-    /// @param hdrs   Headers to count
+    /// - `hdrs`: Headers to count
     pub fn rd_kafka_header_cnt(hdrs: *const rd_kafka_headers_t) -> usize;
 }
 #[repr(u32)]
 /// @enum rd_kafka_msg_status_t
-/// @brief Message persistence status can be used by the application to
-///        find out if a produced message was persisted in the topic log.
+/// Message persistence status can be used by the application to
+/// find out if a produced message was persisted in the topic log.
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_msg_status_t {
     /// Message was never transmitted to the broker, or failed with
-    ///  an error indicating it was not written to the log.
-    ///  Application retry risks ordering, but not duplication.
+    /// an error indicating it was not written to the log.
+    /// Application retry risks ordering, but not duplication.
     RD_KAFKA_MSG_STATUS_NOT_PERSISTED = 0,
     /// Message was transmitted to broker, but no acknowledgement was
-    ///  received.
-    ///  Application retry risks ordering and duplication.
+    /// received.
+    /// Application retry risks ordering and duplication.
     RD_KAFKA_MSG_STATUS_POSSIBLY_PERSISTED = 1,
     /// Message was written to the log and acknowledged by the broker.
-    ///  No reason for application to retry.
-    ///  Note: this value should only be trusted with \c acks=all.
+    /// No reason for application to retry.
+    /// Note: this value should only be trusted with `acks=all.
     RD_KAFKA_MSG_STATUS_PERSISTED = 2,
 }
 unsafe extern "C" {
-    /// @brief Returns the message's persistence status in the topic log.
+    /// Returns the message's persistence status in the topic log.
     ///
     /// @remark The message status is not available in on_acknowledgement
-    ///         interceptors.
+    /// interceptors.
     pub fn rd_kafka_message_status(rkmessage: *const rd_kafka_message_t) -> rd_kafka_msg_status_t;
 }
 unsafe extern "C" {
-    /// @returns the message's partition leader epoch at the time the message was
-    ///          fetched and if known, else -1.
+    /// Returns the message's partition leader epoch at the time the message was
+    /// fetched and if known, else -1.
     ///
     /// @remark This API must only be used on consumed messages without error.
     /// @remark Requires broker version >= 2.10 (KIP-320).
     pub fn rd_kafka_message_leader_epoch(rkmessage: *const rd_kafka_message_t) -> i32;
 }
 unsafe extern "C" {
-    /// @brief Computes base64 encoding for the given uuid string.
-    /// @param uuid UUID for which base64 encoding is required.
+    /// Computes base64 encoding for the given uuid string.
+    /// - `uuid`: UUID for which base64 encoding is required.
     ///
-    /// @return base64 encoded string for the given UUID or NULL in case of some
-    ///         issue with the conversion or the conversion is not supported.
+    /// Returns base64 encoded string for the given UUID or NULL in case of some
+    /// issue with the conversion or the conversion is not supported.
     pub fn rd_kafka_Uuid_base64str(uuid: *const rd_kafka_Uuid_t) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Gets least significant 64 bits for the given UUID.
+    /// Gets least significant 64 bits for the given UUID.
     ///
-    /// @param uuid UUID
+    /// - `uuid`: UUID
     ///
-    /// @return least significant 64 bits for the given UUID.
+    /// Returns least significant 64 bits for the given UUID.
     pub fn rd_kafka_Uuid_least_significant_bits(uuid: *const rd_kafka_Uuid_t) -> i64;
 }
 unsafe extern "C" {
-    /// @brief Gets most significant 64 bits for the given UUID.
+    /// Gets most significant 64 bits for the given UUID.
     ///
-    /// @param uuid UUID
+    /// - `uuid`: UUID
     ///
-    /// @return most significant 64 bits for the given UUID.
+    /// Returns most significant 64 bits for the given UUID.
     pub fn rd_kafka_Uuid_most_significant_bits(uuid: *const rd_kafka_Uuid_t) -> i64;
 }
 unsafe extern "C" {
-    /// @brief Creates a new UUID.
+    /// Creates a new UUID.
     ///
-    /// @param most_significant_bits most significant 64 bits of the 128 bits UUID.
-    /// @param least_significant_bits least significant 64 bits of the 128 bits UUID.
+    /// - `most_significant_bits`: most significant 64 bits of the 128 bits UUID.
+    /// - `least_significant_bits`: least significant 64 bits of the 128 bits UUID.
     ///
-    /// @return A newly allocated UUID.
+    /// Returns A newly allocated UUID.
     /// @remark Must be freed after use using rd_kafka_Uuid_destroy()
     pub fn rd_kafka_Uuid_new(
         most_significant_bits: i64,
@@ -1528,52 +1528,52 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_Uuid_t;
 }
 unsafe extern "C" {
-    /// @brief Copies the given UUID.
+    /// Copies the given UUID.
     ///
-    /// @param uuid UUID to be copied.
+    /// - `uuid`: UUID to be copied.
     ///
-    /// @return A newly allocated copy of the provided UUID.
+    /// Returns A newly allocated copy of the provided UUID.
     /// @remark Must be freed after use using rd_kafka_Uuid_destroy()
     pub fn rd_kafka_Uuid_copy(uuid: *const rd_kafka_Uuid_t) -> *mut rd_kafka_Uuid_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy the provided uuid.
+    /// Destroy the provided uuid.
     ///
-    /// @param uuid UUID
+    /// - `uuid`: UUID
     pub fn rd_kafka_Uuid_destroy(uuid: *mut rd_kafka_Uuid_t);
 }
 #[repr(i32)]
 /// @enum rd_kafka_conf_res_t
-/// @brief Configuration result type
+/// Configuration result type
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq, :: num_enum :: TryFromPrimitive)]
 pub enum rd_kafka_conf_res_t {
-    ///< Unknown configuration name.
+    /// < Unknown configuration name.
     RD_KAFKA_CONF_UNKNOWN = -2,
-    ///< Invalid configuration value or
-    ///   property or value not supported in
-    ///   this build.
+    /// < Invalid configuration value or
+    /// property or value not supported in
+    /// this build.
     RD_KAFKA_CONF_INVALID = -1,
-    ///< Configuration okay
+    /// < Configuration okay
     RD_KAFKA_CONF_OK = 0,
 }
 unsafe extern "C" {
-    /// @brief Create configuration object.
+    /// Create configuration object.
     ///
-    /// When providing your own configuration to the \c rd_kafka_*_new_*() calls
+    /// When providing your own configuration to the `rd_kafka_*_new_*() calls
     /// the rd_kafka_conf_t objects needs to be created with this function
     /// which will set up the defaults.
     /// I.e.:
     /// @code
-    ///   rd_kafka_conf_t *myconf;
-    ///   rd_kafka_conf_res_t res;
+    /// rd_kafka_conf_t *myconf;
+    /// rd_kafka_conf_res_t res;
     ///
-    ///   myconf = rd_kafka_conf_new();
-    ///   res = rd_kafka_conf_set(myconf, "socket.timeout.ms", "600",
-    ///                           errstr, sizeof(errstr));
-    ///   if (res != RD_KAFKA_CONF_OK)
-    ///      die("%s\n", errstr);
+    /// myconf = rd_kafka_conf_new();
+    /// res = rd_kafka_conf_set(myconf, "socket.timeout.ms", "600",
+    /// errstr, sizeof(errstr));
+    /// if (res != RD_KAFKA_CONF_OK)
+    /// die("%s\n", errstr);
     ///
-    ///   rk = rd_kafka_new(..., myconf);
+    /// rk = rd_kafka_new(..., myconf);
     /// @endcode
     ///
     /// Please see CONFIGURATION.md for the default settings or use
@@ -1585,25 +1585,25 @@ unsafe extern "C" {
     /// @remark A successful call to rd_kafka_new() will assume ownership of
     /// the conf object and rd_kafka_conf_destroy() must not be called.
     ///
-    /// @returns A new rd_kafka_conf_t object with defaults set.
+    /// Returns A new rd_kafka_conf_t object with defaults set.
     ///
     /// @sa rd_kafka_new(), rd_kafka_conf_set(), rd_kafka_conf_destroy()
     pub fn rd_kafka_conf_new() -> *mut rd_kafka_conf_t;
 }
 unsafe extern "C" {
-    /// @brief Destroys a conf object.
+    /// Destroys a conf object.
     pub fn rd_kafka_conf_destroy(conf: *mut rd_kafka_conf_t);
 }
 unsafe extern "C" {
-    /// @brief Creates a copy/duplicate of configuration object \p conf
+    /// Creates a copy/duplicate of configuration object \p conf
     ///
     /// @remark Interceptors are NOT copied to the new configuration object.
     /// @sa rd_kafka_interceptor_f_on_conf_dup
     pub fn rd_kafka_conf_dup(conf: *const rd_kafka_conf_t) -> *mut rd_kafka_conf_t;
 }
 unsafe extern "C" {
-    /// @brief Same as rd_kafka_conf_dup() but with an array of property name
-    ///        prefixes to filter out (ignore) when copying.
+    /// Same as rd_kafka_conf_dup() but with an array of property name
+    /// prefixes to filter out (ignore) when copying.
     pub fn rd_kafka_conf_dup_filter(
         conf: *const rd_kafka_conf_t,
         filter_cnt: usize,
@@ -1611,32 +1611,32 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_conf_t;
 }
 unsafe extern "C" {
-    /// @returns the configuration object used by an rd_kafka_t instance.
-    ///          For use with rd_kafka_conf_get(), et.al., to extract configuration
-    ///          properties from a running client.
+    /// Returns the configuration object used by an rd_kafka_t instance.
+    /// For use with rd_kafka_conf_get(), et.al., to extract configuration
+    /// properties from a running client.
     ///
     /// @remark the returned object is read-only and its lifetime is the same
-    ///         as the rd_kafka_t object.
+    /// as the rd_kafka_t object.
     pub fn rd_kafka_conf(rk: *mut rd_kafka_t) -> *const rd_kafka_conf_t;
 }
 unsafe extern "C" {
-    /// @brief Sets a configuration property.
+    /// Sets a configuration property.
     ///
-    /// \p conf must have been previously created with rd_kafka_conf_new().
+    /// `conf must have been previously created with rd_kafka_conf_new().
     ///
     /// Fallthrough:
     /// Topic-level configuration properties may be set using this interface
-    /// in which case they are applied on the \c default_topic_conf.
-    /// If no \c default_topic_conf has been set one will be created.
+    /// in which case they are applied on the `default_topic_conf.
+    /// If no `default_topic_conf has been set one will be created.
     /// Any subsequent rd_kafka_conf_set_default_topic_conf() calls will
     /// replace the current default topic configuration.
     ///
-    /// @returns \c rd_kafka_conf_res_t to indicate success or failure.
-    /// In case of failure \p errstr is updated to contain a human readable
+    /// Returns \c rd_kafka_conf_res_t to indicate success or failure.
+    /// In case of failure `errstr is updated to contain a human readable
     /// error string.
     ///
     /// @remark Setting properties or values that were disabled at build time due to
-    ///         missing dependencies will return RD_KAFKA_CONF_INVALID.
+    /// missing dependencies will return RD_KAFKA_CONF_INVALID.
     pub fn rd_kafka_conf_set(
         conf: *mut rd_kafka_conf_t,
         name: *const ::std::os::raw::c_char,
@@ -1646,43 +1646,43 @@ unsafe extern "C" {
     ) -> rd_kafka_conf_res_t;
 }
 unsafe extern "C" {
-    /// @brief Enable event sourcing.
-    /// \p events is a bitmask of \c RD_KAFKA_EVENT_* of events to enable
+    /// Enable event sourcing.
+    /// `events is a bitmask of `RD_KAFKA_EVENT_* of events to enable
     /// for consumption by `rd_kafka_queue_poll()`.
     pub fn rd_kafka_conf_set_events(conf: *mut rd_kafka_conf_t, events: ::std::os::raw::c_int);
 }
 unsafe extern "C" {
-    /// @brief Generic event callback to be used with the event API to trigger
-    ///        callbacks for \c rd_kafka_event_t objects from a background
-    ///        thread serving the background queue.
+    /// Generic event callback to be used with the event API to trigger
+    /// callbacks for `rd_kafka_event_t objects from a background
+    /// thread serving the background queue.
     ///
     /// How to use:
-    ///  1. First set the event callback on the configuration object with this
-    ///     function, followed by creating an rd_kafka_t instance
-    ///     with rd_kafka_new().
-    ///  2. Get the instance's background queue with rd_kafka_queue_get_background()
-    ///     and pass it as the reply/response queue to an API that takes an
-    ///     event queue, such as rd_kafka_CreateTopics().
-    ///  3. As the response event is ready and enqueued on the background queue the
-    ///     event callback will be triggered from the background thread.
-    ///  4. Prior to destroying the client instance, loose your reference to the
-    ///     background queue by calling rd_kafka_queue_destroy().
+    /// 1. First set the event callback on the configuration object with this
+    /// function, followed by creating an rd_kafka_t instance
+    /// with rd_kafka_new().
+    /// 2. Get the instance's background queue with rd_kafka_queue_get_background()
+    /// and pass it as the reply/response queue to an API that takes an
+    /// event queue, such as rd_kafka_CreateTopics().
+    /// 3. As the response event is ready and enqueued on the background queue the
+    /// event callback will be triggered from the background thread.
+    /// 4. Prior to destroying the client instance, loose your reference to the
+    /// background queue by calling rd_kafka_queue_destroy().
     ///
-    /// The application must destroy the \c rkev passed to \p event cb using
+    /// The application must destroy the `rkev passed to `event cb using
     /// rd_kafka_event_destroy().
     ///
-    /// The \p event_cb \c opaque argument is the opaque set with
+    /// The `event_cb `opaque argument is the opaque set with
     /// rd_kafka_conf_set_opaque().
     ///
     /// @remark This callback is a specialized alternative to the poll-based
-    ///         event API described in the Event interface section.
+    /// event API described in the Event interface section.
     ///
-    /// @remark The \p event_cb will be called spontaneously from a background
-    ///         thread completely managed by librdkafka.
-    ///         Take care to perform proper locking of application objects.
+    /// @remark The `event_cb will be called spontaneously from a background
+    /// thread completely managed by librdkafka.
+    /// Take care to perform proper locking of application objects.
     ///
     /// @warning The application MUST NOT call rd_kafka_destroy() from the
-    ///          event callback.
+    /// event callback.
     ///
     /// @sa rd_kafka_queue_get_background
     pub fn rd_kafka_conf_set_background_event_cb(
@@ -1713,10 +1713,10 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief \b Producer: Set delivery report callback in provided \p conf object.
+    /// \b Producer: Set delivery report callback in provided \p conf object.
     ///
     /// The delivery report callback will be called once for each message
-    /// accepted by rd_kafka_produce() (et.al) with \p err set to indicate
+    /// accepted by rd_kafka_produce() (et.al) with `err set to indicate
     /// the result of the produce request.
     ///
     /// The callback is called when a message is succesfully produced or
@@ -1728,19 +1728,19 @@ unsafe extern "C" {
     /// An application must call rd_kafka_poll() at regular intervals to
     /// serve queued delivery report callbacks.
     ///
-    /// The broker-assigned offset can be retrieved with \c rkmessage->offset
+    /// The broker-assigned offset can be retrieved with `rkmessage->offset
     /// and the timestamp can be retrieved using rd_kafka_message_timestamp().
     ///
-    /// The \p dr_msg_cb \c opaque argument is the opaque set with
+    /// The `dr_msg_cb `opaque argument is the opaque set with
     /// rd_kafka_conf_set_opaque().
     /// The per-message msg_opaque value is available in
-    /// \c rd_kafka_message_t._private.
+    /// `rd_kafka_message_t._private.
     ///
     /// @remark The Idempotent Producer may return invalid timestamp
-    ///         (RD_KAFKA_TIMESTAMP_NOT_AVAILABLE), and
-    ///         and offset (RD_KAFKA_OFFSET_INVALID) for retried messages
-    ///         that were previously successfully delivered but not properly
-    ///         acknowledged.
+    /// (RD_KAFKA_TIMESTAMP_NOT_AVAILABLE), and
+    /// and offset (RD_KAFKA_OFFSET_INVALID) for retried messages
+    /// that were previously successfully delivered but not properly
+    /// acknowledged.
     pub fn rd_kafka_conf_set_dr_msg_cb(
         conf: *mut rd_kafka_conf_t,
         dr_msg_cb: ::std::option::Option<
@@ -1753,10 +1753,10 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief \b Consumer: Set consume callback for use with
-    ///        rd_kafka_consumer_poll()
+    /// \b Consumer: Set consume callback for use with
+    /// rd_kafka_consumer_poll()
     ///
-    /// The \p consume_cb \p opaque argument is the opaque set with
+    /// The `consume_cb `opaque argument is the opaque set with
     /// rd_kafka_conf_set_opaque().
     pub fn rd_kafka_conf_set_consume_cb(
         conf: *mut rd_kafka_conf_t,
@@ -1769,23 +1769,23 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief \b Consumer: Set rebalance callback for use with
-    ///                     coordinated consumer group balancing.
+    /// \b Consumer: Set rebalance callback for use with
+    /// coordinated consumer group balancing.
     ///
-    /// The \p err field is set to either RD_KAFKA_RESP_ERR__ASSIGN_PARTITIONS
+    /// The `err field is set to either RD_KAFKA_RESP_ERR__ASSIGN_PARTITIONS
     /// or RD_KAFKA_RESP_ERR__REVOKE_PARTITIONS and 'partitions'
     /// contains the full partition set that was either assigned or revoked.
     ///
-    /// Registering a \p rebalance_cb turns off librdkafka's automatic
+    /// Registering a `rebalance_cb turns off librdkafka's automatic
     /// partition assignment/revocation and instead delegates that responsibility
-    /// to the application's \p rebalance_cb.
+    /// to the application's `rebalance_cb.
     ///
     /// The rebalance callback is responsible for updating librdkafka's
     /// assignment set based on the two events: RD_KAFKA_RESP_ERR__ASSIGN_PARTITIONS
     /// and RD_KAFKA_RESP_ERR__REVOKE_PARTITIONS but should also be able to handle
-    /// arbitrary rebalancing failures where \p err is neither of those.
+    /// arbitrary rebalancing failures where `err is neither of those.
     /// @remark In this latter case (arbitrary error), the application must
-    ///         call rd_kafka_assign(rk, NULL) to synchronize state.
+    /// call rd_kafka_assign(rk, NULL) to synchronize state.
     ///
     /// For eager/non-cooperative `partition.assignment.strategy` assignors,
     /// such as `range` and `roundrobin`, the application must use
@@ -1809,24 +1809,24 @@ unsafe extern "C" {
     /// partitions. In the cooperative case, rebalance_cb will never be called if
     /// the set of partitions being revoked is empty (whether or not lost).
     ///
-    /// The callback's \p opaque argument is the opaque set with
+    /// The callback's `opaque argument is the opaque set with
     /// rd_kafka_conf_set_opaque().
     ///
-    /// @remark The \p partitions list is destroyed by librdkafka on return
-    ///         return from the rebalance_cb and must not be freed or
-    ///         saved by the application.
+    /// @remark The `partitions list is destroyed by librdkafka on return
+    /// return from the rebalance_cb and must not be freed or
+    /// saved by the application.
     ///
-    /// @remark Be careful when modifying the \p partitions list.
-    ///         Changing this list should only be done to change the initial
-    ///         offsets for each partition.
-    ///         But a function like `rd_kafka_position()` might have unexpected
-    ///         effects for instance when a consumer gets assigned a partition
-    ///         it used to consume at an earlier rebalance. In this case, the
-    ///         list of partitions will be updated with the old offset for that
-    ///         partition. In this case, it is generally better to pass a copy
-    ///         of the list (see `rd_kafka_topic_partition_list_copy()`).
-    ///         The result of `rd_kafka_position()` is typically outdated in
-    ///         RD_KAFKA_RESP_ERR__ASSIGN_PARTITIONS.
+    /// @remark Be careful when modifying the `partitions list.
+    /// Changing this list should only be done to change the initial
+    /// offsets for each partition.
+    /// But a function like `rd_kafka_position()` might have unexpected
+    /// effects for instance when a consumer gets assigned a partition
+    /// it used to consume at an earlier rebalance. In this case, the
+    /// list of partitions will be updated with the old offset for that
+    /// partition. In this case, it is generally better to pass a copy
+    /// of the list (see `rd_kafka_topic_partition_list_copy()`).
+    /// The result of `rd_kafka_position()` is typically outdated in
+    /// RD_KAFKA_RESP_ERR__ASSIGN_PARTITIONS.
     ///
     /// @sa rd_kafka_assign()
     /// @sa rd_kafka_incremental_assign()
@@ -1836,41 +1836,41 @@ unsafe extern "C" {
     ///
     /// The following example shows the application's responsibilities:
     /// @code
-    ///    static void rebalance_cb (rd_kafka_t *rk, rd_kafka_resp_err_t err,
-    ///                              rd_kafka_topic_partition_list_t *partitions,
-    ///                              void *opaque) {
+    /// static void rebalance_cb (rd_kafka_t *rk, rd_kafka_resp_err_t err,
+    /// rd_kafka_topic_partition_list_t *partitions,
+    /// void *opaque) {
     ///
-    ///        switch (err)
-    ///        {
-    ///          case RD_KAFKA_RESP_ERR__ASSIGN_PARTITIONS:
-    ///             // application may load offets from arbitrary external
-    ///             // storage here and update \p partitions
-    ///             if (!strcmp(rd_kafka_rebalance_protocol(rk), "COOPERATIVE"))
-    ///                     rd_kafka_incremental_assign(rk, partitions);
-    ///             else // EAGER
-    ///                     rd_kafka_assign(rk, partitions);
-    ///             break;
+    /// switch (err)
+    /// {
+    /// case RD_KAFKA_RESP_ERR__ASSIGN_PARTITIONS:
+    /// // application may load offets from arbitrary external
+    /// // storage here and update `partitions
+    /// if (!strcmp(rd_kafka_rebalance_protocol(rk), "COOPERATIVE"))
+    /// rd_kafka_incremental_assign(rk, partitions);
+    /// else // EAGER
+    /// rd_kafka_assign(rk, partitions);
+    /// break;
     ///
-    ///          case RD_KAFKA_RESP_ERR__REVOKE_PARTITIONS:
-    ///             if (manual_commits) // Optional explicit manual commit
-    ///                 rd_kafka_commit(rk, partitions, 0); // sync commit
+    /// case RD_KAFKA_RESP_ERR__REVOKE_PARTITIONS:
+    /// if (manual_commits) // Optional explicit manual commit
+    /// rd_kafka_commit(rk, partitions, 0); // sync commit
     ///
-    ///             if (!strcmp(rd_kafka_rebalance_protocol(rk), "COOPERATIVE"))
-    ///                     rd_kafka_incremental_unassign(rk, partitions);
-    ///             else // EAGER
-    ///                     rd_kafka_assign(rk, NULL);
-    ///             break;
+    /// if (!strcmp(rd_kafka_rebalance_protocol(rk), "COOPERATIVE"))
+    /// rd_kafka_incremental_unassign(rk, partitions);
+    /// else // EAGER
+    /// rd_kafka_assign(rk, NULL);
+    /// break;
     ///
-    ///          default:
-    ///             handle_unlikely_error(err);
-    ///             rd_kafka_assign(rk, NULL); // sync state
-    ///             break;
-    ///         }
-    ///    }
+    /// default:
+    /// handle_unlikely_error(err);
+    /// rd_kafka_assign(rk, NULL); // sync state
+    /// break;
+    /// }
+    /// }
     /// @endcode
     ///
     /// @remark The above example lacks error handling for assign calls, see
-    ///         the examples/ directory.
+    /// the examples/ directory.
     pub fn rd_kafka_conf_set_rebalance_cb(
         conf: *mut rd_kafka_conf_t,
         rebalance_cb: ::std::option::Option<
@@ -1884,20 +1884,20 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief \b Consumer: Set offset commit callback for use with consumer groups.
+    /// \b Consumer: Set offset commit callback for use with consumer groups.
     ///
     /// The results of automatic or manual offset commits will be scheduled
     /// for this callback and is served by rd_kafka_consumer_poll().
     ///
     /// If no partitions had valid offsets to commit this callback will be called
-    /// with \p err == RD_KAFKA_RESP_ERR__NO_OFFSET which is not to be considered
+    /// with `err == RD_KAFKA_RESP_ERR__NO_OFFSET which is not to be considered
     /// an error.
     ///
-    /// The \p offsets list contains per-partition information:
-    ///   - \c offset: committed offset (attempted)
-    ///   - \c err:    commit error
+    /// The `offsets list contains per-partition information:
+    /// - `offset: committed offset (attempted)
+    /// - `err:    commit error
     ///
-    /// The callback's \p opaque argument is the opaque set with
+    /// The callback's `opaque argument is the opaque set with
     /// rd_kafka_conf_set_opaque().
     pub fn rd_kafka_conf_set_offset_commit_cb(
         conf: *mut rd_kafka_conf_t,
@@ -1912,7 +1912,7 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Set error callback in provided conf object.
+    /// Set error callback in provided conf object.
     ///
     /// The error callback is used by librdkafka to signal warnings and errors
     /// back to the application.
@@ -1922,15 +1922,15 @@ unsafe extern "C" {
     /// Given that the client and cluster configuration is correct the
     /// application should treat these as temporary errors.
     ///
-    /// \p error_cb will be triggered with \c err set to RD_KAFKA_RESP_ERR__FATAL
+    /// `error_cb will be triggered with `err set to RD_KAFKA_RESP_ERR__FATAL
     /// if a fatal error has been raised; in this case use rd_kafka_fatal_error() to
     /// retrieve the fatal error code and error string, and then begin terminating
     /// the client instance.
     ///
-    /// If no \p error_cb is registered, or RD_KAFKA_EVENT_ERROR has not been set
+    /// If no `error_cb is registered, or RD_KAFKA_EVENT_ERROR has not been set
     /// with rd_kafka_conf_set_events, then the errors will be logged instead.
     ///
-    /// The callback's \p opaque argument is the opaque set with
+    /// The callback's `opaque argument is the opaque set with
     /// rd_kafka_conf_set_opaque().
     pub fn rd_kafka_conf_set_error_cb(
         conf: *mut rd_kafka_conf_t,
@@ -1945,7 +1945,7 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Set throttle callback.
+    /// Set throttle callback.
     ///
     /// The throttle callback is used to forward broker throttle times to the
     /// application for Produce and Fetch (consume) requests.
@@ -1956,7 +1956,7 @@ unsafe extern "C" {
     /// An application must call rd_kafka_poll() or rd_kafka_consumer_poll() at
     /// regular intervals to serve queued callbacks.
     ///
-    /// The callback's \p opaque argument is the opaque set with
+    /// The callback's `opaque argument is the opaque set with
     /// rd_kafka_conf_set_opaque().
     ///
     /// @remark Requires broker version 0.9.0 or later.
@@ -1974,20 +1974,20 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Set logger callback.
+    /// Set logger callback.
     ///
     /// The default is to print to stderr, but a syslog logger is also available,
     /// see rd_kafka_log_print and rd_kafka_log_syslog for the builtin alternatives.
     /// Alternatively the application may provide its own logger callback.
-    /// Or pass \p func as NULL to disable logging.
+    /// Or pass `func as NULL to disable logging.
     ///
     /// This is the configuration alternative to the deprecated rd_kafka_set_logger()
     ///
     /// @remark The log_cb will be called spontaneously from librdkafka's internal
-    ///         threads unless logs have been forwarded to a poll queue through
-    ///         \c rd_kafka_set_log_queue().
-    ///         An application MUST NOT call any librdkafka APIs or do any prolonged
-    ///         work in a non-forwarded \c log_cb.
+    /// threads unless logs have been forwarded to a poll queue through
+    /// `rd_kafka_set_log_queue().
+    /// An application MUST NOT call any librdkafka APIs or do any prolonged
+    /// work in a non-forwarded `log_cb.
     pub fn rd_kafka_conf_set_log_cb(
         conf: *mut rd_kafka_conf_t,
         log_cb: ::std::option::Option<
@@ -2001,24 +2001,24 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Set statistics callback in provided conf object.
+    /// Set statistics callback in provided conf object.
     ///
     /// The statistics callback is triggered from rd_kafka_poll() every
-    /// \c statistics.interval.ms (needs to be configured separately).
+    /// `statistics.interval.ms (needs to be configured separately).
     /// Function arguments:
-    ///   - \p rk - Kafka handle
-    ///   - \p json - String containing the statistics data in JSON format
-    ///   - \p json_len - Length of \p json string.
-    ///   - \p opaque - Application-provided opaque as set by
-    ///                 rd_kafka_conf_set_opaque().
+    /// - `rk - Kafka handle
+    /// - `json - String containing the statistics data in JSON format
+    /// - `json_len - Length of `json string.
+    /// - `opaque - Application-provided opaque as set by
+    /// rd_kafka_conf_set_opaque().
     ///
-    /// For more information on the format of \p json, see
-    /// https://github.com/confluentinc/librdkafka/wiki/Statistics
+    /// For more information on the format of `json, see
+    /// <https://github.com/confluentinc/librdkafka/wiki/Statistics>
     ///
-    /// If the application wishes to hold on to the \p json pointer and free
-    /// it at a later time it must return 1 from the \p stats_cb.
-    /// If the application returns 0 from the \p stats_cb then librdkafka
-    /// will immediately free the \p json pointer.
+    /// If the application wishes to hold on to the `json pointer and free
+    /// it at a later time it must return 1 from the `stats_cb.
+    /// If the application returns 0 from the `stats_cb then librdkafka
+    /// will immediately free the `json pointer.
     ///
     /// See STATISTICS.md for a full definition of the JSON object.
     pub fn rd_kafka_conf_set_stats_cb(
@@ -2034,20 +2034,20 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Set SASL/OAUTHBEARER token refresh callback in provided conf object.
+    /// Set SASL/OAUTHBEARER token refresh callback in provided conf object.
     ///
-    /// @param conf the configuration to mutate.
-    /// @param oauthbearer_token_refresh_cb the callback to set; callback function
-    ///  arguments:<br>
-    ///   \p rk - Kafka handle<br>
-    ///   \p oauthbearer_config - Value of configuration property
-    ///                           sasl.oauthbearer.config.
-    ///   \p opaque - Application-provided opaque set via
-    ///               rd_kafka_conf_set_opaque()
+    /// - `conf`: the configuration to mutate.
+    /// - `oauthbearer_token_refresh_cb`: the callback to set; callback function
+    /// arguments:<br>
+    /// `rk - Kafka handle<br>
+    /// `oauthbearer_config - Value of configuration property
+    /// sasl.oauthbearer.config.
+    /// `opaque - Application-provided opaque set via
+    /// rd_kafka_conf_set_opaque()
     ///
     /// The SASL/OAUTHBEARER token refresh callback is triggered via rd_kafka_poll()
     /// whenever OAUTHBEARER is the SASL mechanism and a token needs to be retrieved,
-    /// typically based on the configuration defined in \c sasl.oauthbearer.config.
+    /// typically based on the configuration defined in `sasl.oauthbearer.config.
     ///
     /// The callback should invoke rd_kafka_oauthbearer_set_token()
     /// or rd_kafka_oauthbearer_set_token_failure() to indicate success
@@ -2055,7 +2055,7 @@ unsafe extern "C" {
     ///
     /// The refresh operation is eventable and may be received via
     /// rd_kafka_queue_poll() with an event type of
-    /// \c RD_KAFKA_EVENT_OAUTHBEARER_TOKEN_REFRESH.
+    /// `RD_KAFKA_EVENT_OAUTHBEARER_TOKEN_REFRESH.
     ///
     /// Note that before any SASL/OAUTHBEARER broker connection can succeed the
     /// application must call rd_kafka_oauthbearer_set_token() once -- either
@@ -2076,7 +2076,7 @@ unsafe extern "C" {
     ///
     /// An unsecured JWT refresh handler is provided by librdkafka for development
     /// and testing purposes, it is enabled by setting
-    /// the \c enable.sasl.oauthbearer.unsecure.jwt property to true and is
+    /// the `enable.sasl.oauthbearer.unsecure.jwt property to true and is
     /// mutually exclusive to using a refresh callback.
     ///
     /// @sa rd_kafka_sasl_background_callbacks_enable()
@@ -2093,8 +2093,8 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Enable/disable creation of a queue specific to SASL events
-    ///        and callbacks.
+    /// Enable/disable creation of a queue specific to SASL events
+    /// and callbacks.
     ///
     /// For SASL mechanisms that trigger callbacks (currently OAUTHBEARER) this
     /// configuration API allows an application to get a dedicated
@@ -2109,11 +2109,11 @@ unsafe extern "C" {
     /// to librdkafka's background thread, see
     /// rd_kafka_sasl_background_callbacks_enable().
     ///
-    /// By default (\p enable = 0) the main queue (as served by rd_kafka_poll(),
+    /// By default (`enable = 0) the main queue (as served by rd_kafka_poll(),
     /// et.al.) is used for SASL callbacks.
     ///
     /// @remark The SASL queue is currently only used by the SASL OAUTHBEARER
-    ///         mechanism's token_refresh_cb().
+    /// mechanism's token_refresh_cb().
     ///
     /// @sa rd_kafka_queue_get_sasl()
     /// @sa rd_kafka_sasl_background_callbacks_enable()
@@ -2123,19 +2123,19 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Set socket callback.
+    /// Set socket callback.
     ///
     /// The socket callback is responsible for opening a socket
-    /// according to the supplied \p domain, \p type and \p protocol.
-    /// The socket shall be created with \c CLOEXEC set in a racefree fashion, if
+    /// according to the supplied `domain, `type and `protocol.
+    /// The socket shall be created with `CLOEXEC set in a racefree fashion, if
     /// possible.
     ///
-    /// The callback's \p opaque argument is the opaque set with
+    /// The callback's `opaque argument is the opaque set with
     /// rd_kafka_conf_set_opaque().
     ///
     /// Default:
-    ///  - on linux: racefree CLOEXEC
-    ///  - others  : non-racefree CLOEXEC
+    /// - on linux: racefree CLOEXEC
+    /// - others  : non-racefree CLOEXEC
     ///
     /// @remark The callback will be called from an internal librdkafka thread.
     pub fn rd_kafka_conf_set_socket_cb(
@@ -2151,16 +2151,16 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Set connect callback.
+    /// Set connect callback.
     ///
-    /// The connect callback is responsible for connecting socket \p sockfd
-    /// to peer address \p addr.
-    /// The \p id field contains the broker identifier.
+    /// The connect callback is responsible for connecting socket `sockfd
+    /// to peer address `addr.
+    /// The `id field contains the broker identifier.
     ///
-    /// \p connect_cb shall return 0 on success (socket connected) or an error
+    /// `connect_cb shall return 0 on success (socket connected) or an error
     /// number (errno) on error.
     ///
-    /// The callback's \p opaque argument is the opaque set with
+    /// The callback's `opaque argument is the opaque set with
     /// rd_kafka_conf_set_opaque().
     ///
     /// @remark The callback will be called from an internal librdkafka thread.
@@ -2178,11 +2178,11 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Set close socket callback.
+    /// Set close socket callback.
     ///
     /// Close a socket (optionally opened with socket_cb()).
     ///
-    /// The callback's \p opaque argument is the opaque set with
+    /// The callback's `opaque argument is the opaque set with
     /// rd_kafka_conf_set_opaque().
     ///
     /// @remark The callback will be called from an internal librdkafka thread.
@@ -2197,18 +2197,18 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Set open callback.
+    /// Set open callback.
     ///
     /// The open callback is responsible for opening the file specified by
     /// pathname, flags and mode.
-    /// The file shall be opened with \c CLOEXEC set in a racefree fashion, if
+    /// The file shall be opened with `CLOEXEC set in a racefree fashion, if
     /// possible.
     ///
     /// Default:
-    ///  - on linux: racefree CLOEXEC
-    ///  - others  : non-racefree CLOEXEC
+    /// - on linux: racefree CLOEXEC
+    /// - others  : non-racefree CLOEXEC
     ///
-    /// The callback's \p opaque argument is the opaque set with
+    /// The callback's `opaque argument is the opaque set with
     /// rd_kafka_conf_set_opaque().
     ///
     /// @remark The callback will be called from an internal librdkafka thread.
@@ -2226,21 +2226,21 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Set address resolution callback.
+    /// Set address resolution callback.
     ///
-    /// The callback is responsible for resolving the hostname \p node and the
-    /// service \p service into a list of socket addresses as \c getaddrinfo(3)
-    /// would. The \p hints and \p res parameters function as they do for
-    /// \c getaddrinfo(3). The callback's \p opaque argument is the opaque set with
+    /// The callback is responsible for resolving the hostname `node and the
+    /// service `service into a list of socket addresses as `getaddrinfo(3)
+    /// would. The `hints and `res parameters function as they do for
+    /// `getaddrinfo(3). The callback's `opaque argument is the opaque set with
     /// rd_kafka_conf_set_opaque().
     ///
-    /// If the callback is invoked with a NULL \p node, \p service, and \p hints, the
-    /// callback should instead free the addrinfo struct specified in \p res. In this
+    /// If the callback is invoked with a NULL `node, `service, and `hints, the
+    /// callback should instead free the addrinfo struct specified in `res. In this
     /// case the callback must succeed; the return value will not be checked by the
     /// caller.
     ///
     /// The callback's return value is interpreted as the return value of \p
-    /// \c getaddrinfo(3).
+    /// `getaddrinfo(3).
     ///
     /// @remark The callback will be called from an internal librdkafka thread.
     pub fn rd_kafka_conf_set_resolve_cb(
@@ -2257,45 +2257,45 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Sets the verification callback of the broker certificate
+    /// Sets the verification callback of the broker certificate
     ///
     /// The verification callback is triggered from internal librdkafka threads
     /// upon connecting to a broker. On each connection attempt the callback
     /// will be called for each certificate in the broker's certificate chain,
     /// starting at the root certification, as long as the application callback
     /// returns 1 (valid certificate).
-    /// \c broker_name and \c broker_id correspond to the broker the connection
+    /// `broker_name and `broker_id correspond to the broker the connection
     /// is being made to.
-    /// The \c x509_error argument indicates if OpenSSL's verification of
+    /// The `x509_error argument indicates if OpenSSL's verification of
     /// the certificate succeed (0) or failed (an OpenSSL error code).
     /// The application may set the SSL context error code by returning 0
     /// from the verify callback and providing a non-zero SSL context error code
-    /// in \c x509_error.
-    /// If the verify callback sets \c x509_error to 0, returns 1, and the
-    /// original \c x509_error was non-zero, the error on the SSL context will
+    /// in `x509_error.
+    /// If the verify callback sets `x509_error to 0, returns 1, and the
+    /// original `x509_error was non-zero, the error on the SSL context will
     /// be cleared.
-    /// \c x509_error is always a valid pointer to an int.
+    /// `x509_error is always a valid pointer to an int.
     ///
-    /// \c depth is the depth of the current certificate in the chain, starting
+    /// `depth is the depth of the current certificate in the chain, starting
     /// at the root certificate.
     ///
-    /// The certificate itself is passed in binary DER format in \c buf of
-    /// size \c size.
+    /// The certificate itself is passed in binary DER format in `buf of
+    /// size `size.
     ///
     /// The callback must return 1 if verification succeeds, or
     /// 0 if verification fails and then write a human-readable error message
-    /// to \c errstr (limited to \c errstr_size bytes, including nul-term).
+    /// to `errstr (limited to `errstr_size bytes, including nul-term).
     ///
-    /// The callback's \p opaque argument is the opaque set with
+    /// The callback's `opaque argument is the opaque set with
     /// rd_kafka_conf_set_opaque().
     ///
-    /// @returns RD_KAFKA_CONF_OK if SSL is supported in this build, else
-    ///          RD_KAFKA_CONF_INVALID.
+    /// Returns RD_KAFKA_CONF_OK if SSL is supported in this build, else
+    /// RD_KAFKA_CONF_INVALID.
     ///
     /// @warning This callback will be called from internal librdkafka threads.
     ///
     /// @remark See <openssl/x509_vfy.h> in the OpenSSL source distribution
-    ///         for a list of \p x509_error codes.
+    /// for a list of `x509_error codes.
     pub fn rd_kafka_conf_set_ssl_cert_verify_cb(
         conf: *mut rd_kafka_conf_t,
         ssl_cert_verify_cb: ::std::option::Option<
@@ -2317,75 +2317,75 @@ unsafe extern "C" {
 #[repr(u32)]
 /// @enum rd_kafka_cert_type_t
 ///
-/// @brief SSL certificate type
+/// SSL certificate type
 ///
 /// @sa rd_kafka_conf_set_ssl_cert
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_cert_type_t {
-    ///< Client's public key
+    /// < Client's public key
     RD_KAFKA_CERT_PUBLIC_KEY = 0,
-    ///< Client's private key
+    /// < Client's private key
     RD_KAFKA_CERT_PRIVATE_KEY = 1,
-    ///< CA certificate
+    /// < CA certificate
     RD_KAFKA_CERT_CA = 2,
     RD_KAFKA_CERT__CNT = 3,
 }
 #[repr(u32)]
 /// @enum rd_kafka_cert_enc_t
 ///
-/// @brief SSL certificate encoding
+/// SSL certificate encoding
 ///
 /// @sa rd_kafka_conf_set_ssl_cert
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_cert_enc_t {
-    ///< PKCS#12
+    /// < PKCS#12
     RD_KAFKA_CERT_ENC_PKCS12 = 0,
-    ///< DER / binary X.509 ASN1
+    /// < DER / binary X.509 ASN1
     RD_KAFKA_CERT_ENC_DER = 1,
-    ///< PEM
+    /// < PEM
     RD_KAFKA_CERT_ENC_PEM = 2,
     RD_KAFKA_CERT_ENC__CNT = 3,
 }
 unsafe extern "C" {
-    /// @brief Set certificate/key \p cert_type from the \p cert_enc encoded
-    ///        memory at \p buffer of \p size bytes.
+    /// Set certificate/key \p cert_type from the \p cert_enc encoded
+    /// memory at `buffer of `size bytes.
     ///
-    /// @param conf Configuration object.
-    /// @param cert_type Certificate or key type to configure.
-    /// @param cert_enc  Buffer \p encoding type.
-    /// @param buffer Memory pointer to encoded certificate or key.
-    ///               The memory is not referenced after this function returns.
-    /// @param size Size of memory at \p buffer.
-    /// @param errstr Memory were a human-readable error string will be written
-    ///               on failure.
-    /// @param errstr_size Size of \p errstr, including space for nul-terminator.
+    /// - `conf`: Configuration object.
+    /// - `cert_type`: Certificate or key type to configure.
+    /// - `cert_enc`: Buffer \p encoding type.
+    /// - `buffer`: Memory pointer to encoded certificate or key.
+    /// The memory is not referenced after this function returns.
+    /// - `size`: Size of memory at \p buffer.
+    /// - `errstr`: Memory were a human-readable error string will be written
+    /// on failure.
+    /// - `errstr_size`: Size of \p errstr, including space for nul-terminator.
     ///
-    /// @returns RD_KAFKA_CONF_OK on success or RD_KAFKA_CONF_INVALID if the
-    ///          memory in \p buffer is of incorrect encoding, or if librdkafka
-    ///          was not built with SSL support.
+    /// Returns RD_KAFKA_CONF_OK on success or RD_KAFKA_CONF_INVALID if the
+    /// memory in `buffer is of incorrect encoding, or if librdkafka
+    /// was not built with SSL support.
     ///
-    /// @remark Calling this method multiple times with the same \p cert_type
-    ///         will replace the previous value.
+    /// @remark Calling this method multiple times with the same `cert_type
+    /// will replace the previous value.
     ///
-    /// @remark Calling this method with \p buffer set to NULL will clear the
-    ///         configuration for \p cert_type.
+    /// @remark Calling this method with `buffer set to NULL will clear the
+    /// configuration for `cert_type.
     ///
     /// @remark The private key may require a password, which must be specified
-    ///         with the `ssl.key.password` configuration property prior to
-    ///         calling this function.
+    /// with the `ssl.key.password` configuration property prior to
+    /// calling this function.
     ///
     /// @remark Private and public keys in PEM format may also be set with the
-    ///         `ssl.key.pem` and `ssl.certificate.pem` configuration properties.
+    /// `ssl.key.pem` and `ssl.certificate.pem` configuration properties.
     ///
     /// @remark CA certificate in PEM format may also be set with the
-    ///         `ssl.ca.pem` configuration property.
+    /// `ssl.ca.pem` configuration property.
     ///
     /// @remark When librdkafka is linked to OpenSSL 3.0 and the certificate is
-    ///         encoded using an obsolete cipher, it might be necessary to set up
-    ///         an OpenSSL configuration file to load the "legacy" provider and
-    ///         set the OPENSSL_CONF environment variable.
-    ///         See
-    /// https://github.com/openssl/openssl/blob/master/README-PROVIDERS.md for more
+    /// encoded using an obsolete cipher, it might be necessary to set up
+    /// an OpenSSL configuration file to load the "legacy" provider and
+    /// set the OPENSSL_CONF environment variable.
+    /// See
+    /// <https://github.com/openssl/openssl/blob/master/README-PROVIDERS.md> for more
     /// information.
     pub fn rd_kafka_conf_set_ssl_cert(
         conf: *mut rd_kafka_conf_t,
@@ -2398,25 +2398,25 @@ unsafe extern "C" {
     ) -> rd_kafka_conf_res_t;
 }
 unsafe extern "C" {
-    /// @brief Set callback_data for OpenSSL engine.
+    /// Set callback_data for OpenSSL engine.
     ///
-    /// @param conf Configuration object.
-    /// @param callback_data passed to engine callbacks,
-    ///                      e.g. \c ENGINE_load_ssl_client_cert.
+    /// - `conf`: Configuration object.
+    /// - `callback_data`: passed to engine callbacks,
+    /// e.g. `ENGINE_load_ssl_client_cert.
     ///
-    /// @remark The \c ssl.engine.location configuration must be set for this
-    ///         to have affect.
+    /// @remark The `ssl.engine.location configuration must be set for this
+    /// to have affect.
     ///
-    /// @remark The memory pointed to by \p value must remain valid for the
-    ///         lifetime of the configuration object and any Kafka clients that
-    ///         use it.
+    /// @remark The memory pointed to by `value must remain valid for the
+    /// lifetime of the configuration object and any Kafka clients that
+    /// use it.
     pub fn rd_kafka_conf_set_engine_callback_data(
         conf: *mut rd_kafka_conf_t,
         callback_data: *mut ::std::os::raw::c_void,
     );
 }
 unsafe extern "C" {
-    /// @brief Sets the application's opaque pointer that will be passed to callbacks
+    /// Sets the application's opaque pointer that will be passed to callbacks
     ///
     /// @sa rd_kafka_opaque()
     pub fn rd_kafka_conf_set_opaque(
@@ -2425,60 +2425,60 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Retrieves the opaque pointer previously set
-    ///        with rd_kafka_conf_set_opaque()
+    /// Retrieves the opaque pointer previously set
+    /// with rd_kafka_conf_set_opaque()
     pub fn rd_kafka_opaque(rk: *const rd_kafka_t) -> *mut ::std::os::raw::c_void;
 }
 unsafe extern "C" {
-    /// @brief Sets the default topic configuration to use for automatically
-    ///        subscribed topics (e.g., through pattern-matched topics).
-    ///        The topic config object is not usable after this call.
+    /// Sets the default topic configuration to use for automatically
+    /// subscribed topics (e.g., through pattern-matched topics).
+    /// The topic config object is not usable after this call.
     ///
     /// @warning Any topic configuration settings that have been set on the
-    ///          global rd_kafka_conf_t object will be overwritten by this call
-    ///          since the implicitly created default topic config object is
-    ///          replaced by the user-supplied one.
+    /// global rd_kafka_conf_t object will be overwritten by this call
+    /// since the implicitly created default topic config object is
+    /// replaced by the user-supplied one.
     ///
     /// @deprecated Set default topic level configuration on the
-    ///             global rd_kafka_conf_t object instead.
+    /// global rd_kafka_conf_t object instead.
     pub fn rd_kafka_conf_set_default_topic_conf(
         conf: *mut rd_kafka_conf_t,
         tconf: *mut rd_kafka_topic_conf_t,
     );
 }
 unsafe extern "C" {
-    /// @brief Gets the default topic configuration as previously set with
-    ///        rd_kafka_conf_set_default_topic_conf() or that was implicitly created
-    ///        by configuring a topic-level property on the global \p conf object.
+    /// Gets the default topic configuration as previously set with
+    /// rd_kafka_conf_set_default_topic_conf() or that was implicitly created
+    /// by configuring a topic-level property on the global `conf object.
     ///
-    /// @returns the \p conf's default topic configuration (if any), or NULL.
+    /// Returns the \p conf's default topic configuration (if any), or NULL.
     ///
-    /// @warning The returned topic configuration object is owned by the \p conf
-    ///          object. It may be modified but not destroyed and its lifetime is
-    ///          the same as the \p conf object or the next call to
-    ///          rd_kafka_conf_set_default_topic_conf().
+    /// @warning The returned topic configuration object is owned by the `conf
+    /// object. It may be modified but not destroyed and its lifetime is
+    /// the same as the `conf object or the next call to
+    /// rd_kafka_conf_set_default_topic_conf().
     pub fn rd_kafka_conf_get_default_topic_conf(
         conf: *mut rd_kafka_conf_t,
     ) -> *mut rd_kafka_topic_conf_t;
 }
 unsafe extern "C" {
-    /// @brief Retrieve configuration value for property \p name.
+    /// Retrieve configuration value for property \p name.
     ///
-    /// If \p dest is non-NULL the value will be written to \p dest with at
-    /// most \p dest_size.
+    /// If `dest is non-NULL the value will be written to `dest with at
+    /// most `dest_size.
     ///
-    /// \p *dest_size is updated to the full length of the value, thus if
-    /// \p *dest_size initially is smaller than the full length the application
-    /// may reallocate \p dest to fit the returned \p *dest_size and try again.
+    /// `*dest_size is updated to the full length of the value, thus if
+    /// `*dest_size initially is smaller than the full length the application
+    /// may reallocate `dest to fit the returned `*dest_size and try again.
     ///
-    /// If \p dest is NULL only the full length of the value is returned.
+    /// If `dest is NULL only the full length of the value is returned.
     ///
     /// Fallthrough:
-    /// Topic-level configuration properties from the \c default_topic_conf
+    /// Topic-level configuration properties from the `default_topic_conf
     /// may be retrieved using this interface.
     ///
-    /// @returns \p RD_KAFKA_CONF_OK if the property name matched, else
-    /// \p RD_KAFKA_CONF_UNKNOWN.
+    /// Returns \p RD_KAFKA_CONF_OK if the property name matched, else
+    /// `RD_KAFKA_CONF_UNKNOWN.
     pub fn rd_kafka_conf_get(
         conf: *const rd_kafka_conf_t,
         name: *const ::std::os::raw::c_char,
@@ -2487,7 +2487,7 @@ unsafe extern "C" {
     ) -> rd_kafka_conf_res_t;
 }
 unsafe extern "C" {
-    /// @brief Retrieve topic configuration value for property \p name.
+    /// Retrieve topic configuration value for property \p name.
     ///
     /// @sa rd_kafka_conf_get()
     pub fn rd_kafka_topic_conf_get(
@@ -2498,10 +2498,10 @@ unsafe extern "C" {
     ) -> rd_kafka_conf_res_t;
 }
 unsafe extern "C" {
-    /// @brief Dump the configuration properties and values of \p conf to an array
-    ///        with \"key\", \"value\" pairs.
+    /// Dump the configuration properties and values of \p conf to an array
+    /// with \"key\", \"value\" pairs.
     ///
-    /// The number of entries in the array is returned in \p *cntp.
+    /// The number of entries in the array is returned in `*cntp.
     ///
     /// The dump must be freed with `rd_kafka_conf_dump_free()`.
     pub fn rd_kafka_conf_dump(
@@ -2510,10 +2510,10 @@ unsafe extern "C" {
     ) -> *mut *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Dump the topic configuration properties and values of \p conf
-    ///        to an array with \"key\", \"value\" pairs.
+    /// Dump the topic configuration properties and values of \p conf
+    /// to an array with \"key\", \"value\" pairs.
     ///
-    /// The number of entries in the array is returned in \p *cntp.
+    /// The number of entries in the array is returned in `*cntp.
     ///
     /// The dump must be freed with `rd_kafka_conf_dump_free()`.
     pub fn rd_kafka_topic_conf_dump(
@@ -2522,46 +2522,46 @@ unsafe extern "C" {
     ) -> *mut *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Frees a configuration dump returned from `rd_kafka_conf_dump()` or
-    ///        `rd_kafka_topic_conf_dump().
+    /// Frees a configuration dump returned from `rd_kafka_conf_dump()` or
+    /// `rd_kafka_topic_conf_dump().
     pub fn rd_kafka_conf_dump_free(arr: *mut *const ::std::os::raw::c_char, cnt: usize);
 }
 unsafe extern "C" {
-    /// @brief Prints a table to \p fp of all supported configuration properties,
-    ///        their default values as well as a description.
+    /// Prints a table to \p fp of all supported configuration properties,
+    /// their default values as well as a description.
     ///
     /// @remark All properties and properties and values are shown, even those
-    ///         that have been disabled at build time due to missing dependencies.
+    /// that have been disabled at build time due to missing dependencies.
     pub fn rd_kafka_conf_properties_show(fp: *mut FILE);
 }
 unsafe extern "C" {
-    /// @brief Create topic configuration object
+    /// Create topic configuration object
     ///
     /// @sa Same semantics as for rd_kafka_conf_new().
     pub fn rd_kafka_topic_conf_new() -> *mut rd_kafka_topic_conf_t;
 }
 unsafe extern "C" {
-    /// @brief Creates a copy/duplicate of topic configuration object \p conf.
+    /// Creates a copy/duplicate of topic configuration object \p conf.
     pub fn rd_kafka_topic_conf_dup(
         conf: *const rd_kafka_topic_conf_t,
     ) -> *mut rd_kafka_topic_conf_t;
 }
 unsafe extern "C" {
-    /// @brief Creates a copy/duplicate of \p rk 's default topic configuration
-    ///        object.
+    /// Creates a copy/duplicate of \p rk 's default topic configuration
+    /// object.
     pub fn rd_kafka_default_topic_conf_dup(rk: *mut rd_kafka_t) -> *mut rd_kafka_topic_conf_t;
 }
 unsafe extern "C" {
-    /// @brief Destroys a topic conf object.
+    /// Destroys a topic conf object.
     pub fn rd_kafka_topic_conf_destroy(topic_conf: *mut rd_kafka_topic_conf_t);
 }
 unsafe extern "C" {
-    /// @brief Sets a single rd_kafka_topic_conf_t value by property name.
+    /// Sets a single rd_kafka_topic_conf_t value by property name.
     ///
-    /// \p topic_conf should have been previously set up
+    /// `topic_conf should have been previously set up
     /// with `rd_kafka_topic_conf_new()`.
     ///
-    /// @returns rd_kafka_conf_res_t to indicate success or failure.
+    /// Returns rd_kafka_conf_res_t to indicate success or failure.
     pub fn rd_kafka_topic_conf_set(
         conf: *mut rd_kafka_topic_conf_t,
         name: *const ::std::os::raw::c_char,
@@ -2571,8 +2571,8 @@ unsafe extern "C" {
     ) -> rd_kafka_conf_res_t;
 }
 unsafe extern "C" {
-    /// @brief Sets the application's opaque pointer that will be passed to all topic
-    /// callbacks as the \c rkt_opaque argument.
+    /// Sets the application's opaque pointer that will be passed to all topic
+    /// callbacks as the `rkt_opaque argument.
     ///
     /// @sa rd_kafka_topic_opaque()
     pub fn rd_kafka_topic_conf_set_opaque(
@@ -2581,23 +2581,23 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief \b Producer: Set partitioner callback in provided topic conf object.
+    /// \b Producer: Set partitioner callback in provided topic conf object.
     ///
     /// The partitioner may be called in any thread at any time,
     /// it may be called multiple times for the same message/key.
     ///
-    /// The callback's \p rkt_opaque argument is the opaque set by
+    /// The callback's `rkt_opaque argument is the opaque set by
     /// rd_kafka_topic_conf_set_opaque().
-    /// The callback's \p msg_opaque argument is the per-message opaque
+    /// The callback's `msg_opaque argument is the per-message opaque
     /// passed to produce().
     ///
     /// Partitioner function constraints:
-    ///   - MUST NOT call any rd_kafka_*() functions except:
-    ///       rd_kafka_topic_partition_available()
-    ///   - MUST NOT block or execute for prolonged periods of time.
-    ///   - MUST return a value between 0 and partition_cnt-1, or the
-    ///     special \c RD_KAFKA_PARTITION_UA value if partitioning
-    ///     could not be performed.
+    /// - MUST NOT call any rd_kafka_*() functions except:
+    /// rd_kafka_topic_partition_available()
+    /// - MUST NOT block or execute for prolonged periods of time.
+    /// - MUST return a value between 0 and partition_cnt-1, or the
+    /// special `RD_KAFKA_PARTITION_UA value if partitioning
+    /// could not be performed.
     pub fn rd_kafka_topic_conf_set_partitioner_cb(
         topic_conf: *mut rd_kafka_topic_conf_t,
         partitioner: ::std::option::Option<
@@ -2613,29 +2613,29 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief \b Producer: Set message queueing order comparator callback.
+    /// \b Producer: Set message queueing order comparator callback.
     ///
     /// The callback may be called in any thread at any time,
     /// it may be called multiple times for the same message.
     ///
     /// Ordering comparator function constraints:
-    ///   - MUST be stable sort (same input gives same output).
-    ///   - MUST NOT call any rd_kafka_*() functions.
-    ///   - MUST NOT block or execute for prolonged periods of time.
+    /// - MUST be stable sort (same input gives same output).
+    /// - MUST NOT call any rd_kafka_*() functions.
+    /// - MUST NOT block or execute for prolonged periods of time.
     ///
     /// The comparator shall compare the two messages and return:
-    ///  - < 0 if message \p a should be inserted before message \p b.
-    ///  - >=0 if message \p a should be inserted after message \p b.
+    /// - < 0 if message `a should be inserted before message `b.
+    /// - >=0 if message `a should be inserted after message `b.
     ///
     /// @remark Insert sorting will be used to enqueue the message in the
-    ///         correct queue position, this comes at a cost of O(n).
+    /// correct queue position, this comes at a cost of O(n).
     ///
     /// @remark If `queuing.strategy=fifo` new messages are enqueued to the
-    ///         tail of the queue regardless of msg_order_cmp, but retried messages
-    ///         are still affected by msg_order_cmp.
+    /// tail of the queue regardless of msg_order_cmp, but retried messages
+    /// are still affected by msg_order_cmp.
     ///
     /// @warning THIS IS AN EXPERIMENTAL API, SUBJECT TO CHANGE OR REMOVAL,
-    ///          DO NOT USE IN PRODUCTION.
+    /// DO NOT USE IN PRODUCTION.
     pub fn rd_kafka_topic_conf_set_msg_order_cmp(
         topic_conf: *mut rd_kafka_topic_conf_t,
         msg_order_cmp: ::std::option::Option<
@@ -2647,9 +2647,9 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Check if partition is available (has a leader broker).
+    /// Check if partition is available (has a leader broker).
     ///
-    /// @returns 1 if the partition is available, else 0.
+    /// Returns 1 if the partition is available, else 0.
     ///
     /// @warning This function must only be called from inside a partitioner function
     pub fn rd_kafka_topic_partition_available(
@@ -2658,16 +2658,16 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Random partitioner.
+    /// Random partitioner.
     ///
     /// Will try not to return unavailable partitions.
     ///
-    /// The \p rkt_opaque argument is the opaque set by
+    /// The `rkt_opaque argument is the opaque set by
     /// rd_kafka_topic_conf_set_opaque().
-    /// The \p msg_opaque argument is the per-message opaque
+    /// The `msg_opaque argument is the per-message opaque
     /// passed to produce().
     ///
-    /// @returns a random partition between 0 and \p partition_cnt - 1.
+    /// Returns a random partition between 0 and \p partition_cnt - 1.
     pub fn rd_kafka_msg_partitioner_random(
         rkt: *const rd_kafka_topic_t,
         key: *const ::std::os::raw::c_void,
@@ -2678,17 +2678,17 @@ unsafe extern "C" {
     ) -> i32;
 }
 unsafe extern "C" {
-    /// @brief Consistent partitioner.
+    /// Consistent partitioner.
     ///
     /// Uses consistent hashing to map identical keys onto identical partitions.
     ///
-    /// The \p rkt_opaque argument is the opaque set by
+    /// The `rkt_opaque argument is the opaque set by
     /// rd_kafka_topic_conf_set_opaque().
-    /// The \p msg_opaque argument is the per-message opaque
+    /// The `msg_opaque argument is the per-message opaque
     /// passed to produce().
     ///
-    /// @returns a \"random\" partition between 0 and \p partition_cnt - 1 based on
-    ///          the CRC value of the key
+    /// Returns a \"random\" partition between 0 and \p partition_cnt - 1 based on
+    /// the CRC value of the key
     pub fn rd_kafka_msg_partitioner_consistent(
         rkt: *const rd_kafka_topic_t,
         key: *const ::std::os::raw::c_void,
@@ -2699,19 +2699,19 @@ unsafe extern "C" {
     ) -> i32;
 }
 unsafe extern "C" {
-    /// @brief Consistent-Random partitioner.
+    /// Consistent-Random partitioner.
     ///
     /// This is the default partitioner.
     /// Uses consistent hashing to map identical keys onto identical partitions, and
     /// messages without keys will be assigned via the random partitioner.
     ///
-    /// The \p rkt_opaque argument is the opaque set by
+    /// The `rkt_opaque argument is the opaque set by
     /// rd_kafka_topic_conf_set_opaque().
-    /// The \p msg_opaque argument is the per-message opaque
+    /// The `msg_opaque argument is the per-message opaque
     /// passed to produce().
     ///
-    /// @returns a \"random\" partition between 0 and \p partition_cnt - 1 based on
-    ///          the CRC value of the key (if provided)
+    /// Returns a \"random\" partition between 0 and \p partition_cnt - 1 based on
+    /// the CRC value of the key (if provided)
     pub fn rd_kafka_msg_partitioner_consistent_random(
         rkt: *const rd_kafka_topic_t,
         key: *const ::std::os::raw::c_void,
@@ -2722,17 +2722,17 @@ unsafe extern "C" {
     ) -> i32;
 }
 unsafe extern "C" {
-    /// @brief Murmur2 partitioner (Java compatible).
+    /// Murmur2 partitioner (Java compatible).
     ///
     /// Uses consistent hashing to map identical keys onto identical partitions
     /// using Java-compatible Murmur2 hashing.
     ///
-    /// The \p rkt_opaque argument is the opaque set by
+    /// The `rkt_opaque argument is the opaque set by
     /// rd_kafka_topic_conf_set_opaque().
-    /// The \p msg_opaque argument is the per-message opaque
+    /// The `msg_opaque argument is the per-message opaque
     /// passed to produce().
     ///
-    /// @returns a partition between 0 and \p partition_cnt - 1.
+    /// Returns a partition between 0 and \p partition_cnt - 1.
     pub fn rd_kafka_msg_partitioner_murmur2(
         rkt: *const rd_kafka_topic_t,
         key: *const ::std::os::raw::c_void,
@@ -2743,18 +2743,18 @@ unsafe extern "C" {
     ) -> i32;
 }
 unsafe extern "C" {
-    /// @brief Consistent-Random Murmur2 partitioner (Java compatible).
+    /// Consistent-Random Murmur2 partitioner (Java compatible).
     ///
     /// Uses consistent hashing to map identical keys onto identical partitions
     /// using Java-compatible Murmur2 hashing.
     /// Messages without keys will be assigned via the random partitioner.
     ///
-    /// The \p rkt_opaque argument is the opaque set by
+    /// The `rkt_opaque argument is the opaque set by
     /// rd_kafka_topic_conf_set_opaque().
-    /// The \p msg_opaque argument is the per-message opaque
+    /// The `msg_opaque argument is the per-message opaque
     /// passed to produce().
     ///
-    /// @returns a partition between 0 and \p partition_cnt - 1.
+    /// Returns a partition between 0 and \p partition_cnt - 1.
     pub fn rd_kafka_msg_partitioner_murmur2_random(
         rkt: *const rd_kafka_topic_t,
         key: *const ::std::os::raw::c_void,
@@ -2765,17 +2765,17 @@ unsafe extern "C" {
     ) -> i32;
 }
 unsafe extern "C" {
-    /// @brief FNV-1a partitioner.
+    /// FNV-1a partitioner.
     ///
     /// Uses consistent hashing to map identical keys onto identical partitions
     /// using FNV-1a hashing.
     ///
-    /// The \p rkt_opaque argument is the opaque set by
+    /// The `rkt_opaque argument is the opaque set by
     /// rd_kafka_topic_conf_set_opaque().
-    /// The \p msg_opaque argument is the per-message opaque
+    /// The `msg_opaque argument is the per-message opaque
     /// passed to produce().
     ///
-    /// @returns a partition between 0 and \p partition_cnt - 1.
+    /// Returns a partition between 0 and \p partition_cnt - 1.
     pub fn rd_kafka_msg_partitioner_fnv1a(
         rkt: *const rd_kafka_topic_t,
         key: *const ::std::os::raw::c_void,
@@ -2786,18 +2786,18 @@ unsafe extern "C" {
     ) -> i32;
 }
 unsafe extern "C" {
-    /// @brief Consistent-Random FNV-1a partitioner.
+    /// Consistent-Random FNV-1a partitioner.
     ///
     /// Uses consistent hashing to map identical keys onto identical partitions
     /// using FNV-1a hashing.
     /// Messages without keys will be assigned via the random partitioner.
     ///
-    /// The \p rkt_opaque argument is the opaque set by
+    /// The `rkt_opaque argument is the opaque set by
     /// rd_kafka_topic_conf_set_opaque().
-    /// The \p msg_opaque argument is the per-message opaque
+    /// The `msg_opaque argument is the per-message opaque
     /// passed to produce().
     ///
-    /// @returns a partition between 0 and \p partition_cnt - 1.
+    /// Returns a partition between 0 and \p partition_cnt - 1.
     pub fn rd_kafka_msg_partitioner_fnv1a_random(
         rkt: *const rd_kafka_topic_t,
         key: *const ::std::os::raw::c_void,
@@ -2808,28 +2808,28 @@ unsafe extern "C" {
     ) -> i32;
 }
 unsafe extern "C" {
-    /// @brief Creates a new Kafka handle and starts its operation according to the
-    ///        specified \p type (\p RD_KAFKA_CONSUMER or \p RD_KAFKA_PRODUCER).
+    /// Creates a new Kafka handle and starts its operation according to the
+    /// specified `type (`RD_KAFKA_CONSUMER or `RD_KAFKA_PRODUCER).
     ///
-    /// \p conf is an optional struct created with `rd_kafka_conf_new()` that will
+    /// `conf is an optional struct created with `rd_kafka_conf_new()` that will
     /// be used instead of the default configuration.
-    /// The \p conf object is freed by this function on success and must not be used
+    /// The `conf object is freed by this function on success and must not be used
     /// or destroyed by the application subsequently.
     /// See `rd_kafka_conf_set()` et.al for more information.
     ///
-    /// \p errstr must be a pointer to memory of at least size \p errstr_size where
+    /// `errstr must be a pointer to memory of at least size `errstr_size where
     /// `rd_kafka_new()` may write a human readable error message in case the
     /// creation of a new handle fails. In which case the function returns NULL.
     ///
-    /// @remark \b RD_KAFKA_CONSUMER: When a new \p RD_KAFKA_CONSUMER
-    ///           rd_kafka_t handle is created it may either operate in the
-    ///           legacy simple consumer mode using the rd_kafka_consume_start()
-    ///           interface, or the High-level KafkaConsumer API.
+    /// @remark \b RD_KAFKA_CONSUMER: When a new `RD_KAFKA_CONSUMER
+    /// rd_kafka_t handle is created it may either operate in the
+    /// legacy simple consumer mode using the rd_kafka_consume_start()
+    /// interface, or the High-level KafkaConsumer API.
     /// @remark An application must only use one of these groups of APIs on a given
-    ///         rd_kafka_t RD_KAFKA_CONSUMER handle.
+    /// rd_kafka_t RD_KAFKA_CONSUMER handle.
     ///
     ///
-    /// @returns The Kafka handle on success or NULL on error (see \p errstr)
+    /// Returns The Kafka handle on success or NULL on error (see \p errstr)
     ///
     /// @sa To destroy the Kafka handle, use rd_kafka_destroy().
     pub fn rd_kafka_new(
@@ -2840,88 +2840,88 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy Kafka handle.
+    /// Destroy Kafka handle.
     ///
     /// @remark This is a blocking operation.
     /// @remark rd_kafka_consumer_close() will be called from this function
-    ///         if the instance type is RD_KAFKA_CONSUMER, a \c group.id was
-    ///         configured, and the rd_kafka_consumer_close() was not
-    ///         explicitly called by the application. This in turn may
-    ///         trigger consumer callbacks, such as rebalance_cb.
-    ///         Use rd_kafka_destroy_flags() with
-    ///         RD_KAFKA_DESTROY_F_NO_CONSUMER_CLOSE to avoid this behaviour.
+    /// if the instance type is RD_KAFKA_CONSUMER, a `group.id was
+    /// configured, and the rd_kafka_consumer_close() was not
+    /// explicitly called by the application. This in turn may
+    /// trigger consumer callbacks, such as rebalance_cb.
+    /// Use rd_kafka_destroy_flags() with
+    /// RD_KAFKA_DESTROY_F_NO_CONSUMER_CLOSE to avoid this behaviour.
     ///
     /// @sa rd_kafka_destroy_flags()
     pub fn rd_kafka_destroy(rk: *mut rd_kafka_t);
 }
 unsafe extern "C" {
-    /// @brief Destroy Kafka handle according to specified destroy flags
+    /// Destroy Kafka handle according to specified destroy flags
     pub fn rd_kafka_destroy_flags(rk: *mut rd_kafka_t, flags: ::std::os::raw::c_int);
 }
 unsafe extern "C" {
-    /// @brief Returns Kafka handle name.
+    /// Returns Kafka handle name.
     pub fn rd_kafka_name(rk: *const rd_kafka_t) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Returns Kafka handle type.
+    /// Returns Kafka handle type.
     pub fn rd_kafka_type(rk: *const rd_kafka_t) -> rd_kafka_type_t;
 }
 unsafe extern "C" {
-    /// @brief Returns this client's broker-assigned group member id.
+    /// Returns this client's broker-assigned group member id.
     ///
     /// @remark This currently requires the high-level KafkaConsumer
     ///
-    /// @returns An allocated string containing the current broker-assigned group
-    ///          member id, or NULL if not available.
-    ///          The application must free the string with \p free() or
-    ///          rd_kafka_mem_free()
+    /// Returns An allocated string containing the current broker-assigned group
+    /// member id, or NULL if not available.
+    /// The application must free the string with `free() or
+    /// rd_kafka_mem_free()
     pub fn rd_kafka_memberid(rk: *const rd_kafka_t) -> *mut ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Returns the ClusterId as reported in broker metadata.
+    /// Returns the ClusterId as reported in broker metadata.
     ///
-    /// @param rk         Client instance.
-    /// @param timeout_ms If there is no cached value from metadata retrieval
-    ///                   then this specifies the maximum amount of time
-    ///                   (in milliseconds) the call will block waiting
-    ///                   for metadata to be retrieved.
-    ///                   Use 0 for non-blocking calls.
+    /// - `rk`: Client instance.
+    /// - `timeout_ms`: If there is no cached value from metadata retrieval
+    /// then this specifies the maximum amount of time
+    /// (in milliseconds) the call will block waiting
+    /// for metadata to be retrieved.
+    /// Use 0 for non-blocking calls.
     ///
     /// @remark Requires broker version >=0.10.0 and api.version.request=true.
     ///
     /// @remark The application must free the returned pointer
-    ///         using rd_kafka_mem_free().
+    /// using rd_kafka_mem_free().
     ///
-    /// @returns a newly allocated string containing the ClusterId, or NULL
-    ///          if no ClusterId could be retrieved in the allotted timespan.
+    /// Returns a newly allocated string containing the ClusterId, or NULL
+    /// if no ClusterId could be retrieved in the allotted timespan.
     pub fn rd_kafka_clusterid(
         rk: *mut rd_kafka_t,
         timeout_ms: ::std::os::raw::c_int,
     ) -> *mut ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Returns the current ControllerId as reported in broker metadata.
+    /// Returns the current ControllerId as reported in broker metadata.
     ///
-    /// @param rk         Client instance.
-    /// @param timeout_ms If there is no cached value from metadata retrieval
-    ///                   then this specifies the maximum amount of time
-    ///                   (in milliseconds) the call will block waiting
-    ///                   for metadata to be retrieved.
-    ///                   Use 0 for non-blocking calls.
+    /// - `rk`: Client instance.
+    /// - `timeout_ms`: If there is no cached value from metadata retrieval
+    /// then this specifies the maximum amount of time
+    /// (in milliseconds) the call will block waiting
+    /// for metadata to be retrieved.
+    /// Use 0 for non-blocking calls.
     ///
     /// @remark Requires broker version >=0.10.0 and api.version.request=true.
     ///
-    /// @returns the controller broker id (>= 0), or -1 if no ControllerId could be
-    ///          retrieved in the allotted timespan.
+    /// Returns the controller broker id (>= 0), or -1 if no ControllerId could be
+    /// retrieved in the allotted timespan.
     pub fn rd_kafka_controllerid(rk: *mut rd_kafka_t, timeout_ms: ::std::os::raw::c_int) -> i32;
 }
 unsafe extern "C" {
-    /// @brief Creates a new topic handle for topic named \p topic.
+    /// Creates a new topic handle for topic named \p topic.
     ///
-    /// \p conf is an optional configuration for the topic created with
+    /// `conf is an optional configuration for the topic created with
     /// `rd_kafka_topic_conf_new()` that will be used instead of the default
     /// topic configuration.
-    /// The \p conf object is freed by this function and must not be used or
+    /// The `conf object is freed by this function and must not be used or
     /// destroyed by the application subsequently.
     /// See `rd_kafka_topic_conf_set()` et.al for more information.
     ///
@@ -2931,8 +2931,8 @@ unsafe extern "C" {
     /// Applications must eventually call rd_kafka_topic_destroy() for each
     /// succesfull call to rd_kafka_topic_new() to clear up resources.
     ///
-    /// @returns the new topic handle or NULL on error (use rd_kafka_errno2err()
-    ///          to convert system \p errno to an rd_kafka_resp_err_t error code.
+    /// Returns the new topic handle or NULL on error (use rd_kafka_errno2err()
+    /// to convert system `errno to an rd_kafka_resp_err_t error code.
     ///
     /// @sa rd_kafka_topic_destroy()
     pub fn rd_kafka_topic_new(
@@ -2942,57 +2942,57 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_topic_t;
 }
 unsafe extern "C" {
-    /// @brief Loose application's topic handle refcount as previously created
-    ///        with `rd_kafka_topic_new()`.
+    /// Loose application's topic handle refcount as previously created
+    /// with `rd_kafka_topic_new()`.
     ///
     /// @remark Since topic objects are refcounted (both internally and for the app)
-    ///         the topic object might not actually be destroyed by this call,
-    ///         but the application must consider the object destroyed.
+    /// the topic object might not actually be destroyed by this call,
+    /// but the application must consider the object destroyed.
     pub fn rd_kafka_topic_destroy(rkt: *mut rd_kafka_topic_t);
 }
 unsafe extern "C" {
-    /// @brief Returns the topic name.
+    /// Returns the topic name.
     pub fn rd_kafka_topic_name(rkt: *const rd_kafka_topic_t) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Get the \p rkt_opaque pointer that was set in the topic configuration
-    ///        with rd_kafka_topic_conf_set_opaque().
+    /// Get the \p rkt_opaque pointer that was set in the topic configuration
+    /// with rd_kafka_topic_conf_set_opaque().
     pub fn rd_kafka_topic_opaque(rkt: *const rd_kafka_topic_t) -> *mut ::std::os::raw::c_void;
 }
 unsafe extern "C" {
-    /// @brief Polls the provided kafka handle for events.
+    /// Polls the provided kafka handle for events.
     ///
     /// Events will cause application-provided callbacks to be called.
     ///
-    /// The \p timeout_ms argument specifies the maximum amount of time
+    /// The `timeout_ms argument specifies the maximum amount of time
     /// (in milliseconds) that the call will block waiting for events.
-    /// For non-blocking calls, provide 0 as \p timeout_ms.
+    /// For non-blocking calls, provide 0 as `timeout_ms.
     /// To wait indefinitely for an event, provide -1.
     ///
     /// @remark  An application should make sure to call poll() at regular
-    ///          intervals to serve any queued callbacks waiting to be called.
+    /// intervals to serve any queued callbacks waiting to be called.
     /// @remark  If your producer doesn't have any callback set (in particular
-    ///          via rd_kafka_conf_set_dr_msg_cb or rd_kafka_conf_set_error_cb)
-    ///          you might choose not to call poll(), though this is not
-    ///          recommended.
+    /// via rd_kafka_conf_set_dr_msg_cb or rd_kafka_conf_set_error_cb)
+    /// you might choose not to call poll(), though this is not
+    /// recommended.
     ///
     /// Events:
-    ///   - delivery report callbacks (if dr_cb/dr_msg_cb is configured) [producer]
-    ///   - error callbacks (rd_kafka_conf_set_error_cb()) [all]
-    ///   - stats callbacks (rd_kafka_conf_set_stats_cb()) [all]
-    ///   - throttle callbacks (rd_kafka_conf_set_throttle_cb()) [all]
-    ///   - OAUTHBEARER token refresh callbacks
-    /// (rd_kafka_conf_set_oauthbearer_token_refresh_cb()) [all]
+    /// - delivery report callbacks (if dr_cb/dr_msg_cb is configured) \[producer\]
+    /// - error callbacks (rd_kafka_conf_set_error_cb()) \[all\]
+    /// - stats callbacks (rd_kafka_conf_set_stats_cb()) \[all\]
+    /// - throttle callbacks (rd_kafka_conf_set_throttle_cb()) \[all\]
+    /// - OAUTHBEARER token refresh callbacks
+    /// (rd_kafka_conf_set_oauthbearer_token_refresh_cb()) \[all\]
     ///
-    /// @returns the number of events served.
+    /// Returns the number of events served.
     pub fn rd_kafka_poll(
         rk: *mut rd_kafka_t,
         timeout_ms: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Cancels the current callback dispatcher (rd_kafka_poll(),
-    ///        rd_kafka_consume_callback(), etc).
+    /// Cancels the current callback dispatcher (rd_kafka_poll(),
+    /// rd_kafka_consume_callback(), etc).
     ///
     /// A callback may use this to force an immediate return to the calling
     /// code (caller of e.g. rd_kafka_poll()) without processing any further
@@ -3002,34 +3002,34 @@ unsafe extern "C" {
     pub fn rd_kafka_yield(rk: *mut rd_kafka_t);
 }
 unsafe extern "C" {
-    /// @brief Pause producing or consumption for the provided list of partitions.
+    /// Pause producing or consumption for the provided list of partitions.
     ///
-    /// Success or error is returned per-partition \p err in the \p partitions list.
+    /// Success or error is returned per-partition `err in the `partitions list.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR
     pub fn rd_kafka_pause_partitions(
         rk: *mut rd_kafka_t,
         partitions: *mut rd_kafka_topic_partition_list_t,
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Resume producing consumption for the provided list of partitions.
+    /// Resume producing consumption for the provided list of partitions.
     ///
-    /// Success or error is returned per-partition \p err in the \p partitions list.
+    /// Success or error is returned per-partition `err in the `partitions list.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR
     pub fn rd_kafka_resume_partitions(
         rk: *mut rd_kafka_t,
         partitions: *mut rd_kafka_topic_partition_list_t,
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Query broker for low (oldest/beginning) and high (newest/end) offsets
-    ///        for partition.
+    /// Query broker for low (oldest/beginning) and high (newest/end) offsets
+    /// for partition.
     ///
-    /// Offsets are returned in \p *low and \p *high respectively.
+    /// Offsets are returned in `*low and `*high respectively.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an error code on failure.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an error code on failure.
     pub fn rd_kafka_query_watermark_offsets(
         rk: *mut rd_kafka_t,
         topic: *const ::std::os::raw::c_char,
@@ -3040,8 +3040,8 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Get last known low (oldest/beginning) and high (newest/end) offsets
-    ///        for partition.
+    /// Get last known low (oldest/beginning) and high (newest/end) offsets
+    /// for partition.
     ///
     /// The low offset is updated periodically (if statistics.interval.ms is set)
     /// while the high offset is updated on each fetched message set from the broker.
@@ -3049,9 +3049,9 @@ unsafe extern "C" {
     /// If there is no cached offset (either low or high, or both) then
     /// RD_KAFKA_OFFSET_INVALID will be returned for the respective offset.
     ///
-    /// Offsets are returned in \p *low and \p *high respectively.
+    /// Offsets are returned in `*low and `*high respectively.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an error code on failure.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an error code on failure.
     ///
     /// @remark Shall only be used with an active consumer instance.
     pub fn rd_kafka_get_watermark_offsets(
@@ -3063,29 +3063,29 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Look up the offsets for the given partitions by timestamp.
+    /// Look up the offsets for the given partitions by timestamp.
     ///
     /// The returned offset for each partition is the earliest offset whose
     /// timestamp is greater than or equal to the given timestamp in the
     /// corresponding partition.
     ///
-    /// The timestamps to query are represented as \c offset in \p offsets
-    /// on input, and \c offset will contain the offset on output.
+    /// The timestamps to query are represented as `offset in `offsets
+    /// on input, and `offset will contain the offset on output.
     ///
-    /// The function will block for at most \p timeout_ms milliseconds.
+    /// The function will block for at most `timeout_ms milliseconds.
     ///
     /// @remark Duplicate Topic+Partitions are not supported.
     /// @remark Per-partition errors may be returned in \c
     /// rd_kafka_topic_partition_t.err
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR if offsets were be queried (do note
-    ///          that per-partition errors might be set),
-    ///          RD_KAFKA_RESP_ERR__TIMED_OUT if not all offsets could be fetched
-    ///          within \p timeout_ms,
-    ///          RD_KAFKA_RESP_ERR__INVALID_ARG if the \p offsets list is empty,
-    ///          RD_KAFKA_RESP_ERR__UNKNOWN_PARTITION if all partitions are unknown,
-    ///          RD_KAFKA_RESP_ERR_LEADER_NOT_AVAILABLE if unable to query leaders
-    ///          for the given partitions.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR if offsets were be queried (do note
+    /// that per-partition errors might be set),
+    /// RD_KAFKA_RESP_ERR__TIMED_OUT if not all offsets could be fetched
+    /// within `timeout_ms,
+    /// RD_KAFKA_RESP_ERR__INVALID_ARG if the `offsets list is empty,
+    /// RD_KAFKA_RESP_ERR__UNKNOWN_PARTITION if all partitions are unknown,
+    /// RD_KAFKA_RESP_ERR_LEADER_NOT_AVAILABLE if unable to query leaders
+    /// for the given partitions.
     pub fn rd_kafka_offsets_for_times(
         rk: *mut rd_kafka_t,
         offsets: *mut rd_kafka_topic_partition_list_t,
@@ -3093,17 +3093,17 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Allocate and zero memory using the same allocator librdkafka uses.
+    /// Allocate and zero memory using the same allocator librdkafka uses.
     ///
     /// This is typically an abstraction for the calloc(3) call and makes sure
     /// the application can use the same memory allocator as librdkafka for
     /// allocating pointers that are used by librdkafka.
     ///
-    /// \p rk can be set to return memory allocated by a specific \c rk instance
-    /// otherwise pass NULL for \p rk.
+    /// `rk can be set to return memory allocated by a specific `rk instance
+    /// otherwise pass NULL for `rk.
     ///
     /// @remark Memory allocated by rd_kafka_mem_calloc() must be freed using
-    ///         rd_kafka_mem_free()
+    /// rd_kafka_mem_free()
     pub fn rd_kafka_mem_calloc(
         rk: *mut rd_kafka_t,
         num: usize,
@@ -3111,21 +3111,21 @@ unsafe extern "C" {
     ) -> *mut ::std::os::raw::c_void;
 }
 unsafe extern "C" {
-    /// @brief Allocate memory using the same allocator librdkafka uses.
+    /// Allocate memory using the same allocator librdkafka uses.
     ///
     /// This is typically an abstraction for the malloc(3) call and makes sure
     /// the application can use the same memory allocator as librdkafka for
     /// allocating pointers that are used by librdkafka.
     ///
-    /// \p rk can be set to return memory allocated by a specific \c rk instance
-    /// otherwise pass NULL for \p rk.
+    /// `rk can be set to return memory allocated by a specific `rk instance
+    /// otherwise pass NULL for `rk.
     ///
     /// @remark Memory allocated by rd_kafka_mem_malloc() must be freed using
-    ///         rd_kafka_mem_free()
+    /// rd_kafka_mem_free()
     pub fn rd_kafka_mem_malloc(rk: *mut rd_kafka_t, size: usize) -> *mut ::std::os::raw::c_void;
 }
 unsafe extern "C" {
-    /// @brief Free pointer returned by librdkafka
+    /// Free pointer returned by librdkafka
     ///
     /// This is typically an abstraction for the free(3) call and makes sure
     /// the application can use the same memory allocator as librdkafka for
@@ -3134,15 +3134,15 @@ unsafe extern "C" {
     /// In standard setups it is usually not necessary to use this interface
     /// rather than the free(3) functione.
     ///
-    /// \p rk must be set for memory returned by APIs that take an \c rk argument,
-    /// for other APIs pass NULL for \p rk.
+    /// `rk must be set for memory returned by APIs that take an `rk argument,
+    /// for other APIs pass NULL for `rk.
     ///
     /// @remark rd_kafka_mem_free() must only be used for pointers returned by APIs
-    ///         that explicitly mention using this function for freeing.
+    /// that explicitly mention using this function for freeing.
     pub fn rd_kafka_mem_free(rk: *mut rd_kafka_t, ptr: *mut ::std::os::raw::c_void);
 }
 unsafe extern "C" {
-    /// @brief Create a new message queue.
+    /// Create a new message queue.
     ///
     /// See rd_kafka_consume_start_queue(), rd_kafka_consume_queue(), et.al.
     pub fn rd_kafka_queue_new(rk: *mut rd_kafka_t) -> *mut rd_kafka_queue_t;
@@ -3152,16 +3152,16 @@ unsafe extern "C" {
     pub fn rd_kafka_queue_destroy(rkqu: *mut rd_kafka_queue_t);
 }
 unsafe extern "C" {
-    /// @returns a reference to the main librdkafka event queue.
+    /// Returns a reference to the main librdkafka event queue.
     /// This is the queue served by rd_kafka_poll().
     ///
     /// Use rd_kafka_queue_destroy() to loose the reference.
     pub fn rd_kafka_queue_get_main(rk: *mut rd_kafka_t) -> *mut rd_kafka_queue_t;
 }
 unsafe extern "C" {
-    /// @returns a reference to the SASL callback queue, if a SASL mechanism
-    ///          with callbacks is configured (currently only OAUTHBEARER), else
-    ///          returns NULL.
+    /// Returns a reference to the SASL callback queue, if a SASL mechanism
+    /// with callbacks is configured (currently only OAUTHBEARER), else
+    /// returns NULL.
     ///
     /// Use rd_kafka_queue_destroy() to loose the reference.
     ///
@@ -3169,8 +3169,8 @@ unsafe extern "C" {
     pub fn rd_kafka_queue_get_sasl(rk: *mut rd_kafka_t) -> *mut rd_kafka_queue_t;
 }
 unsafe extern "C" {
-    /// @brief Enable SASL OAUTHBEARER refresh callbacks on the librdkafka
-    ///        background thread.
+    /// Enable SASL OAUTHBEARER refresh callbacks on the librdkafka
+    /// background thread.
     ///
     /// This serves as an alternative for applications that do not call
     /// rd_kafka_poll() (et.al.) at regular intervals (or not at all), as a means
@@ -3178,15 +3178,15 @@ unsafe extern "C" {
     /// initiate connections to the brokers in the case a custom OAUTHBEARER
     /// refresh callback is configured.
     ///
-    /// @returns NULL on success or an error object on error.
+    /// Returns NULL on success or an error object on error.
     ///
     /// @sa rd_kafka_queue_get_sasl()
     /// @sa rd_kafka_conf_set_oauthbearer_token_refresh_cb()
     pub fn rd_kafka_sasl_background_callbacks_enable(rk: *mut rd_kafka_t) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Sets SASL credentials used for SASL PLAIN and SCRAM mechanisms by
-    ///        this Kafka client.
+    /// Sets SASL credentials used for SASL PLAIN and SCRAM mechanisms by
+    /// this Kafka client.
     ///
     /// This function sets or resets the SASL username and password credentials
     /// used by this Kafka client. The new credentials will be used the next time
@@ -3196,7 +3196,7 @@ unsafe extern "C" {
     ///
     /// @remark This function only applies to the SASL PLAIN and SCRAM mechanisms.
     ///
-    /// @returns NULL on success or an error object on error.
+    /// Returns NULL on success or an error object on error.
     pub fn rd_kafka_sasl_set_credentials(
         rk: *mut rd_kafka_t,
         username: *const ::std::os::raw::c_char,
@@ -3204,24 +3204,24 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @returns a reference to the librdkafka consumer queue.
+    /// Returns a reference to the librdkafka consumer queue.
     /// This is the queue served by rd_kafka_consumer_poll().
     ///
     /// Use rd_kafka_queue_destroy() to loose the reference.
     ///
     /// @remark rd_kafka_queue_destroy() MUST be called on this queue
-    ///         prior to calling rd_kafka_consumer_close().
+    /// prior to calling rd_kafka_consumer_close().
     /// @remark Polling the returned queue counts as a consumer poll, and will reset
-    ///         the timer for max.poll.interval.ms. If this queue is forwarded to a
-    ///         "destq", polling destq also counts as a consumer poll (this works
-    ///         for any number of forwards). However, even if this queue is
-    ///         unforwarded or forwarded elsewhere, polling destq will continue
-    ///         to count as a consumer poll.
+    /// the timer for max.poll.interval.ms. If this queue is forwarded to a
+    /// "destq", polling destq also counts as a consumer poll (this works
+    /// for any number of forwards). However, even if this queue is
+    /// unforwarded or forwarded elsewhere, polling destq will continue
+    /// to count as a consumer poll.
     pub fn rd_kafka_queue_get_consumer(rk: *mut rd_kafka_t) -> *mut rd_kafka_queue_t;
 }
 unsafe extern "C" {
-    /// @returns a reference to the partition's queue, or NULL if
-    ///          partition is invalid.
+    /// Returns a reference to the partition's queue, or NULL if
+    /// partition is invalid.
     ///
     /// Use rd_kafka_queue_destroy() to loose the reference.
     ///
@@ -3235,8 +3235,8 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_queue_t;
 }
 unsafe extern "C" {
-    /// @returns a reference to the background thread queue, or NULL if the
-    ///          background queue is not enabled.
+    /// Returns a reference to the background thread queue, or NULL if the
+    /// background queue is not enabled.
     ///
     /// The background thread queue provides the application with an automatically
     /// polled queue that triggers the event callback in a background thread,
@@ -3254,36 +3254,36 @@ unsafe extern "C" {
     /// Use rd_kafka_queue_destroy() to loose the reference.
     ///
     /// @warning The background queue MUST NOT be read from (polled, consumed, etc),
-    ///          or forwarded from.
+    /// or forwarded from.
     pub fn rd_kafka_queue_get_background(rk: *mut rd_kafka_t) -> *mut rd_kafka_queue_t;
 }
 unsafe extern "C" {
-    /// @brief Forward/re-route queue \p src to \p dst.
-    /// If \p dst is \c NULL the forwarding is removed.
+    /// Forward/re-route queue \p src to \p dst.
+    /// If `dst is `NULL the forwarding is removed.
     ///
     /// The internal refcounts for both queues are increased.
     ///
-    /// @remark Regardless of whether \p dst is NULL or not, after calling this
-    ///         function, \p src will not forward it's fetch queue to the consumer
-    ///         queue.
+    /// @remark Regardless of whether `dst is NULL or not, after calling this
+    /// function, `src will not forward it's fetch queue to the consumer
+    /// queue.
     pub fn rd_kafka_queue_forward(src: *mut rd_kafka_queue_t, dst: *mut rd_kafka_queue_t);
 }
 unsafe extern "C" {
-    /// @brief Forward librdkafka logs (and debug) to the specified queue
-    ///        for serving with one of the ..poll() calls.
+    /// Forward librdkafka logs (and debug) to the specified queue
+    /// for serving with one of the ..poll() calls.
     ///
-    ///        This allows an application to serve log callbacks (\c log_cb)
-    ///        in its thread of choice.
+    /// This allows an application to serve log callbacks (`log_cb)
+    /// in its thread of choice.
     ///
-    /// @param rk   Client instance.
-    /// @param rkqu Queue to forward logs to. If the value is NULL the logs
-    ///        are forwarded to the main queue.
+    /// - `rk`: Client instance.
+    /// - `rkqu`: Queue to forward logs to. If the value is NULL the logs
+    /// are forwarded to the main queue.
     ///
-    /// @remark The configuration property \c log.queue MUST also be set to true.
+    /// @remark The configuration property `log.queue MUST also be set to true.
     ///
     /// @remark librdkafka maintains its own reference to the provided queue.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an error code on error,
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an error code on error,
     /// eg RD_KAFKA_RESP_ERR__NOT_CONFIGURED when log.queue is not set to true.
     pub fn rd_kafka_set_log_queue(
         rk: *mut rd_kafka_t,
@@ -3291,24 +3291,24 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @returns the current number of elements in queue.
+    /// Returns the current number of elements in queue.
     pub fn rd_kafka_queue_length(rkqu: *mut rd_kafka_queue_t) -> usize;
 }
 unsafe extern "C" {
-    /// @brief Enable IO event triggering for queue.
+    /// Enable IO event triggering for queue.
     ///
     /// To ease integration with IO based polling loops this API
     /// allows an application to create a separate file-descriptor
-    /// that librdkafka will write \p payload (of size \p size) to
+    /// that librdkafka will write `payload (of size `size) to
     /// whenever a new element is enqueued on a previously empty queue.
     ///
-    /// To remove event triggering call with \p fd = -1.
+    /// To remove event triggering call with `fd = -1.
     ///
-    /// librdkafka will maintain a copy of the \p payload.
+    /// librdkafka will maintain a copy of the `payload.
     ///
     /// @remark IO and callback event triggering are mutually exclusive.
     /// @remark When using forwarded queues the IO event must only be enabled
-    ///         on the final forwarded-to (destination) queue.
+    /// on the final forwarded-to (destination) queue.
     /// @remark The file-descriptor/socket must be set to non-blocking.
     pub fn rd_kafka_queue_io_event_enable(
         rkqu: *mut rd_kafka_queue_t,
@@ -3318,20 +3318,20 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Enable callback event triggering for queue.
+    /// Enable callback event triggering for queue.
     ///
     /// The callback will be called from an internal librdkafka thread
     /// when a new element is enqueued on a previously empty queue.
     ///
-    /// To remove event triggering call with \p event_cb = NULL.
+    /// To remove event triggering call with `event_cb = NULL.
     ///
-    /// The \p qev_opaque is passed to the callback's \p qev_opaque argument.
+    /// The `qev_opaque is passed to the callback's `qev_opaque argument.
     ///
     /// @remark IO and callback event triggering are mutually exclusive.
     /// @remark Since the callback may be triggered from internal librdkafka
-    ///         threads, the application must not perform any pro-longed work in
-    ///         the callback, or call any librdkafka APIs (for the same rd_kafka_t
-    ///         handle).
+    /// threads, the application must not perform any pro-longed work in
+    /// the callback, or call any librdkafka APIs (for the same rd_kafka_t
+    /// handle).
     pub fn rd_kafka_queue_cb_event_enable(
         rkqu: *mut rd_kafka_queue_t,
         event_cb: ::std::option::Option<
@@ -3341,7 +3341,7 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Cancels the current rd_kafka_queue_poll() on \p rkqu.
+    /// Cancels the current rd_kafka_queue_poll() on \p rkqu.
     ///
     /// An application may use this from another thread to force
     /// an immediate return to the calling code (caller of rd_kafka_queue_poll()).
@@ -3349,15 +3349,15 @@ unsafe extern "C" {
     pub fn rd_kafka_queue_yield(rkqu: *mut rd_kafka_queue_t);
 }
 unsafe extern "C" {
-    /// @brief Start consuming messages for topic \p rkt and \p partition
-    /// at offset \p offset which may either be an absolute \c (0..N)
+    /// Start consuming messages for topic \p rkt and \p partition
+    /// at offset `offset which may either be an absolute `(0..N)
     /// or one of the logical offsets:
-    ///  - RD_KAFKA_OFFSET_BEGINNING
-    ///  - RD_KAFKA_OFFSET_END
-    ///  - RD_KAFKA_OFFSET_STORED
-    ///  - RD_KAFKA_OFFSET_TAIL
+    /// - RD_KAFKA_OFFSET_BEGINNING
+    /// - RD_KAFKA_OFFSET_END
+    /// - RD_KAFKA_OFFSET_STORED
+    /// - RD_KAFKA_OFFSET_TAIL
     ///
-    /// rdkafka will attempt to keep \c queued.min.messages (config property)
+    /// rdkafka will attempt to keep `queued.min.messages (config property)
     /// messages in the local queue by repeatedly fetching batches of messages
     /// from the broker until the threshold is reached.
     ///
@@ -3369,17 +3369,17 @@ unsafe extern "C" {
     /// topic and partition without stopping consumption first with
     /// `rd_kafka_consume_stop()`.
     ///
-    /// @returns 0 on success or -1 on error in which case errno is set accordingly:
-    ///  - EBUSY    - Conflicts with an existing or previous subscription
-    ///               (RD_KAFKA_RESP_ERR__CONFLICT)
-    ///  - EINVAL   - Invalid offset, or incomplete configuration (lacking group.id)
-    ///               (RD_KAFKA_RESP_ERR__INVALID_ARG)
-    ///  - ESRCH    - requested \p partition is invalid.
-    ///               (RD_KAFKA_RESP_ERR__UNKNOWN_PARTITION)
-    ///  - ENOENT   - topic is unknown in the Kafka cluster.
-    ///               (RD_KAFKA_RESP_ERR__UNKNOWN_TOPIC)
+    /// Returns 0 on success or -1 on error in which case errno is set accordingly:
+    /// - EBUSY    - Conflicts with an existing or previous subscription
+    /// (RD_KAFKA_RESP_ERR__CONFLICT)
+    /// - EINVAL   - Invalid offset, or incomplete configuration (lacking group.id)
+    /// (RD_KAFKA_RESP_ERR__INVALID_ARG)
+    /// - ESRCH    - requested `partition is invalid.
+    /// (RD_KAFKA_RESP_ERR__UNKNOWN_PARTITION)
+    /// - ENOENT   - topic is unknown in the Kafka cluster.
+    /// (RD_KAFKA_RESP_ERR__UNKNOWN_TOPIC)
     ///
-    /// Use `rd_kafka_errno2err()` to convert sytem \c errno to `rd_kafka_resp_err_t`
+    /// Use `rd_kafka_errno2err()` to convert sytem `errno to `rd_kafka_resp_err_t`
     pub fn rd_kafka_consume_start(
         rkt: *mut rd_kafka_topic_t,
         partition: i32,
@@ -3387,8 +3387,8 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Same as rd_kafka_consume_start() but re-routes incoming messages to
-    /// the provided queue \p rkqu (which must have been previously allocated
+    /// Same as rd_kafka_consume_start() but re-routes incoming messages to
+    /// the provided queue `rkqu (which must have been previously allocated
     /// with `rd_kafka_queue_new()`.
     ///
     /// The application must use one of the `rd_kafka_consume_*_queue()` functions
@@ -3407,27 +3407,27 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Stop consuming messages for topic \p rkt and \p partition, purging
+    /// Stop consuming messages for topic \p rkt and \p partition, purging
     /// all messages currently in the local queue.
     ///
     /// NOTE: To enforce synchronisation this call will block until the internal
-    ///       fetcher has terminated and offsets are committed to configured
-    ///       storage method.
+    /// fetcher has terminated and offsets are committed to configured
+    /// storage method.
     ///
     /// The application needs to be stop all consumers before calling
     /// `rd_kafka_destroy()` on the main object handle.
     ///
-    /// @returns 0 on success or -1 on error (see `errno`).
+    /// Returns 0 on success or -1 on error (see `errno`).
     pub fn rd_kafka_consume_stop(
         rkt: *mut rd_kafka_topic_t,
         partition: i32,
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Seek consumer for topic+partition to \p offset which is either an
-    ///        absolute or logical offset.
+    /// Seek consumer for topic+partition to \p offset which is either an
+    /// absolute or logical offset.
     ///
-    /// If \p timeout_ms is specified (not 0) the seek call will wait this long
+    /// If `timeout_ms is specified (not 0) the seek call will wait this long
     /// for the consumer to update its fetcher state for the given partition with
     /// the new offset. This guarantees that no previously fetched messages for the
     /// old offset (or fetch position) will be passed to the application.
@@ -3435,19 +3435,19 @@ unsafe extern "C" {
     /// If the timeout is reached the internal state will be unknown to the caller
     /// and this function returns `RD_KAFKA_RESP_ERR__TIMED_OUT`.
     ///
-    /// If \p timeout_ms is 0 it will initiate the seek but return
+    /// If `timeout_ms is 0 it will initiate the seek but return
     /// immediately without any error reporting (e.g., async).
     ///
     /// This call will purge all pre-fetched messages for the given partition, which
-    /// may be up to \c queued.max.message.kbytes in size. Repeated use of seek
+    /// may be up to `queued.max.message.kbytes in size. Repeated use of seek
     /// may thus lead to increased network usage as messages are re-fetched from
     /// the broker.
     ///
     /// @remark Seek must only be performed for already assigned/consumed partitions,
-    ///         use rd_kafka_assign() (et.al) to set the initial starting offset
-    ///         for a new assignmenmt.
+    /// use rd_kafka_assign() (et.al) to set the initial starting offset
+    /// for a new assignmenmt.
     ///
-    /// @returns `RD_KAFKA_RESP_ERR__NO_ERROR` on success else an error code.
+    /// Returns `RD_KAFKA_RESP_ERR__NO_ERROR` on success else an error code.
     ///
     /// @deprecated Use rd_kafka_seek_partitions().
     pub fn rd_kafka_seek(
@@ -3458,12 +3458,12 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Seek consumer for partitions in \p partitions to the per-partition
-    ///        offset in the \c .offset field of \p partitions.
+    /// Seek consumer for partitions in \p partitions to the per-partition
+    /// offset in the `.offset field of `partitions.
     ///
     /// The offset may be either absolute (>= 0) or a logical offset.
     ///
-    /// If \p timeout_ms is specified (not 0) the seek call will wait this long
+    /// If `timeout_ms is specified (not 0) the seek call will wait this long
     /// for the consumer to update its fetcher state for the given partition with
     /// the new offset. This guarantees that no previously fetched messages for the
     /// old offset (or fetch position) will be passed to the application.
@@ -3471,22 +3471,22 @@ unsafe extern "C" {
     /// If the timeout is reached the internal state will be unknown to the caller
     /// and this function returns `RD_KAFKA_RESP_ERR__TIMED_OUT`.
     ///
-    /// If \p timeout_ms is 0 it will initiate the seek but return
+    /// If `timeout_ms is 0 it will initiate the seek but return
     /// immediately without any error reporting (e.g., async).
     ///
     /// This call will purge all pre-fetched messages for the given partition, which
-    /// may be up to \c queued.max.message.kbytes in size. Repeated use of seek
+    /// may be up to `queued.max.message.kbytes in size. Repeated use of seek
     /// may thus lead to increased network usage as messages are re-fetched from
     /// the broker.
     ///
-    /// Individual partition errors are reported in the per-partition \c .err field
-    /// of \p partitions.
+    /// Individual partition errors are reported in the per-partition `.err field
+    /// of `partitions.
     ///
     /// @remark Seek must only be performed for already assigned/consumed partitions,
-    ///         use rd_kafka_assign() (et.al) to set the initial starting offset
-    ///         for a new assignmenmt.
+    /// use rd_kafka_assign() (et.al) to set the initial starting offset
+    /// for a new assignmenmt.
     ///
-    /// @returns NULL on success or an error object on failure.
+    /// Returns NULL on success or an error object on failure.
     pub fn rd_kafka_seek_partitions(
         rk: *mut rd_kafka_t,
         partitions: *mut rd_kafka_topic_partition_list_t,
@@ -3494,28 +3494,28 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Consume a single message from topic \p rkt and \p partition
+    /// Consume a single message from topic \p rkt and \p partition
     ///
-    /// \p timeout_ms is maximum amount of time to wait for a message to be received.
+    /// `timeout_ms is maximum amount of time to wait for a message to be received.
     /// Consumer must have been previously started with `rd_kafka_consume_start()`.
     ///
-    /// @returns a message object on success or \c NULL on error.
+    /// Returns a message object on success or \c NULL on error.
     /// The message object must be destroyed with `rd_kafka_message_destroy()`
     /// when the application is done with it.
     ///
     /// Errors (when returning NULL):
-    ///  - ETIMEDOUT - \p timeout_ms was reached with no new messages fetched.
-    ///  - ENOENT    - \p rkt + \p partition is unknown.
-    ///                 (no prior `rd_kafka_consume_start()` call)
+    /// - ETIMEDOUT - `timeout_ms was reached with no new messages fetched.
+    /// - ENOENT    - `rkt + `partition is unknown.
+    /// (no prior `rd_kafka_consume_start()` call)
     ///
-    /// NOTE: The returned message's \c ..->err must be checked for errors.
-    /// NOTE: \c ..->err \c == \c RD_KAFKA_RESP_ERR__PARTITION_EOF signals that the
-    ///       end of the partition has been reached, which should typically not be
-    ///       considered an error. The application should handle this case
-    ///       (e.g., ignore).
+    /// NOTE: The returned message's `..->err must be checked for errors.
+    /// NOTE: `..->err `== `RD_KAFKA_RESP_ERR__PARTITION_EOF signals that the
+    /// end of the partition has been reached, which should typically not be
+    /// considered an error. The application should handle this case
+    /// (e.g., ignore).
     ///
     /// @remark on_consume() interceptors may be called from this function prior to
-    ///         passing message to application.
+    /// passing message to application.
     pub fn rd_kafka_consume(
         rkt: *mut rd_kafka_topic_t,
         partition: i32,
@@ -3523,29 +3523,29 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_message_t;
 }
 unsafe extern "C" {
-    /// @brief Consume up to \p rkmessages_size from topic \p rkt and \p partition
-    ///        putting a pointer to each message in the application provided
-    ///        array \p rkmessages (of size \p rkmessages_size entries).
+    /// Consume up to \p rkmessages_size from topic \p rkt and \p partition
+    /// putting a pointer to each message in the application provided
+    /// array `rkmessages (of size `rkmessages_size entries).
     ///
     /// `rd_kafka_consume_batch()` provides higher throughput performance
     /// than `rd_kafka_consume()`.
     ///
-    /// \p timeout_ms is the maximum amount of time to wait for all of
-    /// \p rkmessages_size messages to be put into \p rkmessages.
+    /// `timeout_ms is the maximum amount of time to wait for all of
+    /// `rkmessages_size messages to be put into `rkmessages.
     /// If no messages were available within the timeout period this function
-    /// returns 0 and \p rkmessages remains untouched.
+    /// returns 0 and `rkmessages remains untouched.
     /// This differs somewhat from `rd_kafka_consume()`.
     ///
     /// The message objects must be destroyed with `rd_kafka_message_destroy()`
     /// when the application is done with it.
     ///
-    /// @returns the number of rkmessages added in \p rkmessages,
+    /// Returns the number of rkmessages added in \p rkmessages,
     /// or -1 on error (same error codes as for `rd_kafka_consume()`.
     ///
     /// @sa rd_kafka_consume()
     ///
     /// @remark on_consume() interceptors may be called from this function prior to
-    ///         passing message to application.
+    /// passing message to application.
     pub fn rd_kafka_consume_batch(
         rkt: *mut rd_kafka_topic_t,
         partition: i32,
@@ -3555,37 +3555,37 @@ unsafe extern "C" {
     ) -> isize;
 }
 unsafe extern "C" {
-    /// @brief Consumes messages from topic \p rkt and \p partition, calling
+    /// Consumes messages from topic \p rkt and \p partition, calling
     /// the provided callback for each consumed messsage.
     ///
     /// `rd_kafka_consume_callback()` provides higher throughput performance
     /// than both `rd_kafka_consume()` and `rd_kafka_consume_batch()`.
     ///
-    /// \p timeout_ms is the maximum amount of time to wait for one or more messages
+    /// `timeout_ms is the maximum amount of time to wait for one or more messages
     /// to arrive.
     ///
-    /// The provided \p consume_cb function is called for each message,
+    /// The provided `consume_cb function is called for each message,
     /// the application \b MUST \b NOT call `rd_kafka_message_destroy()` on the
-    /// provided \p rkmessage.
+    /// provided `rkmessage.
     ///
-    /// The \p commit_opaque argument is passed to the \p consume_cb
-    /// as \p commit_opaque.
+    /// The `commit_opaque argument is passed to the `consume_cb
+    /// as `commit_opaque.
     ///
-    /// @returns the number of messages processed or -1 on error.
+    /// Returns the number of messages processed or -1 on error.
     ///
     /// @sa rd_kafka_consume()
     ///
     /// @remark on_consume() interceptors may be called from this function prior to
-    ///         passing message to application.
+    /// passing message to application.
     ///
     /// @remark This function will return early if a transaction control message is
-    ///         received, these messages are not exposed to the application but
-    ///         still enqueued on the consumer queue to make sure their
-    ///         offsets are stored.
+    /// received, these messages are not exposed to the application but
+    /// still enqueued on the consumer queue to make sure their
+    /// offsets are stored.
     ///
     /// @deprecated This API is deprecated and subject for future removal.
-    ///             There is no new callback-based consume interface, use the
-    ///             poll/queue based alternatives.
+    /// There is no new callback-based consume interface, use the
+    /// poll/queue based alternatives.
     pub fn rd_kafka_consume_callback(
         rkt: *mut rd_kafka_topic_t,
         partition: i32,
@@ -3600,7 +3600,7 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Consume from queue
+    /// Consume from queue
     ///
     /// @sa rd_kafka_consume()
     pub fn rd_kafka_consume_queue(
@@ -3609,7 +3609,7 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_message_t;
 }
 unsafe extern "C" {
-    /// @brief Consume batch of messages from queue
+    /// Consume batch of messages from queue
     ///
     /// @sa rd_kafka_consume_batch()
     pub fn rd_kafka_consume_batch_queue(
@@ -3620,13 +3620,13 @@ unsafe extern "C" {
     ) -> isize;
 }
 unsafe extern "C" {
-    /// @brief Consume multiple messages from queue with callback
+    /// Consume multiple messages from queue with callback
     ///
     /// @sa rd_kafka_consume_callback()
     ///
     /// @deprecated This API is deprecated and subject for future removal.
-    ///             There is no new callback-based consume interface, use the
-    ///             poll/queue based alternatives.
+    /// There is no new callback-based consume interface, use the
+    /// poll/queue based alternatives.
     pub fn rd_kafka_consume_callback_queue(
         rkqu: *mut rd_kafka_queue_t,
         timeout_ms: ::std::os::raw::c_int,
@@ -3640,29 +3640,29 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Store offset \p offset + 1 for topic \p rkt partition \p partition.
+    /// Store offset \p offset + 1 for topic \p rkt partition \p partition.
     ///
-    /// The \c offset + 1 will be committed (written) to broker (or file) according
-    /// to \c `auto.commit.interval.ms` or manual offset-less commit()
+    /// The `offset + 1 will be committed (written) to broker (or file) according
+    /// to ``auto.commit.interval.ms` or manual offset-less commit()
     ///
     /// @deprecated This API lacks support for partition leader epochs, which makes
-    ///             it at risk for unclean leader election log truncation issues.
-    ///             Use rd_kafka_offsets_store() and rd_kafka_offset_store_message()
-    ///             instead.
+    /// it at risk for unclean leader election log truncation issues.
+    /// Use rd_kafka_offsets_store() and rd_kafka_offset_store_message()
+    /// instead.
     ///
     /// @warning This method may only be called for partitions that are currently
-    ///          assigned.
-    ///          Non-assigned partitions will fail with RD_KAFKA_RESP_ERR__STATE.
-    ///          Since v1.9.0.
+    /// assigned.
+    /// Non-assigned partitions will fail with RD_KAFKA_RESP_ERR__STATE.
+    /// Since v1.9.0.
     ///
     /// @warning Avoid storing offsets after calling rd_kafka_seek() (et.al) as
-    ///          this may later interfere with resuming a paused partition, instead
-    ///          store offsets prior to calling seek.
+    /// this may later interfere with resuming a paused partition, instead
+    /// store offsets prior to calling seek.
     ///
-    /// @remark \c `enable.auto.offset.store` must be set to "false" when using
-    ///         this API.
+    /// @remark ``enable.auto.offset.store` must be set to "false" when using
+    /// this API.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an error code on error.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an error code on error.
     pub fn rd_kafka_offset_store(
         rkt: *mut rd_kafka_topic_t,
         partition: i32,
@@ -3670,151 +3670,151 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Store offsets for next auto-commit for one or more partitions.
+    /// Store offsets for next auto-commit for one or more partitions.
     ///
     /// The offset will be committed (written) to the offset store according
-    /// to \c `auto.commit.interval.ms` or manual offset-less commit().
+    /// to ``auto.commit.interval.ms` or manual offset-less commit().
     ///
     /// Per-partition success/error status propagated through each partition's
-    /// \c .err for all return values (even NO_ERROR) except INVALID_ARG.
+    /// `.err for all return values (even NO_ERROR) except INVALID_ARG.
     ///
     /// @warning This method may only be called for partitions that are currently
-    ///          assigned.
-    ///          Non-assigned partitions will fail with RD_KAFKA_RESP_ERR__STATE.
-    ///          Since v1.9.0.
+    /// assigned.
+    /// Non-assigned partitions will fail with RD_KAFKA_RESP_ERR__STATE.
+    /// Since v1.9.0.
     ///
     /// @warning Avoid storing offsets after calling rd_kafka_seek() (et.al) as
-    ///          this may later interfere with resuming a paused partition, instead
-    ///          store offsets prior to calling seek.
+    /// this may later interfere with resuming a paused partition, instead
+    /// store offsets prior to calling seek.
     ///
-    /// @remark The \c .offset field is stored as is, it will NOT be + 1.
+    /// @remark The `.offset field is stored as is, it will NOT be + 1.
     ///
-    /// @remark \c `enable.auto.offset.store` must be set to "false" when using
-    ///         this API.
+    /// @remark ``enable.auto.offset.store` must be set to "false" when using
+    /// this API.
     ///
     /// @remark The leader epoch, if set, will be used to fence outdated partition
-    ///         leaders. See rd_kafka_topic_partition_set_leader_epoch().
+    /// leaders. See rd_kafka_topic_partition_set_leader_epoch().
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on (partial) success, or
-    ///          RD_KAFKA_RESP_ERR__INVALID_ARG if \c enable.auto.offset.store
-    ///          is true, or
-    ///          RD_KAFKA_RESP_ERR__UNKNOWN_PARTITION or RD_KAFKA_RESP_ERR__STATE
-    ///          if none of the offsets could be stored.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on (partial) success, or
+    /// RD_KAFKA_RESP_ERR__INVALID_ARG if `enable.auto.offset.store
+    /// is true, or
+    /// RD_KAFKA_RESP_ERR__UNKNOWN_PARTITION or RD_KAFKA_RESP_ERR__STATE
+    /// if none of the offsets could be stored.
     pub fn rd_kafka_offsets_store(
         rk: *mut rd_kafka_t,
         offsets: *mut rd_kafka_topic_partition_list_t,
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Store offset +1 for the consumed message.
+    /// Store offset +1 for the consumed message.
     ///
     /// The message offset + 1 will be committed to broker according
-    /// to \c `auto.commit.interval.ms` or manual offset-less commit()
+    /// to ``auto.commit.interval.ms` or manual offset-less commit()
     ///
     /// @warning This method may only be called for partitions that are currently
-    ///          assigned.
-    ///          Non-assigned partitions will fail with RD_KAFKA_RESP_ERR__STATE.
-    ///          Since v1.9.0.
+    /// assigned.
+    /// Non-assigned partitions will fail with RD_KAFKA_RESP_ERR__STATE.
+    /// Since v1.9.0.
     ///
     /// @warning Avoid storing offsets after calling rd_kafka_seek() (et.al) as
-    ///          this may later interfere with resuming a paused partition, instead
-    ///          store offsets prior to calling seek.
+    /// this may later interfere with resuming a paused partition, instead
+    /// store offsets prior to calling seek.
     ///
-    /// @remark \c `enable.auto.offset.store` must be set to "false" when using
-    ///         this API.
+    /// @remark ``enable.auto.offset.store` must be set to "false" when using
+    /// this API.
     ///
-    /// @returns NULL on success or an error object on failure.
+    /// Returns NULL on success or an error object on failure.
     pub fn rd_kafka_offset_store_message(
         rkmessage: *mut rd_kafka_message_t,
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Subscribe to topic set using balanced consumer groups.
+    /// Subscribe to topic set using balanced consumer groups.
     ///
     /// Wildcard (regex) topics are supported:
-    /// any topic name in the \p topics list that is prefixed with \c \"^\" will
+    /// any topic name in the `topics list that is prefixed with `\"^\" will
     /// be regex-matched to the full list of topics in the cluster and matching
     /// topics will be added to the subscription list.
     ///
-    /// The full topic list is retrieved every \c topic.metadata.refresh.interval.ms
+    /// The full topic list is retrieved every `topic.metadata.refresh.interval.ms
     /// to pick up new or delete topics that match the subscription.
     /// If there is any change to the matched topics the consumer will
     /// immediately rejoin the group with the updated set of subscribed topics.
     ///
-    /// Regex and full topic names can be mixed in \p topics.
+    /// Regex and full topic names can be mixed in `topics.
     ///
-    /// @remark Only the \c .topic field is used in the supplied \p topics list,
-    ///         all other fields are ignored.
+    /// @remark Only the `.topic field is used in the supplied `topics list,
+    /// all other fields are ignored.
     ///
     /// @remark subscribe() is an asynchronous method which returns immediately:
-    ///         background threads will (re)join the group, wait for group rebalance,
-    ///         issue any registered rebalance_cb, assign() the assigned partitions,
-    ///         and then start fetching messages. This cycle may take up to
-    ///         \c session.timeout.ms * 2 or more to complete.
+    /// background threads will (re)join the group, wait for group rebalance,
+    /// issue any registered rebalance_cb, assign() the assigned partitions,
+    /// and then start fetching messages. This cycle may take up to
+    /// `session.timeout.ms * 2 or more to complete.
     ///
     /// @remark After this call returns a consumer error will be returned by
-    ///         rd_kafka_consumer_poll (et.al) for each unavailable topic in the
-    ///         \p topics. The error will be RD_KAFKA_RESP_ERR_UNKNOWN_TOPIC_OR_PART
-    ///         for non-existent topics, and
-    ///         RD_KAFKA_RESP_ERR_TOPIC_AUTHORIZATION_FAILED for unauthorized topics.
-    ///         The consumer error will be raised through rd_kafka_consumer_poll()
-    ///         (et.al.) with the \c rd_kafka_message_t.err field set to one of the
-    ///         error codes mentioned above.
-    ///         The subscribe function itself is asynchronous and will not return
-    ///         an error on unavailable topics.
+    /// rd_kafka_consumer_poll (et.al) for each unavailable topic in the
+    /// `topics. The error will be RD_KAFKA_RESP_ERR_UNKNOWN_TOPIC_OR_PART
+    /// for non-existent topics, and
+    /// RD_KAFKA_RESP_ERR_TOPIC_AUTHORIZATION_FAILED for unauthorized topics.
+    /// The consumer error will be raised through rd_kafka_consumer_poll()
+    /// (et.al.) with the `rd_kafka_message_t.err field set to one of the
+    /// error codes mentioned above.
+    /// The subscribe function itself is asynchronous and will not return
+    /// an error on unavailable topics.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or
-    ///          RD_KAFKA_RESP_ERR__INVALID_ARG if list is empty, contains invalid
-    ///          topics or regexes or duplicate entries,
-    ///          RD_KAFKA_RESP_ERR__FATAL if the consumer has raised a fatal error.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or
+    /// RD_KAFKA_RESP_ERR__INVALID_ARG if list is empty, contains invalid
+    /// topics or regexes or duplicate entries,
+    /// RD_KAFKA_RESP_ERR__FATAL if the consumer has raised a fatal error.
     pub fn rd_kafka_subscribe(
         rk: *mut rd_kafka_t,
         topics: *const rd_kafka_topic_partition_list_t,
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Unsubscribe from the current subscription set.
+    /// Unsubscribe from the current subscription set.
     pub fn rd_kafka_unsubscribe(rk: *mut rd_kafka_t) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Returns the current topic subscription
+    /// Returns the current topic subscription
     ///
-    /// @returns An error code on failure, otherwise \p topic is updated
-    ///          to point to a newly allocated topic list (possibly empty).
+    /// Returns An error code on failure, otherwise \p topic is updated
+    /// to point to a newly allocated topic list (possibly empty).
     ///
     /// @remark The application is responsible for calling
-    ///         rd_kafka_topic_partition_list_destroy on the returned list.
+    /// rd_kafka_topic_partition_list_destroy on the returned list.
     pub fn rd_kafka_subscription(
         rk: *mut rd_kafka_t,
         topics: *mut *mut rd_kafka_topic_partition_list_t,
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Poll the consumer for messages or events.
+    /// Poll the consumer for messages or events.
     ///
-    /// Will block for at most \p timeout_ms milliseconds.
+    /// Will block for at most `timeout_ms milliseconds.
     ///
     /// @remark  An application should make sure to call consumer_poll() at regular
-    ///          intervals, even if no messages are expected, to serve any
-    ///          queued callbacks waiting to be called. This is especially
-    ///          important when a rebalance_cb has been registered as it needs
-    ///          to be called and handled properly to synchronize internal
-    ///          consumer state.
+    /// intervals, even if no messages are expected, to serve any
+    /// queued callbacks waiting to be called. This is especially
+    /// important when a rebalance_cb has been registered as it needs
+    /// to be called and handled properly to synchronize internal
+    /// consumer state.
     ///
-    /// @returns A message object which is a proper message if \p ->err is
-    ///          RD_KAFKA_RESP_ERR_NO_ERROR, or an event or error for any other
-    ///          value.
+    /// Returns A message object which is a proper message if \p ->err is
+    /// RD_KAFKA_RESP_ERR_NO_ERROR, or an event or error for any other
+    /// value.
     ///
     /// @remark on_consume() interceptors may be called from this function prior to
-    ///         passing message to application.
+    /// passing message to application.
     ///
     /// @remark When subscribing to topics the application must call poll at
-    ///         least every \c max.poll.interval.ms to remain a member of the
-    ///         consumer group.
+    /// least every `max.poll.interval.ms to remain a member of the
+    /// consumer group.
     ///
-    /// Noteworthy errors returned in \c ->err:
+    /// Noteworthy errors returned in `->err:
     /// - RD_KAFKA_RESP_ERR__MAX_POLL_EXCEEDED - application failed to call
-    ///   poll within `max.poll.interval.ms`.
+    /// poll within `max.poll.interval.ms`.
     ///
     /// @sa rd_kafka_message_t
     pub fn rd_kafka_consumer_poll(
@@ -3823,36 +3823,36 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_message_t;
 }
 unsafe extern "C" {
-    /// @brief Close the consumer.
+    /// Close the consumer.
     ///
     /// This call will block until the consumer has revoked its assignment,
-    /// calling the \c rebalance_cb if it is configured, committed offsets
+    /// calling the `rebalance_cb if it is configured, committed offsets
     /// to broker, and left the consumer group (if applicable).
     /// The maximum blocking time is roughly limited to session.timeout.ms.
     ///
-    /// @returns An error code indicating if the consumer close was succesful
-    ///          or not.
-    ///          RD_KAFKA_RESP_ERR__FATAL is returned if the consumer has raised
-    ///          a fatal error.
+    /// Returns An error code indicating if the consumer close was succesful
+    /// or not.
+    /// RD_KAFKA_RESP_ERR__FATAL is returned if the consumer has raised
+    /// a fatal error.
     ///
     /// @remark The application still needs to call rd_kafka_destroy() after
-    ///         this call finishes to clean up the underlying handle resources.
+    /// this call finishes to clean up the underlying handle resources.
     pub fn rd_kafka_consumer_close(rk: *mut rd_kafka_t) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Asynchronously close the consumer.
+    /// Asynchronously close the consumer.
     ///
     /// Performs the same actions as rd_kafka_consumer_close() but in a
     /// background thread.
     ///
     /// Rebalance events/callbacks (etc) will be forwarded to the
-    /// application-provided \p rkqu. The application must poll/serve this queue
+    /// application-provided `rkqu. The application must poll/serve this queue
     /// until rd_kafka_consumer_closed() returns true.
     ///
     /// @remark Depending on consumer group join state there may or may not be
-    ///         rebalance events emitted on \p rkqu.
+    /// rebalance events emitted on `rkqu.
     ///
-    /// @returns an error object if the consumer close failed, else NULL.
+    /// Returns an error object if the consumer close failed, else NULL.
     ///
     /// @sa rd_kafka_consumer_closed()
     pub fn rd_kafka_consumer_close_queue(
@@ -3861,7 +3861,7 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @returns 1 if the consumer is closed, else 0.
+    /// Returns 1 if the consumer is closed, else 0.
     ///
     /// Should be used in conjunction with rd_kafka_consumer_close_queue() to know
     /// when the consumer has been closed.
@@ -3870,69 +3870,69 @@ unsafe extern "C" {
     pub fn rd_kafka_consumer_closed(rk: *mut rd_kafka_t) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Incrementally add \p partitions to the current assignment.
+    /// Incrementally add \p partitions to the current assignment.
     ///
     /// If a COOPERATIVE assignor (i.e. incremental rebalancing) is being used,
     /// this method should be used in a rebalance callback to adjust the current
     /// assignment appropriately in the case where the rebalance type is
     /// RD_KAFKA_RESP_ERR__ASSIGN_PARTITIONS. The application must pass the
     /// partition list passed to the callback (or a copy of it), even if the
-    /// list is empty. \p partitions must not be NULL. This method may also be
+    /// list is empty. `partitions must not be NULL. This method may also be
     /// used outside the context of a rebalance callback.
     ///
-    /// @returns NULL on success, or an error object if the operation was
-    ///          unsuccessful.
+    /// Returns NULL on success, or an error object if the operation was
+    /// unsuccessful.
     ///
     /// @remark The returned error object (if not NULL) must be destroyed with
-    ///         rd_kafka_error_destroy().
+    /// rd_kafka_error_destroy().
     pub fn rd_kafka_incremental_assign(
         rk: *mut rd_kafka_t,
         partitions: *const rd_kafka_topic_partition_list_t,
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Incrementally remove \p partitions from the current assignment.
+    /// Incrementally remove \p partitions from the current assignment.
     ///
     /// If a COOPERATIVE assignor (i.e. incremental rebalancing) is being used,
     /// this method should be used in a rebalance callback to adjust the current
     /// assignment appropriately in the case where the rebalance type is
     /// RD_KAFKA_RESP_ERR__REVOKE_PARTITIONS. The application must pass the
     /// partition list passed to the callback (or a copy of it), even if the
-    /// list is empty. \p partitions must not be NULL. This method may also be
+    /// list is empty. `partitions must not be NULL. This method may also be
     /// used outside the context of a rebalance callback.
     ///
-    /// @returns NULL on success, or an error object if the operation was
-    ///          unsuccessful.
+    /// Returns NULL on success, or an error object if the operation was
+    /// unsuccessful.
     ///
     /// @remark The returned error object (if not NULL) must be destroyed with
-    ///         rd_kafka_error_destroy().
+    /// rd_kafka_error_destroy().
     pub fn rd_kafka_incremental_unassign(
         rk: *mut rd_kafka_t,
         partitions: *const rd_kafka_topic_partition_list_t,
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief The rebalance protocol currently in use. This will be
-    ///        "NONE" if the consumer has not (yet) joined a group, else it will
-    ///        match the rebalance protocol ("EAGER", "COOPERATIVE") of the
-    ///        configured and selected assignor(s). All configured
-    ///        assignors must have the same protocol type, meaning
-    ///        online migration of a consumer group from using one
-    ///        protocol to another (in particular upgading from EAGER
-    ///        to COOPERATIVE) without a restart is not currently
-    ///        supported.
+    /// The rebalance protocol currently in use. This will be
+    /// "NONE" if the consumer has not (yet) joined a group, else it will
+    /// match the rebalance protocol ("EAGER", "COOPERATIVE") of the
+    /// configured and selected assignor(s). All configured
+    /// assignors must have the same protocol type, meaning
+    /// online migration of a consumer group from using one
+    /// protocol to another (in particular upgading from EAGER
+    /// to COOPERATIVE) without a restart is not currently
+    /// supported.
     ///
-    /// @returns NULL on error, or one of "NONE", "EAGER", "COOPERATIVE" on success.
+    /// Returns NULL on error, or one of "NONE", "EAGER", "COOPERATIVE" on success.
     pub fn rd_kafka_rebalance_protocol(rk: *mut rd_kafka_t) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Atomic assignment of partitions to consume.
+    /// Atomic assignment of partitions to consume.
     ///
-    /// The new \p partitions will replace the existing assignment.
+    /// The new `partitions will replace the existing assignment.
     ///
-    /// A zero-length \p partitions will treat the partitions as a valid,
-    /// albeit empty assignment, and maintain internal state, while a \c NULL
-    /// value for \p partitions will reset and clear the internal state.
+    /// A zero-length `partitions will treat the partitions as a valid,
+    /// albeit empty assignment, and maintain internal state, while a `NULL
+    /// value for `partitions will reset and clear the internal state.
     ///
     /// When used from a rebalance callback, the application should pass the
     /// partition list passed to the callback (or a copy of it) even if the list
@@ -3941,85 +3941,85 @@ unsafe extern "C" {
     /// may adjust the assignment provided by the group. However, this is rarely
     /// useful in practice.
     ///
-    /// @returns An error code indicating if the new assignment was applied or not.
-    ///          RD_KAFKA_RESP_ERR__FATAL is returned if the consumer has raised
-    ///          a fatal error.
+    /// Returns An error code indicating if the new assignment was applied or not.
+    /// RD_KAFKA_RESP_ERR__FATAL is returned if the consumer has raised
+    /// a fatal error.
     pub fn rd_kafka_assign(
         rk: *mut rd_kafka_t,
         partitions: *const rd_kafka_topic_partition_list_t,
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Returns the current partition assignment as set by rd_kafka_assign()
-    ///        or rd_kafka_incremental_assign().
+    /// Returns the current partition assignment as set by rd_kafka_assign()
+    /// or rd_kafka_incremental_assign().
     ///
-    /// @returns An error code on failure, otherwise \p partitions is updated
-    ///          to point to a newly allocated partition list (possibly empty).
+    /// Returns An error code on failure, otherwise \p partitions is updated
+    /// to point to a newly allocated partition list (possibly empty).
     ///
     /// @remark The application is responsible for calling
-    ///         rd_kafka_topic_partition_list_destroy on the returned list.
+    /// rd_kafka_topic_partition_list_destroy on the returned list.
     ///
     /// @remark This assignment represents the partitions assigned through the
-    ///         assign functions and not the partitions assigned to this consumer
-    ///         instance by the consumer group leader.
-    ///         They are usually the same following a rebalance but not necessarily
-    ///         since an application is free to assign any partitions.
+    /// assign functions and not the partitions assigned to this consumer
+    /// instance by the consumer group leader.
+    /// They are usually the same following a rebalance but not necessarily
+    /// since an application is free to assign any partitions.
     pub fn rd_kafka_assignment(
         rk: *mut rd_kafka_t,
         partitions: *mut *mut rd_kafka_topic_partition_list_t,
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Check whether the consumer considers the current assignment to
-    ///        have been lost involuntarily. This method is only applicable for
-    ///        use with a high level subscribing consumer. Assignments are revoked
-    ///        immediately when determined to have been lost, so this method
-    ///        is only useful when reacting to a RD_KAFKA_EVENT_REBALANCE event
-    ///        or from within a rebalance_cb. Partitions that have been lost may
-    ///        already be owned by other members in the group and therefore
-    ///        commiting offsets, for example, may fail.
+    /// Check whether the consumer considers the current assignment to
+    /// have been lost involuntarily. This method is only applicable for
+    /// use with a high level subscribing consumer. Assignments are revoked
+    /// immediately when determined to have been lost, so this method
+    /// is only useful when reacting to a RD_KAFKA_EVENT_REBALANCE event
+    /// or from within a rebalance_cb. Partitions that have been lost may
+    /// already be owned by other members in the group and therefore
+    /// commiting offsets, for example, may fail.
     ///
     /// @remark Calling rd_kafka_assign(), rd_kafka_incremental_assign() or
-    ///         rd_kafka_incremental_unassign() resets this flag.
+    /// rd_kafka_incremental_unassign() resets this flag.
     ///
-    /// @returns Returns 1 if the current partition assignment is considered
-    ///          lost, 0 otherwise.
+    /// Returns Returns 1 if the current partition assignment is considered
+    /// lost, 0 otherwise.
     pub fn rd_kafka_assignment_lost(rk: *mut rd_kafka_t) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Commit offsets on broker for the provided list of partitions.
+    /// Commit offsets on broker for the provided list of partitions.
     ///
-    /// \p offsets should contain \c topic, \c partition, \c offset and possibly
-    /// \c metadata. The \c offset should be the offset where consumption will
+    /// `offsets should contain `topic, `partition, `offset and possibly
+    /// `metadata. The `offset should be the offset where consumption will
     /// resume, i.e., the last processed offset + 1.
-    /// If \p offsets is NULL the current partition assignment will be used instead.
+    /// If `offsets is NULL the current partition assignment will be used instead.
     ///
-    /// If \p async is false this operation will block until the broker offset commit
+    /// If `async is false this operation will block until the broker offset commit
     /// is done, returning the resulting success or error code.
     ///
     /// If a rd_kafka_conf_set_offset_commit_cb() offset commit callback has been
     /// configured the callback will be enqueued for a future call to
     /// rd_kafka_poll(), rd_kafka_consumer_poll() or similar.
     ///
-    /// @returns An error code indiciating if the commit was successful,
-    ///          or successfully scheduled if asynchronous, or failed.
-    ///          RD_KAFKA_RESP_ERR__FATAL is returned if the consumer has raised
-    ///          a fatal error.
+    /// Returns An error code indiciating if the commit was successful,
+    /// or successfully scheduled if asynchronous, or failed.
+    /// RD_KAFKA_RESP_ERR__FATAL is returned if the consumer has raised
+    /// a fatal error.
     ///
-    ///          FIXME: Update below documentation.
+    /// FIXME: Update below documentation.
     ///
-    ///          RD_KAFKA_RESP_ERR_STALE_MEMBER_EPOCH is returned, when
-    ///          using `group.protocol=consumer`, if the commit failed because the
-    ///          member has switched to a new member epoch.
-    ///          This error code can be retried.
-    ///          Partition level error is also set in the \p offsets.
+    /// RD_KAFKA_RESP_ERR_STALE_MEMBER_EPOCH is returned, when
+    /// using `group.protocol=consumer`, if the commit failed because the
+    /// member has switched to a new member epoch.
+    /// This error code can be retried.
+    /// Partition level error is also set in the `offsets.
     ///
-    ///          RD_KAFKA_RESP_ERR_UNKNOWN_MEMBER_ID is returned, when
-    ///          using `group.protocol=consumer`, if the member has been
-    ///          removed from the consumer group
-    ///          This error code is permanent, uncommitted messages will be
-    ///          reprocessed by this or a different member and committed there.
-    ///          Partition level error is also set in the \p offsets.
+    /// RD_KAFKA_RESP_ERR_UNKNOWN_MEMBER_ID is returned, when
+    /// using `group.protocol=consumer`, if the member has been
+    /// removed from the consumer group
+    /// This error code is permanent, uncommitted messages will be
+    /// reprocessed by this or a different member and committed there.
+    /// Partition level error is also set in the `offsets.
     pub fn rd_kafka_commit(
         rk: *mut rd_kafka_t,
         offsets: *const rd_kafka_topic_partition_list_t,
@@ -4027,8 +4027,8 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Commit message's offset on broker for the message's partition.
-    ///        The committed offset is the message's offset + 1.
+    /// Commit message's offset on broker for the message's partition.
+    /// The committed offset is the message's offset + 1.
     ///
     /// @sa rd_kafka_commit
     pub fn rd_kafka_commit_message(
@@ -4038,22 +4038,22 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Commit offsets on broker for the provided list of partitions.
+    /// Commit offsets on broker for the provided list of partitions.
     ///
-    /// See rd_kafka_commit for \p offsets semantics.
+    /// See rd_kafka_commit for `offsets semantics.
     ///
-    /// The result of the offset commit will be posted on the provided \p rkqu queue.
+    /// The result of the offset commit will be posted on the provided `rkqu queue.
     ///
     /// If the application uses one of the poll APIs (rd_kafka_poll(),
     /// rd_kafka_consumer_poll(), rd_kafka_queue_poll(), ..) to serve the queue
-    /// the \p cb callback is required.
+    /// the `cb callback is required.
     ///
-    /// The \p commit_opaque argument is passed to the callback as \p commit_opaque,
+    /// The `commit_opaque argument is passed to the callback as `commit_opaque,
     /// or if using the event API the callback is ignored and the offset commit
     /// result will be returned as an RD_KAFKA_EVENT_COMMIT event and the
-    /// \p commit_opaque value will be available with rd_kafka_event_opaque().
+    /// `commit_opaque value will be available with rd_kafka_event_opaque().
     ///
-    /// If \p rkqu is NULL a temporary queue will be created and the callback will
+    /// If `rkqu is NULL a temporary queue will be created and the callback will
     /// be served by this call.
     ///
     /// @sa rd_kafka_commit()
@@ -4074,9 +4074,9 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Retrieve committed offsets for topics+partitions.
+    /// Retrieve committed offsets for topics+partitions.
     ///
-    /// The \p offset field of each requested partition will either be set to
+    /// The `offset field of each requested partition will either be set to
     /// stored offset or to RD_KAFKA_OFFSET_INVALID in case there was no stored
     /// offset for that partition.
     ///
@@ -4085,10 +4085,10 @@ unsafe extern "C" {
     /// stable offsets for fully committed transactions will be returned, while
     /// `read_uncommitted` may return offsets for not yet committed transactions.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success in which case the
-    ///          \p offset or \p err field of each \p partitions' element is filled
-    ///          in with the stored offset, or a partition specific error.
-    ///          Else returns an error code.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success in which case the
+    /// `offset or `err field of each `partitions' element is filled
+    /// in with the stored offset, or a partition specific error.
+    /// Else returns an error code.
     pub fn rd_kafka_committed(
         rk: *mut rd_kafka_t,
         partitions: *mut rd_kafka_topic_partition_list_t,
@@ -4096,33 +4096,33 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Retrieve current positions (offsets) for topics+partitions.
+    /// Retrieve current positions (offsets) for topics+partitions.
     ///
-    /// The \p offset field of each requested partition will be set to the offset
+    /// The `offset field of each requested partition will be set to the offset
     /// of the last consumed message + 1, or RD_KAFKA_OFFSET_INVALID in case there
     /// was no previous message.
     ///
     /// @remark  In this context the last consumed message is the offset consumed
-    ///          by the current librdkafka instance and, in case of rebalancing, not
-    ///          necessarily the last message fetched from the partition.
+    /// by the current librdkafka instance and, in case of rebalancing, not
+    /// necessarily the last message fetched from the partition.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success in which case the
-    ///          \p offset or \p err field of each \p partitions' element is filled
-    ///          in with the stored offset, or a partition specific error.
-    ///          Else returns an error code.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success in which case the
+    /// `offset or `err field of each `partitions' element is filled
+    /// in with the stored offset, or a partition specific error.
+    /// Else returns an error code.
     pub fn rd_kafka_position(
         rk: *mut rd_kafka_t,
         partitions: *mut rd_kafka_topic_partition_list_t,
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @returns the current consumer group metadata associated with this consumer,
-    ///          or NULL if \p rk is not a consumer configured with a \c group.id.
-    ///          This metadata object should be passed to the transactional
-    ///          producer's rd_kafka_send_offsets_to_transaction() API.
+    /// Returns the current consumer group metadata associated with this consumer,
+    /// or NULL if `rk is not a consumer configured with a `group.id.
+    /// This metadata object should be passed to the transactional
+    /// producer's rd_kafka_send_offsets_to_transaction() API.
     ///
     /// @remark The returned pointer must be freed by the application using
-    ///         rd_kafka_consumer_group_metadata_destroy().
+    /// rd_kafka_consumer_group_metadata_destroy().
     ///
     /// @sa rd_kafka_send_offsets_to_transaction()
     pub fn rd_kafka_consumer_group_metadata(
@@ -4130,28 +4130,28 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_consumer_group_metadata_t;
 }
 unsafe extern "C" {
-    /// @brief Create a new consumer group metadata object.
-    ///        This is typically only used for writing tests.
+    /// Create a new consumer group metadata object.
+    /// This is typically only used for writing tests.
     ///
-    /// @param group_id The group id.
+    /// - `group_id`: The group id.
     ///
     /// @remark The returned pointer must be freed by the application using
-    ///         rd_kafka_consumer_group_metadata_destroy().
+    /// rd_kafka_consumer_group_metadata_destroy().
     pub fn rd_kafka_consumer_group_metadata_new(
         group_id: *const ::std::os::raw::c_char,
     ) -> *mut rd_kafka_consumer_group_metadata_t;
 }
 unsafe extern "C" {
-    /// @brief Create a new consumer group metadata object.
-    ///        This is typically only used for writing tests.
+    /// Create a new consumer group metadata object.
+    /// This is typically only used for writing tests.
     ///
-    /// @param group_id The group id.
-    /// @param generation_id The group generation id.
-    /// @param member_id The group member id.
-    /// @param group_instance_id The group instance id (may be NULL).
+    /// - `group_id`: The group id.
+    /// - `generation_id`: The group generation id.
+    /// - `member_id`: The group member id.
+    /// - `group_instance_id`: The group instance id (may be NULL).
     ///
     /// @remark The returned pointer must be freed by the application using
-    ///         rd_kafka_consumer_group_metadata_destroy().
+    /// rd_kafka_consumer_group_metadata_destroy().
     pub fn rd_kafka_consumer_group_metadata_new_with_genid(
         group_id: *const ::std::os::raw::c_char,
         generation_id: i32,
@@ -4160,76 +4160,76 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_consumer_group_metadata_t;
 }
 unsafe extern "C" {
-    /// @brief Get group id of a group metadata.
+    /// Get group id of a group metadata.
     ///
-    /// @param group_metadata The group metadata.
+    /// - `group_metadata`: The group metadata.
     ///
-    /// @returns The group id contained in the passed \p group_metadata.
+    /// Returns The group id contained in the passed \p group_metadata.
     ///
-    /// @remark The returned pointer has the same lifetime as \p group_metadata.
+    /// @remark The returned pointer has the same lifetime as `group_metadata.
     pub fn rd_kafka_consumer_group_metadata_group_id(
         group_metadata: *const rd_kafka_consumer_group_metadata_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Get group instance id of a group metadata.
+    /// Get group instance id of a group metadata.
     ///
-    /// @param group_metadata The group metadata.
+    /// - `group_metadata`: The group metadata.
     ///
-    /// @returns The group instance id contained in the passed \p group_metadata
-    ///          or NULL.
+    /// Returns The group instance id contained in the passed \p group_metadata
+    /// or NULL.
     ///
-    /// @remark The returned pointer has the same lifetime as \p group_metadata.
+    /// @remark The returned pointer has the same lifetime as `group_metadata.
     pub fn rd_kafka_consumer_group_metadata_group_instance_id(
         group_metadata: *const rd_kafka_consumer_group_metadata_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Get member id of a group metadata.
+    /// Get member id of a group metadata.
     ///
-    /// @param group_metadata The group metadata.
+    /// - `group_metadata`: The group metadata.
     ///
-    /// @returns The member id contained in the passed \p group_metadata.
+    /// Returns The member id contained in the passed \p group_metadata.
     ///
-    /// @remark The returned pointer has the same lifetime as \p group_metadata.
+    /// @remark The returned pointer has the same lifetime as `group_metadata.
     pub fn rd_kafka_consumer_group_metadata_member_id(
         group_metadata: *const rd_kafka_consumer_group_metadata_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Get the generation id (classic protocol)
-    ///        or member epoch (consumer protocol) of a group metadata.
+    /// Get the generation id (classic protocol)
+    /// or member epoch (consumer protocol) of a group metadata.
     ///
-    /// @param group_metadata The group metadata.
+    /// - `group_metadata`: The group metadata.
     ///
-    /// @returns The generation id or member epoch
-    ///          contained in the passed \p group_metadata.
+    /// Returns The generation id or member epoch
+    /// contained in the passed `group_metadata.
     pub fn rd_kafka_consumer_group_metadata_generation_id(
         group_metadata: *const rd_kafka_consumer_group_metadata_t,
     ) -> i32;
 }
 unsafe extern "C" {
-    /// @brief Frees the consumer group metadata object as returned by
-    ///        rd_kafka_consumer_group_metadata().
+    /// Frees the consumer group metadata object as returned by
+    /// rd_kafka_consumer_group_metadata().
     pub fn rd_kafka_consumer_group_metadata_destroy(arg1: *mut rd_kafka_consumer_group_metadata_t);
 }
 unsafe extern "C" {
-    /// @brief Serialize the consumer group metadata to a binary format.
-    ///        This is mainly for client binding use and not for application use.
+    /// Serialize the consumer group metadata to a binary format.
+    /// This is mainly for client binding use and not for application use.
     ///
     /// @remark The serialized metadata format is private and is not compatible
-    ///         across different versions or even builds of librdkafka.
-    ///         It should only be used in the same process runtime and must only
-    ///         be passed to rd_kafka_consumer_group_metadata_read().
+    /// across different versions or even builds of librdkafka.
+    /// It should only be used in the same process runtime and must only
+    /// be passed to rd_kafka_consumer_group_metadata_read().
     ///
-    /// @param cgmd Metadata to be serialized.
-    /// @param bufferp On success this pointer will be updated to point to na
-    ///                allocated buffer containing the serialized metadata.
-    ///                The buffer must be freed with rd_kafka_mem_free().
-    /// @param sizep The pointed to size will be updated with the size of
-    ///              the serialized buffer.
+    /// - `cgmd`: Metadata to be serialized.
+    /// - `bufferp`: On success this pointer will be updated to point to na
+    /// allocated buffer containing the serialized metadata.
+    /// The buffer must be freed with rd_kafka_mem_free().
+    /// - `sizep`: The pointed to size will be updated with the size of
+    /// the serialized buffer.
     ///
-    /// @returns NULL on success or an error object on failure.
+    /// Returns NULL on success or an error object on failure.
     ///
     /// @sa rd_kafka_consumer_group_metadata_read()
     pub fn rd_kafka_consumer_group_metadata_write(
@@ -4239,22 +4239,22 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Reads serialized consumer group metadata and returns a
-    ///        consumer group metadata object.
-    ///        This is mainly for client binding use and not for application use.
+    /// Reads serialized consumer group metadata and returns a
+    /// consumer group metadata object.
+    /// This is mainly for client binding use and not for application use.
     ///
     /// @remark The serialized metadata format is private and is not compatible
-    ///         across different versions or even builds of librdkafka.
-    ///         It should only be used in the same process runtime and must only
-    ///         be passed to rd_kafka_consumer_group_metadata_read().
+    /// across different versions or even builds of librdkafka.
+    /// It should only be used in the same process runtime and must only
+    /// be passed to rd_kafka_consumer_group_metadata_read().
     ///
-    /// @param cgmdp On success this pointer will be updated to point to a new
-    ///              consumer group metadata object which must be freed with
-    ///              rd_kafka_consumer_group_metadata_destroy().
-    /// @param buffer Pointer to the serialized data.
-    /// @param size Size of the serialized data.
+    /// - `cgmdp`: On success this pointer will be updated to point to a new
+    /// consumer group metadata object which must be freed with
+    /// rd_kafka_consumer_group_metadata_destroy().
+    /// - `buffer`: Pointer to the serialized data.
+    /// - `size`: Size of the serialized data.
     ///
-    /// @returns NULL on success or an error object on failure.
+    /// Returns NULL on success or an error object on failure.
     ///
     /// @sa rd_kafka_consumer_group_metadata_write()
     pub fn rd_kafka_consumer_group_metadata_read(
@@ -4264,9 +4264,9 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Produce and send a single message to broker.
+    /// Produce and send a single message to broker.
     ///
-    /// \p rkt is the target topic which must have been previously created with
+    /// `rkt is the target topic which must have been previously created with
     /// `rd_kafka_topic_new()`.
     ///
     /// `rd_kafka_produce()` is an asynchronous non-blocking API.
@@ -4291,75 +4291,75 @@ unsafe extern "C" {
     /// See the "Message reliability" chapter in INTRODUCTION.md for more
     /// information.
     ///
-    /// \p partition is the target partition, either:
-    ///   - RD_KAFKA_PARTITION_UA (unassigned) for
-    ///     automatic partitioning using the topic's partitioner function, or
-    ///   - a fixed partition (0..N)
+    /// `partition is the target partition, either:
+    /// - RD_KAFKA_PARTITION_UA (unassigned) for
+    /// automatic partitioning using the topic's partitioner function, or
+    /// - a fixed partition (0..N)
     ///
-    /// \p msgflags is zero or more of the following flags OR:ed together:
-    ///    RD_KAFKA_MSG_F_BLOCK - block \p produce*() call if
-    ///                           \p queue.buffering.max.messages or
-    ///                           \p queue.buffering.max.kbytes are exceeded.
-    ///                           Messages are considered in-queue from the point
+    /// `msgflags is zero or more of the following flags OR:ed together:
+    /// RD_KAFKA_MSG_F_BLOCK - block `produce*() call if
+    /// `queue.buffering.max.messages or
+    /// `queue.buffering.max.kbytes are exceeded.
+    /// Messages are considered in-queue from the point
     /// they are accepted by produce() until their corresponding delivery report
     /// callback/event returns. It is thus a requirement to call rd_kafka_poll() (or
     /// equiv.) from a separate thread when F_BLOCK is used. See WARNING on \c
     /// RD_KAFKA_MSG_F_BLOCK above.
     ///
-    ///    RD_KAFKA_MSG_F_FREE - rdkafka will free(3) \p payload when it is done
-    ///                          with it.
-    ///    RD_KAFKA_MSG_F_COPY - the \p payload data will be copied and the
-    ///                          \p payload pointer will not be used by rdkafka
-    ///                          after the call returns.
-    ///    RD_KAFKA_MSG_F_PARTITION - produce_batch() will honour per-message
-    ///                               partition, either set manually or by the
-    ///                               configured partitioner.
+    /// RD_KAFKA_MSG_F_FREE - rdkafka will free(3) `payload when it is done
+    /// with it.
+    /// RD_KAFKA_MSG_F_COPY - the `payload data will be copied and the
+    /// `payload pointer will not be used by rdkafka
+    /// after the call returns.
+    /// RD_KAFKA_MSG_F_PARTITION - produce_batch() will honour per-message
+    /// partition, either set manually or by the
+    /// configured partitioner.
     ///
-    ///    .._F_FREE and .._F_COPY are mutually exclusive. If neither of these are
-    ///    set, the caller must ensure that the memory backing \p payload remains
-    ///    valid and is not modified or reused until the delivery callback is
-    ///    invoked. Other buffers passed to `rd_kafka_produce()` don't have this
-    ///    restriction on reuse, i.e. the memory backing the key or the topic name
-    ///    may be reused as soon as `rd_kafka_produce()` returns.
+    /// .._F_FREE and .._F_COPY are mutually exclusive. If neither of these are
+    /// set, the caller must ensure that the memory backing `payload remains
+    /// valid and is not modified or reused until the delivery callback is
+    /// invoked. Other buffers passed to `rd_kafka_produce()` don't have this
+    /// restriction on reuse, i.e. the memory backing the key or the topic name
+    /// may be reused as soon as `rd_kafka_produce()` returns.
     ///
-    ///    If the function returns -1 and RD_KAFKA_MSG_F_FREE was specified, then
-    ///    the memory associated with the payload is still the caller's
-    ///    responsibility.
+    /// If the function returns -1 and RD_KAFKA_MSG_F_FREE was specified, then
+    /// the memory associated with the payload is still the caller's
+    /// responsibility.
     ///
-    /// \p payload is the message payload of size \p len bytes.
+    /// `payload is the message payload of size `len bytes.
     ///
-    /// \p key is an optional message key of size \p keylen bytes, if non-NULL it
+    /// `key is an optional message key of size `keylen bytes, if non-NULL it
     /// will be passed to the topic partitioner as well as be sent with the
     /// message to the broker and passed on to the consumer.
     ///
-    /// \p msg_opaque is an optional application-provided per-message opaque
+    /// `msg_opaque is an optional application-provided per-message opaque
     /// pointer that will provided in the message's delivery report callback
-    /// (\c dr_msg_cb or \c dr_cb) and the \c rd_kafka_message_t \c _private field.
+    /// (`dr_msg_cb or `dr_cb) and the `rd_kafka_message_t `_private field.
     ///
     /// @remark on_send() and on_acknowledgement() interceptors may be called
-    ///         from this function. on_acknowledgement() will only be called if the
-    ///         message fails partitioning.
+    /// from this function. on_acknowledgement() will only be called if the
+    /// message fails partitioning.
     ///
-    /// @remark If the producer is transactional (\c transactional.id is configured)
-    ///         producing is only allowed during an on-going transaction, namely
-    ///         after rd_kafka_begin_transaction() has been called.
+    /// @remark If the producer is transactional (`transactional.id is configured)
+    /// producing is only allowed during an on-going transaction, namely
+    /// after rd_kafka_begin_transaction() has been called.
     ///
-    /// @returns 0 on success or -1 on error in which case errno is set accordingly:
-    ///  - ENOBUFS  - maximum number of outstanding messages has been reached:
-    ///               "queue.buffering.max.messages"
-    ///               (RD_KAFKA_RESP_ERR__QUEUE_FULL)
-    ///  - EMSGSIZE - message is larger than configured max size:
-    ///               "messages.max.bytes".
-    ///               (RD_KAFKA_RESP_ERR_MSG_SIZE_TOO_LARGE)
-    ///  - ESRCH    - requested \p partition is unknown in the Kafka cluster.
-    ///               (RD_KAFKA_RESP_ERR__UNKNOWN_PARTITION)
-    ///  - ENOENT   - topic is unknown in the Kafka cluster.
-    ///               (RD_KAFKA_RESP_ERR__UNKNOWN_TOPIC)
-    ///  - ECANCELED - fatal error has been raised on producer, see
-    ///                rd_kafka_fatal_error(),
-    ///               (RD_KAFKA_RESP_ERR__FATAL).
-    ///  - ENOEXEC  - transactional state forbids producing
-    ///               (RD_KAFKA_RESP_ERR__STATE)
+    /// Returns 0 on success or -1 on error in which case errno is set accordingly:
+    /// - ENOBUFS  - maximum number of outstanding messages has been reached:
+    /// "queue.buffering.max.messages"
+    /// (RD_KAFKA_RESP_ERR__QUEUE_FULL)
+    /// - EMSGSIZE - message is larger than configured max size:
+    /// "messages.max.bytes".
+    /// (RD_KAFKA_RESP_ERR_MSG_SIZE_TOO_LARGE)
+    /// - ESRCH    - requested `partition is unknown in the Kafka cluster.
+    /// (RD_KAFKA_RESP_ERR__UNKNOWN_PARTITION)
+    /// - ENOENT   - topic is unknown in the Kafka cluster.
+    /// (RD_KAFKA_RESP_ERR__UNKNOWN_TOPIC)
+    /// - ECANCELED - fatal error has been raised on producer, see
+    /// rd_kafka_fatal_error(),
+    /// (RD_KAFKA_RESP_ERR__FATAL).
+    /// - ENOEXEC  - transactional state forbids producing
+    /// (RD_KAFKA_RESP_ERR__STATE)
     ///
     /// @sa Use rd_kafka_errno2err() to convert `errno` to rdkafka error code.
     pub fn rd_kafka_produce(
@@ -4374,27 +4374,27 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Produce and send a single message to broker.
+    /// Produce and send a single message to broker.
     ///
-    /// The message is defined by a va-arg list using \c rd_kafka_vtype_t
-    /// tag tuples which must be terminated with a single \c RD_KAFKA_V_END.
+    /// The message is defined by a va-arg list using `rd_kafka_vtype_t
+    /// tag tuples which must be terminated with a single `RD_KAFKA_V_END.
     ///
-    /// @returns \c RD_KAFKA_RESP_ERR_NO_ERROR on success, else an error code as
-    ///          described in rd_kafka_produce().
-    ///          \c RD_KAFKA_RESP_ERR__CONFLICT is returned if _V_HEADER and
-    ///          _V_HEADERS are mixed.
+    /// Returns \c RD_KAFKA_RESP_ERR_NO_ERROR on success, else an error code as
+    /// described in rd_kafka_produce().
+    /// `RD_KAFKA_RESP_ERR__CONFLICT is returned if _V_HEADER and
+    /// _V_HEADERS are mixed.
     ///
     /// @sa rd_kafka_produce, rd_kafka_produceva, RD_KAFKA_V_END
     pub fn rd_kafka_producev(rk: *mut rd_kafka_t, ...) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Produce and send a single message to broker.
+    /// Produce and send a single message to broker.
     ///
-    /// The message is defined by an array of \c rd_kafka_vu_t of
-    /// count \p cnt.
+    /// The message is defined by an array of `rd_kafka_vu_t of
+    /// count `cnt.
     ///
-    /// @returns an error object on failure or NULL on success.
-    ///          See rd_kafka_producev() for specific error codes.
+    /// Returns an error object on failure or NULL on success.
+    /// See rd_kafka_producev() for specific error codes.
     ///
     /// @sa rd_kafka_produce, rd_kafka_producev, RD_KAFKA_V_END
     pub fn rd_kafka_produceva(
@@ -4404,33 +4404,33 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Produce multiple messages.
+    /// Produce multiple messages.
     ///
     /// If partition is RD_KAFKA_PARTITION_UA the configured partitioner will
     /// be run for each message (slower), otherwise the messages will be enqueued
     /// to the specified partition directly (faster).
     ///
-    /// The messages are provided in the array \p rkmessages of count \p message_cnt
+    /// The messages are provided in the array `rkmessages of count `message_cnt
     /// elements.
-    /// The \p partition and \p msgflags are used for all provided messages.
+    /// The `partition and `msgflags are used for all provided messages.
     ///
-    /// Honoured \p rkmessages[] fields are:
-    ///  - payload,len    Message payload and length
-    ///  - key,key_len    Optional message key
-    ///  - _private       Message opaque pointer (msg_opaque)
-    ///  - err            Will be set according to success or failure, see
-    ///                   rd_kafka_produce() for possible error codes.
-    ///                   Application only needs to check for errors if
-    ///                   return value != \p message_cnt.
+    /// Honoured `rkmessages[] fields are:
+    /// - payload,len    Message payload and length
+    /// - key,key_len    Optional message key
+    /// - _private       Message opaque pointer (msg_opaque)
+    /// - err            Will be set according to success or failure, see
+    /// rd_kafka_produce() for possible error codes.
+    /// Application only needs to check for errors if
+    /// return value != `message_cnt.
     ///
-    /// @remark If \c RD_KAFKA_MSG_F_PARTITION is set in \p msgflags, the
-    ///         \c .partition field of the \p rkmessages is used instead of
-    ///         \p partition.
+    /// @remark If `RD_KAFKA_MSG_F_PARTITION is set in `msgflags, the
+    /// `.partition field of the `rkmessages is used instead of
+    /// `partition.
     ///
-    /// @returns the number of messages succesfully enqueued for producing.
+    /// Returns the number of messages succesfully enqueued for producing.
     ///
     /// @remark This interface does NOT support setting message headers on
-    ///         the provided \p rkmessages.
+    /// the provided `rkmessages.
     pub fn rd_kafka_produce_batch(
         rkt: *mut rd_kafka_topic_t,
         partition: i32,
@@ -4440,26 +4440,26 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Wait until all outstanding produce requests, et.al, are completed.
-    ///        This should typically be done prior to destroying a producer instance
-    ///        to make sure all queued and in-flight produce requests are completed
-    ///        before terminating.
+    /// Wait until all outstanding produce requests, et.al, are completed.
+    /// This should typically be done prior to destroying a producer instance
+    /// to make sure all queued and in-flight produce requests are completed
+    /// before terminating.
     ///
     /// @remark This function will call rd_kafka_poll() and thus trigger callbacks.
     ///
-    /// @remark The \c linger.ms time will be ignored for the duration of the call,
-    ///         queued messages will be sent to the broker as soon as possible.
+    /// @remark The `linger.ms time will be ignored for the duration of the call,
+    /// queued messages will be sent to the broker as soon as possible.
     ///
     /// @remark If RD_KAFKA_EVENT_DR has been enabled
-    ///         (through rd_kafka_conf_set_events()) this function will not call
-    ///         rd_kafka_poll() but instead wait for the librdkafka-handled
-    ///         message count to reach zero. This requires the application to
-    ///         serve the event queue in a separate thread.
-    ///         In this mode only messages are counted, not other types of
-    ///         queued events.
+    /// (through rd_kafka_conf_set_events()) this function will not call
+    /// rd_kafka_poll() but instead wait for the librdkafka-handled
+    /// message count to reach zero. This requires the application to
+    /// serve the event queue in a separate thread.
+    /// In this mode only messages are counted, not other types of
+    /// queued events.
     ///
-    /// @returns RD_KAFKA_RESP_ERR__TIMED_OUT if \p timeout_ms was reached before all
-    ///          outstanding requests were completed, else RD_KAFKA_RESP_ERR_NO_ERROR
+    /// Returns RD_KAFKA_RESP_ERR__TIMED_OUT if \p timeout_ms was reached before all
+    /// outstanding requests were completed, else RD_KAFKA_RESP_ERR_NO_ERROR
     ///
     /// @sa rd_kafka_outq_len()
     pub fn rd_kafka_flush(
@@ -4468,10 +4468,10 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Purge messages currently handled by the producer instance.
+    /// Purge messages currently handled by the producer instance.
     ///
-    /// @param rk          Client instance.
-    /// @param purge_flags Tells which messages to purge and how.
+    /// - `rk`: Client instance.
+    /// - `purge_flags`: Tells which messages to purge and how.
     ///
     /// The application will need to call rd_kafka_poll() or rd_kafka_flush()
     /// afterwards to serve the delivery report callbacks of the purged messages.
@@ -4482,34 +4482,34 @@ unsafe extern "C" {
     /// RD_KAFKA_RESP_ERR__PURGE_INFLIGHT.
     ///
     /// @warning Purging messages that are in-flight to or from the broker
-    ///          will ignore any subsequent acknowledgement for these messages
-    ///          received from the broker, effectively making it impossible
-    ///          for the application to know if the messages were successfully
-    ///          produced or not. This may result in duplicate messages if the
-    ///          application retries these messages at a later time.
+    /// will ignore any subsequent acknowledgement for these messages
+    /// received from the broker, effectively making it impossible
+    /// for the application to know if the messages were successfully
+    /// produced or not. This may result in duplicate messages if the
+    /// application retries these messages at a later time.
     ///
     /// @remark This call may block for a short time while background thread
-    ///         queues are purged.
+    /// queues are purged.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success,
-    ///          RD_KAFKA_RESP_ERR__INVALID_ARG if the \p purge flags are invalid
-    ///          or unknown,
-    ///          RD_KAFKA_RESP_ERR__NOT_IMPLEMENTED if called on a non-producer
-    ///          client instance.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success,
+    /// RD_KAFKA_RESP_ERR__INVALID_ARG if the `purge flags are invalid
+    /// or unknown,
+    /// RD_KAFKA_RESP_ERR__NOT_IMPLEMENTED if called on a non-producer
+    /// client instance.
     pub fn rd_kafka_purge(
         rk: *mut rd_kafka_t,
         purge_flags: ::std::os::raw::c_int,
     ) -> rd_kafka_resp_err_t;
 }
-/// @brief Broker information
+/// Broker information
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_metadata_broker {
-    ///< Broker Id
+    /// < Broker Id
     pub id: i32,
-    ///< Broker hostname
+    /// < Broker hostname
     pub host: *mut ::std::os::raw::c_char,
-    ///< Broker listening port
+    /// < Broker listening port
     pub port: ::std::os::raw::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4525,25 +4525,25 @@ const _: () = {
     ["Offset of field: rd_kafka_metadata_broker::port"]
         [::std::mem::offset_of!(rd_kafka_metadata_broker, port) - 16usize];
 };
-/// @brief Broker information
+/// Broker information
 pub type rd_kafka_metadata_broker_t = rd_kafka_metadata_broker;
-/// @brief Partition information
+/// Partition information
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_metadata_partition {
-    ///< Partition Id
+    /// < Partition Id
     pub id: i32,
-    ///< Partition error reported by broker
+    /// < Partition error reported by broker
     pub err: rd_kafka_resp_err_t,
-    ///< Leader broker
+    /// < Leader broker
     pub leader: i32,
-    ///< Number of brokers in \p replicas
+    /// < Number of brokers in `replicas
     pub replica_cnt: ::std::os::raw::c_int,
-    ///< Replica brokers
+    /// < Replica brokers
     pub replicas: *mut i32,
-    ///< Number of ISR brokers in \p isrs
+    /// < Number of ISR brokers in `isrs
     pub isr_cnt: ::std::os::raw::c_int,
-    ///< In-Sync-Replica brokers
+    /// < In-Sync-Replica brokers
     pub isrs: *mut i32,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4567,19 +4567,19 @@ const _: () = {
     ["Offset of field: rd_kafka_metadata_partition::isrs"]
         [::std::mem::offset_of!(rd_kafka_metadata_partition, isrs) - 32usize];
 };
-/// @brief Partition information
+/// Partition information
 pub type rd_kafka_metadata_partition_t = rd_kafka_metadata_partition;
-/// @brief Topic information
+/// Topic information
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_metadata_topic {
-    ///< Topic name
+    /// < Topic name
     pub topic: *mut ::std::os::raw::c_char,
-    ///< Number of partitions in \p partitions
+    /// < Number of partitions in `partitions
     pub partition_cnt: ::std::os::raw::c_int,
-    ///< Partitions
+    /// < Partitions
     pub partitions: *mut rd_kafka_metadata_partition,
-    ///< Topic error reported by broker
+    /// < Topic error reported by broker
     pub err: rd_kafka_resp_err_t,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4596,23 +4596,23 @@ const _: () = {
     ["Offset of field: rd_kafka_metadata_topic::err"]
         [::std::mem::offset_of!(rd_kafka_metadata_topic, err) - 24usize];
 };
-/// @brief Topic information
+/// Topic information
 pub type rd_kafka_metadata_topic_t = rd_kafka_metadata_topic;
-/// @brief Metadata container
+/// Metadata container
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_metadata {
-    ///< Number of brokers in \p brokers
+    /// < Number of brokers in `brokers
     pub broker_cnt: ::std::os::raw::c_int,
-    ///< Brokers
+    /// < Brokers
     pub brokers: *mut rd_kafka_metadata_broker,
-    ///< Number of topics in \p topics
+    /// < Number of topics in `topics
     pub topic_cnt: ::std::os::raw::c_int,
-    ///< Topics
+    /// < Topics
     pub topics: *mut rd_kafka_metadata_topic,
-    ///< Broker originating this metadata
+    /// < Broker originating this metadata
     pub orig_broker_id: i32,
-    ///< Name of originating broker
+    /// < Name of originating broker
     pub orig_broker_name: *mut ::std::os::raw::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4632,27 +4632,27 @@ const _: () = {
     ["Offset of field: rd_kafka_metadata::orig_broker_name"]
         [::std::mem::offset_of!(rd_kafka_metadata, orig_broker_name) - 40usize];
 };
-/// @brief Metadata container
+/// Metadata container
 pub type rd_kafka_metadata_t = rd_kafka_metadata;
 unsafe extern "C" {
-    /// @brief Request Metadata from broker.
+    /// Request Metadata from broker.
     ///
     /// Parameters:
-    ///  - \p all_topics  if non-zero: request info about all topics in cluster,
-    ///                   if zero: only request info about locally known topics.
-    ///  - \p only_rkt    only request info about this topic
-    ///  - \p metadatap   pointer to hold metadata result.
-    ///                   The \p *metadatap pointer must be released
-    ///                   with rd_kafka_metadata_destroy().
-    ///  - \p timeout_ms  maximum response time before failing.
+    /// - `all_topics  if non-zero: request info about all topics in cluster,
+    /// if zero: only request info about locally known topics.
+    /// - `only_rkt    only request info about this topic
+    /// - `metadatap   pointer to hold metadata result.
+    /// The `*metadatap pointer must be released
+    /// with rd_kafka_metadata_destroy().
+    /// - `timeout_ms  maximum response time before failing.
     ///
-    /// @remark Consumer: If \p all_topics is non-zero the Metadata response
-    ///         information may trigger a re-join if any subscribed topics
-    ///         have changed partition count or existence state.
+    /// @remark Consumer: If `all_topics is non-zero the Metadata response
+    /// information may trigger a re-join if any subscribed topics
+    /// have changed partition count or existence state.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success (in which case *metadatap)
-    ///          will be set, else RD_KAFKA_RESP_ERR__TIMED_OUT on timeout or
-    ///          other error code on error.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success (in which case *metadatap)
+    /// will be set, else RD_KAFKA_RESP_ERR__TIMED_OUT on timeout or
+    /// other error code on error.
     pub fn rd_kafka_metadata(
         rk: *mut rd_kafka_t,
         all_topics: ::std::os::raw::c_int,
@@ -4662,7 +4662,7 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Release metadata memory.
+    /// Release metadata memory.
     pub fn rd_kafka_metadata_destroy(metadata: *const rd_kafka_metadata);
 }
 #[repr(C)]
@@ -4670,65 +4670,65 @@ unsafe extern "C" {
 pub struct rd_kafka_Node_s {
     _unused: [u8; 0],
 }
-/// @brief Node (broker) information.
+/// Node (broker) information.
 pub type rd_kafka_Node_t = rd_kafka_Node_s;
 unsafe extern "C" {
-    /// @brief Get the id of \p node.
+    /// Get the id of \p node.
     ///
-    /// @param node The Node instance.
+    /// - `node`: The Node instance.
     ///
-    /// @return The node id.
+    /// Returns The node id.
     pub fn rd_kafka_Node_id(node: *const rd_kafka_Node_t) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Get the host of \p node.
+    /// Get the host of \p node.
     ///
-    /// @param node The Node instance.
+    /// - `node`: The Node instance.
     ///
-    /// @return The node host.
+    /// Returns The node host.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p node object.
+    /// as the lifetime of the `node object.
     pub fn rd_kafka_Node_host(node: *const rd_kafka_Node_t) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Get the port of \p node.
+    /// Get the port of \p node.
     ///
-    /// @param node The Node instance.
+    /// - `node`: The Node instance.
     ///
-    /// @return The node port.
+    /// Returns The node port.
     pub fn rd_kafka_Node_port(node: *const rd_kafka_Node_t) -> u16;
 }
 unsafe extern "C" {
-    /// @brief Get the rack of \p node.
+    /// Get the rack of \p node.
     ///
-    /// @param node The Node instance
+    /// - `node`: The Node instance
     ///
-    /// @return The node rack id. May be NULL.
+    /// Returns The node rack id. May be NULL.
     pub fn rd_kafka_Node_rack(node: *const rd_kafka_Node_t) -> *const ::std::os::raw::c_char;
 }
-/// @brief Group member information
+/// Group member information
 ///
-/// For more information on \p member_metadata format, see
-/// https://cwiki.apache.org/confluence/display/KAFKA/A+Guide+To+The+Kafka+Protocol#AGuideToTheKafkaProtocol-GroupMembershipAPI
+/// For more information on `member_metadata format, see
+/// <https://cwiki.apache.org/confluence/display/KAFKA/A+Guide+To+The+Kafka+Protocol#AGuideToTheKafkaProtocol-GroupMembershipAPI>
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_group_member_info {
-    ///< Member id (generated by broker)
+    /// < Member id (generated by broker)
     pub member_id: *mut ::std::os::raw::c_char,
-    ///< Client's \p client.id
+    /// < Client's `client.id
     pub client_id: *mut ::std::os::raw::c_char,
-    ///< Client's hostname
+    /// < Client's hostname
     pub client_host: *mut ::std::os::raw::c_char,
-    ///< Member metadata (binary),
-    ///   format depends on \p protocol_type.
+    /// < Member metadata (binary),
+    /// format depends on `protocol_type.
     pub member_metadata: *mut ::std::os::raw::c_void,
-    ///< Member metadata size in bytes
+    /// < Member metadata size in bytes
     pub member_metadata_size: ::std::os::raw::c_int,
-    ///< Member assignment (binary),
-    ///    format depends on \p protocol_type.
+    /// < Member assignment (binary),
+    /// format depends on `protocol_type.
     pub member_assignment: *mut ::std::os::raw::c_void,
-    ///< Member assignment size in bytes
+    /// < Member assignment size in bytes
     pub member_assignment_size: ::std::os::raw::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4755,7 +4755,7 @@ const _: () = {
 #[repr(u32)]
 /// @enum rd_kafka_consumer_group_state_t
 ///
-/// @brief Consumer group state.
+/// Consumer group state.
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_consumer_group_state_t {
     RD_KAFKA_CONSUMER_GROUP_STATE_UNKNOWN = 0,
@@ -4769,7 +4769,7 @@ pub enum rd_kafka_consumer_group_state_t {
 #[repr(u32)]
 /// @enum rd_kafka_consumer_group_type_t
 ///
-/// @brief Consumer group type.
+/// Consumer group type.
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_consumer_group_type_t {
     RD_KAFKA_CONSUMER_GROUP_TYPE_UNKNOWN = 0,
@@ -4777,25 +4777,25 @@ pub enum rd_kafka_consumer_group_type_t {
     RD_KAFKA_CONSUMER_GROUP_TYPE_CLASSIC = 2,
     RD_KAFKA_CONSUMER_GROUP_TYPE__CNT = 3,
 }
-/// @brief Group information
+/// Group information
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_group_info {
-    ///< Originating broker info
+    /// < Originating broker info
     pub broker: rd_kafka_metadata_broker,
-    ///< Group name
+    /// < Group name
     pub group: *mut ::std::os::raw::c_char,
-    ///< Broker-originated error
+    /// < Broker-originated error
     pub err: rd_kafka_resp_err_t,
-    ///< Group state
+    /// < Group state
     pub state: *mut ::std::os::raw::c_char,
-    ///< Group protocol type
+    /// < Group protocol type
     pub protocol_type: *mut ::std::os::raw::c_char,
-    ///< Group protocol
+    /// < Group protocol
     pub protocol: *mut ::std::os::raw::c_char,
-    ///< Group members
+    /// < Group members
     pub members: *mut rd_kafka_group_member_info,
-    ///< Group member count
+    /// < Group member count
     pub member_cnt: ::std::os::raw::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4819,15 +4819,15 @@ const _: () = {
     ["Offset of field: rd_kafka_group_info::member_cnt"]
         [::std::mem::offset_of!(rd_kafka_group_info, member_cnt) - 72usize];
 };
-/// @brief List of groups
+/// List of groups
 ///
 /// @sa rd_kafka_group_list_destroy() to release list memory.
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_group_list {
-    ///< Groups
+    /// < Groups
     pub groups: *mut rd_kafka_group_info,
-    ///< Group count
+    /// < Group count
     pub group_cnt: ::std::os::raw::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4840,34 +4840,34 @@ const _: () = {
         [::std::mem::offset_of!(rd_kafka_group_list, group_cnt) - 8usize];
 };
 unsafe extern "C" {
-    /// @brief List and describe client groups in cluster.
+    /// List and describe client groups in cluster.
     ///
-    /// \p group is an optional group name to describe, otherwise (\c NULL) all
+    /// `group is an optional group name to describe, otherwise (`NULL) all
     /// groups are returned.
     ///
-    /// \p timeout_ms is the (approximate) maximum time to wait for response
+    /// `timeout_ms is the (approximate) maximum time to wait for response
     /// from brokers and must be a positive value.
     ///
-    /// @returns \c RD_KAFKA_RESP_ERR__NO_ERROR on success and \p grplistp is
-    ///           updated to point to a newly allocated list of groups.
-    ///           \c RD_KAFKA_RESP_ERR__PARTIAL if not all brokers responded
-    ///           in time but at least one group is returned in  \p grplistlp.
-    ///           \c RD_KAFKA_RESP_ERR__TIMED_OUT if no groups were returned in the
-    ///           given timeframe but not all brokers have yet responded, or
-    ///           if the list of brokers in the cluster could not be obtained within
-    ///           the given timeframe.
-    ///           \c RD_KAFKA_RESP_ERR__TRANSPORT if no brokers were found.
-    ///           Other error codes may also be returned from the request layer.
+    /// Returns \c RD_KAFKA_RESP_ERR__NO_ERROR on success and \p grplistp is
+    /// updated to point to a newly allocated list of groups.
+    /// `RD_KAFKA_RESP_ERR__PARTIAL if not all brokers responded
+    /// in time but at least one group is returned in  `grplistlp.
+    /// `RD_KAFKA_RESP_ERR__TIMED_OUT if no groups were returned in the
+    /// given timeframe but not all brokers have yet responded, or
+    /// if the list of brokers in the cluster could not be obtained within
+    /// the given timeframe.
+    /// `RD_KAFKA_RESP_ERR__TRANSPORT if no brokers were found.
+    /// Other error codes may also be returned from the request layer.
     ///
-    ///           The \p grplistp remains untouched if any error code is returned,
-    ///           with the exception of RD_KAFKA_RESP_ERR__PARTIAL which behaves
-    ///           as RD_KAFKA_RESP_ERR__NO_ERROR (success) but with an incomplete
-    ///           group list.
+    /// The `grplistp remains untouched if any error code is returned,
+    /// with the exception of RD_KAFKA_RESP_ERR__PARTIAL which behaves
+    /// as RD_KAFKA_RESP_ERR__NO_ERROR (success) but with an incomplete
+    /// group list.
     ///
     /// @sa Use rd_kafka_group_list_destroy() to release list memory.
     ///
     /// @deprecated Use rd_kafka_ListConsumerGroups() and
-    ///             rd_kafka_DescribeConsumerGroups() instead.
+    /// rd_kafka_DescribeConsumerGroups() instead.
     pub fn rd_kafka_list_groups(
         rk: *mut rd_kafka_t,
         group: *const ::std::os::raw::c_char,
@@ -4876,54 +4876,54 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Returns a name for a state code.
+    /// Returns a name for a state code.
     ///
-    /// @param state The state value.
+    /// - `state`: The state value.
     ///
-    /// @return The group state name corresponding to the provided group state value.
+    /// Returns The group state name corresponding to the provided group state value.
     pub fn rd_kafka_consumer_group_state_name(
         state: rd_kafka_consumer_group_state_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Returns a code for a state name.
+    /// Returns a code for a state name.
     ///
-    /// @param name The state name.
+    /// - `name`: The state name.
     ///
-    /// @return The group state value corresponding to the provided group state name.
+    /// Returns The group state value corresponding to the provided group state name.
     pub fn rd_kafka_consumer_group_state_code(
         name: *const ::std::os::raw::c_char,
     ) -> rd_kafka_consumer_group_state_t;
 }
 unsafe extern "C" {
-    /// @brief Returns a name for a group type code.
+    /// Returns a name for a group type code.
     ///
-    /// @param type The group type value.
+    /// - `type`: The group type value.
     ///
-    /// @return The group type name corresponding to the provided group type value.
+    /// Returns The group type name corresponding to the provided group type value.
     pub fn rd_kafka_consumer_group_type_name(
         type_: rd_kafka_consumer_group_type_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Returns a code for a group type name.
+    /// Returns a code for a group type name.
     ///
-    /// @param name The group type name.
+    /// - `name`: The group type name.
     ///
     /// @remark The comparison is case-insensitive.
     ///
-    /// @return The group type value corresponding to the provided group type name.
+    /// Returns The group type value corresponding to the provided group type name.
     pub fn rd_kafka_consumer_group_type_code(
         name: *const ::std::os::raw::c_char,
     ) -> rd_kafka_consumer_group_type_t;
 }
 unsafe extern "C" {
-    /// @brief Release list memory
+    /// Release list memory
     pub fn rd_kafka_group_list_destroy(grplist: *const rd_kafka_group_list);
 }
 unsafe extern "C" {
-    /// @brief Adds one or more brokers to the kafka handle's list of initial
-    ///        bootstrap brokers.
+    /// Adds one or more brokers to the kafka handle's list of initial
+    /// bootstrap brokers.
     ///
     /// Additional brokers will be discovered automatically as soon as rdkafka
     /// connects to a broker by querying the broker metadata.
@@ -4932,33 +4932,33 @@ unsafe extern "C" {
     /// address families) all will be used for connection attempts in
     /// round-robin fashion.
     ///
-    /// \p brokerlist is a ,-separated list of brokers in the format:
-    ///   \c \<broker1\>,\<broker2\>,..
+    /// `brokerlist is a ,-separated list of brokers in the format:
+    /// `\<broker1\>,\<broker2\>,..
     /// Where each broker is in either the host or URL based format:
-    ///   \c \<host\>[:\<port\>]
-    ///   \c \<proto\>://\<host\>[:port]
-    /// \c \<proto\> is either \c PLAINTEXT, \c SSL, \c SASL, \c SASL_PLAINTEXT
+    /// `\<host\>[:\<port\>]
+    /// `\<proto\>://\<host\>\[:port\]
+    /// `\<proto\> is either `PLAINTEXT, `SSL, `SASL, `SASL_PLAINTEXT
     /// The two formats can be mixed but ultimately the value of the
     /// `security.protocol` config property decides what brokers are allowed.
     ///
     /// Example:
-    ///    brokerlist = "broker1:10000,broker2"
-    ///    brokerlist = "SSL://broker3:9000,ssl://broker2"
+    /// brokerlist = "broker1:10000,broker2"
+    /// brokerlist = "SSL://broker3:9000,ssl://broker2"
     ///
-    /// @returns the number of brokers successfully added.
+    /// Returns the number of brokers successfully added.
     ///
-    /// @remark Brokers may also be defined with the \c metadata.broker.list or
-    ///         \c bootstrap.servers configuration property (preferred method).
+    /// @remark Brokers may also be defined with the `metadata.broker.list or
+    /// `bootstrap.servers configuration property (preferred method).
     ///
-    /// @deprecated Set bootstrap servers with the \c bootstrap.servers
-    ///             configuration property.
+    /// @deprecated Set bootstrap servers with the `bootstrap.servers
+    /// configuration property.
     pub fn rd_kafka_brokers_add(
         rk: *mut rd_kafka_t,
         brokerlist: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Set logger function.
+    /// Set logger function.
     ///
     /// The default is to print to stderr, but a syslog logger is also available,
     /// see rd_kafka_log_(print|syslog) for the builtin alternatives.
@@ -4967,7 +4967,7 @@ unsafe extern "C" {
     ///
     /// @deprecated Use rd_kafka_conf_set_log_cb()
     ///
-    /// @remark \p rk may be passed as NULL in the callback.
+    /// @remark `rk may be passed as NULL in the callback.
     pub fn rd_kafka_set_logger(
         rk: *mut rd_kafka_t,
         func: ::std::option::Option<
@@ -4981,17 +4981,17 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Specifies the maximum logging level emitted by
-    ///        internal kafka logging and debugging.
+    /// Specifies the maximum logging level emitted by
+    /// internal kafka logging and debugging.
     ///
-    /// @deprecated Set the \c "log_level" configuration property instead.
+    /// @deprecated Set the `"log_level" configuration property instead.
     ///
-    /// @remark If the \p \"debug\" configuration property is set the log level is
-    ///         automatically adjusted to \c LOG_DEBUG (7).
+    /// @remark If the `\"debug\" configuration property is set the log level is
+    /// automatically adjusted to `LOG_DEBUG (7).
     pub fn rd_kafka_set_log_level(rk: *mut rd_kafka_t, level: ::std::os::raw::c_int);
 }
 unsafe extern "C" {
-    /// @brief Builtin (default) log sink: print to stderr
+    /// Builtin (default) log sink: print to stderr
     pub fn rd_kafka_log_print(
         rk: *const rd_kafka_t,
         level: ::std::os::raw::c_int,
@@ -5000,9 +5000,9 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Builtin log sink: print to syslog.
+    /// Builtin log sink: print to syslog.
     /// @remark This logger is only available if librdkafka was built
-    ///         with syslog support.
+    /// with syslog support.
     pub fn rd_kafka_log_syslog(
         rk: *const rd_kafka_t,
         level: ::std::os::raw::c_int,
@@ -5011,37 +5011,37 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Returns the current out queue length.
+    /// Returns the current out queue length.
     ///
     /// The out queue length is the sum of:
-    ///  - number of messages waiting to be sent to, or acknowledged by,
-    ///    the broker.
-    ///  - number of delivery reports (e.g., dr_msg_cb) waiting to be served
-    ///    by rd_kafka_poll() or rd_kafka_flush().
-    ///  - number of callbacks (e.g., error_cb, stats_cb, etc) waiting to be
-    ///    served by rd_kafka_poll(), rd_kafka_consumer_poll() or rd_kafka_flush().
-    ///  - number of events waiting to be served by background_event_cb() in
-    ///    the background queue (see rd_kafka_conf_set_background_event_cb).
+    /// - number of messages waiting to be sent to, or acknowledged by,
+    /// the broker.
+    /// - number of delivery reports (e.g., dr_msg_cb) waiting to be served
+    /// by rd_kafka_poll() or rd_kafka_flush().
+    /// - number of callbacks (e.g., error_cb, stats_cb, etc) waiting to be
+    /// served by rd_kafka_poll(), rd_kafka_consumer_poll() or rd_kafka_flush().
+    /// - number of events waiting to be served by background_event_cb() in
+    /// the background queue (see rd_kafka_conf_set_background_event_cb).
     ///
     /// An application should wait for the return value of this function to reach
     /// zero before terminating to make sure outstanding messages,
     /// requests (such as offset commits), callbacks and events are fully processed.
     /// See rd_kafka_flush().
     ///
-    /// @returns number of messages and events waiting in queues.
+    /// Returns number of messages and events waiting in queues.
     ///
     /// @sa rd_kafka_flush()
     pub fn rd_kafka_outq_len(rk: *mut rd_kafka_t) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Dumps rdkafka's internal state for handle \p rk to stream \p fp
+    /// Dumps rdkafka's internal state for handle \p rk to stream \p fp
     ///
     /// This is only useful for debugging rdkafka, showing state and statistics
     /// for brokers, topics, partitions, etc.
     pub fn rd_kafka_dump(fp: *mut FILE, rk: *mut rd_kafka_t);
 }
 unsafe extern "C" {
-    /// @brief Retrieve the current number of threads in use by librdkafka.
+    /// Retrieve the current number of threads in use by librdkafka.
     ///
     /// Used by regression tests.
     pub fn rd_kafka_thread_cnt() -> ::std::os::raw::c_int;
@@ -5049,20 +5049,20 @@ unsafe extern "C" {
 #[repr(u32)]
 /// @enum rd_kafka_thread_type_t
 ///
-/// @brief librdkafka internal thread type.
+/// librdkafka internal thread type.
 ///
 /// @sa rd_kafka_interceptor_add_on_thread_start()
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_thread_type_t {
-    ///< librdkafka's internal main thread
+    /// < librdkafka's internal main thread
     RD_KAFKA_THREAD_MAIN = 0,
-    ///< Background thread (if enabled)
+    /// < Background thread (if enabled)
     RD_KAFKA_THREAD_BACKGROUND = 1,
-    ///< Per-broker thread
+    /// < Per-broker thread
     RD_KAFKA_THREAD_BROKER = 2,
 }
 unsafe extern "C" {
-    /// @brief Wait for all rd_kafka_t objects to be destroyed.
+    /// Wait for all rd_kafka_t objects to be destroyed.
     ///
     /// Returns 0 if all kafka objects are now destroyed, or -1 if the
     /// timeout was reached.
@@ -5071,73 +5071,73 @@ unsafe extern "C" {
     pub fn rd_kafka_wait_destroyed(timeout_ms: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Run librdkafka's built-in unit-tests.
+    /// Run librdkafka's built-in unit-tests.
     ///
-    /// @returns the number of failures, or 0 if all tests passed.
+    /// Returns the number of failures, or 0 if all tests passed.
     pub fn rd_kafka_unittest() -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Redirect the main (rd_kafka_poll()) queue to the KafkaConsumer's
-    ///        queue (rd_kafka_consumer_poll()).
+    /// Redirect the main (rd_kafka_poll()) queue to the KafkaConsumer's
+    /// queue (rd_kafka_consumer_poll()).
     ///
     /// @warning It is not permitted to call rd_kafka_poll() after directing the
-    ///          main queue with rd_kafka_poll_set_consumer().
+    /// main queue with rd_kafka_poll_set_consumer().
     pub fn rd_kafka_poll_set_consumer(rk: *mut rd_kafka_t) -> rd_kafka_resp_err_t;
 }
-/// @brief Event types
+/// Event types
 pub type rd_kafka_event_type_t = ::std::os::raw::c_int;
 unsafe extern "C" {
-    /// @returns the event type for the given event.
+    /// Returns the event type for the given event.
     ///
-    /// @remark As a convenience it is okay to pass \p rkev as NULL in which case
-    ///         RD_KAFKA_EVENT_NONE is returned.
+    /// @remark As a convenience it is okay to pass `rkev as NULL in which case
+    /// RD_KAFKA_EVENT_NONE is returned.
     pub fn rd_kafka_event_type(rkev: *const rd_kafka_event_t) -> rd_kafka_event_type_t;
 }
 unsafe extern "C" {
-    /// @returns the event type's name for the given event.
+    /// Returns the event type's name for the given event.
     ///
-    /// @remark As a convenience it is okay to pass \p rkev as NULL in which case
-    ///         the name for RD_KAFKA_EVENT_NONE is returned.
+    /// @remark As a convenience it is okay to pass `rkev as NULL in which case
+    /// the name for RD_KAFKA_EVENT_NONE is returned.
     pub fn rd_kafka_event_name(rkev: *const rd_kafka_event_t) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Destroy an event.
+    /// Destroy an event.
     ///
     /// @remark Any references to this event, such as extracted messages,
-    ///         will not be usable after this call.
+    /// will not be usable after this call.
     ///
-    /// @remark As a convenience it is okay to pass \p rkev as NULL in which case
-    ///         no action is performed.
+    /// @remark As a convenience it is okay to pass `rkev as NULL in which case
+    /// no action is performed.
     pub fn rd_kafka_event_destroy(rkev: *mut rd_kafka_event_t);
 }
 unsafe extern "C" {
-    /// @returns the next message from an event.
+    /// Returns the next message from an event.
     ///
     /// Call repeatedly until it returns NULL.
     ///
     /// Event types:
-    ///  - RD_KAFKA_EVENT_FETCH  (1 message)
-    ///  - RD_KAFKA_EVENT_DR     (>=1 message(s))
+    /// - RD_KAFKA_EVENT_FETCH  (1 message)
+    /// - RD_KAFKA_EVENT_DR     (>=1 message(s))
     ///
     /// @remark The returned message(s) MUST NOT be
-    ///         freed with rd_kafka_message_destroy().
+    /// freed with rd_kafka_message_destroy().
     ///
     /// @remark on_consume() interceptor may be called
-    ///         from this function prior to passing message to application.
+    /// from this function prior to passing message to application.
     pub fn rd_kafka_event_message_next(rkev: *mut rd_kafka_event_t) -> *const rd_kafka_message_t;
 }
 unsafe extern "C" {
-    /// @brief Extacts \p size message(s) from the event into the
-    ///        pre-allocated array \p rkmessages.
+    /// Extacts \p size message(s) from the event into the
+    /// pre-allocated array `rkmessages.
     ///
     /// Event types:
-    ///  - RD_KAFKA_EVENT_FETCH  (1 message)
-    ///  - RD_KAFKA_EVENT_DR     (>=1 message(s))
+    /// - RD_KAFKA_EVENT_FETCH  (1 message)
+    /// - RD_KAFKA_EVENT_DR     (>=1 message(s))
     ///
-    /// @returns the number of messages extracted.
+    /// Returns the number of messages extracted.
     ///
     /// @remark on_consume() interceptor may be called
-    ///         from this function prior to passing message to application.
+    /// from this function prior to passing message to application.
     pub fn rd_kafka_event_message_array(
         rkev: *mut rd_kafka_event_t,
         rkmessages: *mut *const rd_kafka_message_t,
@@ -5145,91 +5145,91 @@ unsafe extern "C" {
     ) -> usize;
 }
 unsafe extern "C" {
-    /// @returns the number of remaining messages in the event.
+    /// Returns the number of remaining messages in the event.
     ///
     /// Event types:
-    ///  - RD_KAFKA_EVENT_FETCH  (1 message)
-    ///  - RD_KAFKA_EVENT_DR     (>=1 message(s))
+    /// - RD_KAFKA_EVENT_FETCH  (1 message)
+    /// - RD_KAFKA_EVENT_DR     (>=1 message(s))
     pub fn rd_kafka_event_message_count(rkev: *mut rd_kafka_event_t) -> usize;
 }
 unsafe extern "C" {
-    /// @returns the associated configuration string for the event, or NULL
-    ///          if the configuration property is not set or if
-    ///          not applicable for the given event type.
+    /// Returns the associated configuration string for the event, or NULL
+    /// if the configuration property is not set or if
+    /// not applicable for the given event type.
     ///
     /// The returned memory is read-only and its lifetime is the same as the
     /// event object.
     ///
     /// Event types:
-    ///  - RD_KAFKA_EVENT_OAUTHBEARER_TOKEN_REFRESH: value of sasl.oauthbearer.config
+    /// - RD_KAFKA_EVENT_OAUTHBEARER_TOKEN_REFRESH: value of sasl.oauthbearer.config
     pub fn rd_kafka_event_config_string(
         rkev: *mut rd_kafka_event_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns the error code for the event.
+    /// Returns the error code for the event.
     ///
     /// Use rd_kafka_event_error_is_fatal() to detect if this is a fatal error.
     ///
     /// Event types:
-    ///  - all
+    /// - all
     pub fn rd_kafka_event_error(rkev: *mut rd_kafka_event_t) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @returns the error string (if any).
-    ///          An application should check that rd_kafka_event_error() returns
-    ///          non-zero before calling this function.
+    /// Returns the error string (if any).
+    /// An application should check that rd_kafka_event_error() returns
+    /// non-zero before calling this function.
     ///
     /// Event types:
-    ///  - all
+    /// - all
     pub fn rd_kafka_event_error_string(
         rkev: *mut rd_kafka_event_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns 1 if the error is a fatal error, else 0.
+    /// Returns 1 if the error is a fatal error, else 0.
     ///
     /// Event types:
-    ///  - RD_KAFKA_EVENT_ERROR
+    /// - RD_KAFKA_EVENT_ERROR
     ///
     /// @sa rd_kafka_fatal_error()
     pub fn rd_kafka_event_error_is_fatal(rkev: *mut rd_kafka_event_t) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @returns the event opaque (if any) as passed to rd_kafka_commit() (et.al) or
-    ///          rd_kafka_AdminOptions_set_opaque(), depending on event type.
+    /// Returns the event opaque (if any) as passed to rd_kafka_commit() (et.al) or
+    /// rd_kafka_AdminOptions_set_opaque(), depending on event type.
     ///
     /// Event types:
-    ///  - RD_KAFKA_EVENT_OFFSET_COMMIT
-    ///  - RD_KAFKA_EVENT_CREATETOPICS_RESULT
-    ///  - RD_KAFKA_EVENT_DELETETOPICS_RESULT
-    ///  - RD_KAFKA_EVENT_CREATEPARTITIONS_RESULT
-    ///  - RD_KAFKA_EVENT_CREATEACLS_RESULT
-    ///  - RD_KAFKA_EVENT_DESCRIBEACLS_RESULT
-    ///  - RD_KAFKA_EVENT_DELETEACLS_RESULT
-    ///  - RD_KAFKA_EVENT_ALTERCONFIGS_RESULT
-    ///  - RD_KAFKA_EVENT_INCREMENTAL_ALTERCONFIGS_RESULT
-    ///  - RD_KAFKA_EVENT_DESCRIBECONFIGS_RESULT
-    ///  - RD_KAFKA_EVENT_DELETEGROUPS_RESULT
-    ///  - RD_KAFKA_EVENT_DELETECONSUMERGROUPOFFSETS_RESULT
-    ///  - RD_KAFKA_EVENT_DELETERECORDS_RESULT
-    ///  - RD_KAFKA_EVENT_LISTCONSUMERGROUPS_RESULT
-    ///  - RD_KAFKA_EVENT_DESCRIBECONSUMERGROUPS_RESULT
-    ///  - RD_KAFKA_EVENT_LISTCONSUMERGROUPOFFSETS_RESULT
-    ///  - RD_KAFKA_EVENT_ALTERCONSUMERGROUPOFFSETS_RESULT
-    ///  - RD_KAFKA_EVENT_DESCRIBETOPICS_RESULT
-    ///  - RD_KAFKA_EVENT_DESCRIBECLUSTER_RESULT
-    ///  - RD_KAFKA_EVENT_LISTOFFSETS_RESULT
-    ///  - RD_KAFKA_EVENT_ELECTLEADERS_RESULT
+    /// - RD_KAFKA_EVENT_OFFSET_COMMIT
+    /// - RD_KAFKA_EVENT_CREATETOPICS_RESULT
+    /// - RD_KAFKA_EVENT_DELETETOPICS_RESULT
+    /// - RD_KAFKA_EVENT_CREATEPARTITIONS_RESULT
+    /// - RD_KAFKA_EVENT_CREATEACLS_RESULT
+    /// - RD_KAFKA_EVENT_DESCRIBEACLS_RESULT
+    /// - RD_KAFKA_EVENT_DELETEACLS_RESULT
+    /// - RD_KAFKA_EVENT_ALTERCONFIGS_RESULT
+    /// - RD_KAFKA_EVENT_INCREMENTAL_ALTERCONFIGS_RESULT
+    /// - RD_KAFKA_EVENT_DESCRIBECONFIGS_RESULT
+    /// - RD_KAFKA_EVENT_DELETEGROUPS_RESULT
+    /// - RD_KAFKA_EVENT_DELETECONSUMERGROUPOFFSETS_RESULT
+    /// - RD_KAFKA_EVENT_DELETERECORDS_RESULT
+    /// - RD_KAFKA_EVENT_LISTCONSUMERGROUPS_RESULT
+    /// - RD_KAFKA_EVENT_DESCRIBECONSUMERGROUPS_RESULT
+    /// - RD_KAFKA_EVENT_LISTCONSUMERGROUPOFFSETS_RESULT
+    /// - RD_KAFKA_EVENT_ALTERCONSUMERGROUPOFFSETS_RESULT
+    /// - RD_KAFKA_EVENT_DESCRIBETOPICS_RESULT
+    /// - RD_KAFKA_EVENT_DESCRIBECLUSTER_RESULT
+    /// - RD_KAFKA_EVENT_LISTOFFSETS_RESULT
+    /// - RD_KAFKA_EVENT_ELECTLEADERS_RESULT
     pub fn rd_kafka_event_opaque(rkev: *mut rd_kafka_event_t) -> *mut ::std::os::raw::c_void;
 }
 unsafe extern "C" {
-    /// @brief Extract log message from the event.
+    /// Extract log message from the event.
     ///
     /// Event types:
-    ///  - RD_KAFKA_EVENT_LOG
+    /// - RD_KAFKA_EVENT_LOG
     ///
-    /// @returns 0 on success or -1 if unsupported event type.
+    /// Returns 0 on success or -1 if unsupported event type.
     pub fn rd_kafka_event_log(
         rkev: *mut rd_kafka_event_t,
         fac: *mut *const ::std::os::raw::c_char,
@@ -5238,15 +5238,15 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Extract log debug context from event.
+    /// Extract log debug context from event.
     ///
     /// Event types:
-    ///  - RD_KAFKA_EVENT_LOG
+    /// - RD_KAFKA_EVENT_LOG
     ///
-    ///  @param rkev the event to extract data from.
-    ///  @param dst destination string for comma separated list.
-    ///  @param dstsize size of provided dst buffer.
-    ///  @returns 0 on success or -1 if unsupported event type.
+    /// - `rkev`: the event to extract data from.
+    /// - `dst`: destination string for comma separated list.
+    /// - `dstsize`: size of provided dst buffer.
+    /// Returns 0 on success or -1 if unsupported event type.
     pub fn rd_kafka_event_debug_contexts(
         rkev: *mut rd_kafka_event_t,
         dst: *mut ::std::os::raw::c_char,
@@ -5254,39 +5254,39 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Extract stats from the event.
+    /// Extract stats from the event.
     ///
     /// Event types:
-    ///  - RD_KAFKA_EVENT_STATS
+    /// - RD_KAFKA_EVENT_STATS
     ///
-    /// @returns stats json string.
+    /// Returns stats json string.
     ///
     /// @remark the returned string will be freed automatically along with the event
     /// object
     pub fn rd_kafka_event_stats(rkev: *mut rd_kafka_event_t) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns the topic partition list from the event.
+    /// Returns the topic partition list from the event.
     ///
     /// @remark The list MUST NOT be freed with
     /// rd_kafka_topic_partition_list_destroy()
     ///
     /// Event types:
-    ///  - RD_KAFKA_EVENT_REBALANCE
-    ///  - RD_KAFKA_EVENT_OFFSET_COMMIT
+    /// - RD_KAFKA_EVENT_REBALANCE
+    /// - RD_KAFKA_EVENT_OFFSET_COMMIT
     pub fn rd_kafka_event_topic_partition_list(
         rkev: *mut rd_kafka_event_t,
     ) -> *mut rd_kafka_topic_partition_list_t;
 }
 unsafe extern "C" {
-    /// @returns a newly allocated topic_partition container, if applicable for the
+    /// Returns a newly allocated topic_partition container, if applicable for the
     /// event type, else NULL.
     ///
     /// @remark The returned pointer MUST be freed with
     /// rd_kafka_topic_partition_destroy().
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_ERROR  (for partition level errors)
+    /// RD_KAFKA_EVENT_ERROR  (for partition level errors)
     pub fn rd_kafka_event_topic_partition(
         rkev: *mut rd_kafka_event_t,
     ) -> *mut rd_kafka_topic_partition_t;
@@ -5336,295 +5336,295 @@ pub type rd_kafka_ListOffsets_result_t = rd_kafka_event_t;
 /// ElectLeaders result type
 pub type rd_kafka_ElectLeaders_result_t = rd_kafka_event_t;
 unsafe extern "C" {
-    /// @brief Get CreateTopics result.
+    /// Get CreateTopics result.
     ///
-    /// @returns the result of a CreateTopics request, or NULL if event is of
-    ///          different type.
+    /// Returns the result of a CreateTopics request, or NULL if event is of
+    /// different type.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_CREATETOPICS_RESULT
+    /// RD_KAFKA_EVENT_CREATETOPICS_RESULT
     pub fn rd_kafka_event_CreateTopics_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_CreateTopics_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get DeleteTopics result.
+    /// Get DeleteTopics result.
     ///
-    /// @returns the result of a DeleteTopics request, or NULL if event is of
-    ///          different type.
+    /// Returns the result of a DeleteTopics request, or NULL if event is of
+    /// different type.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_DELETETOPICS_RESULT
+    /// RD_KAFKA_EVENT_DELETETOPICS_RESULT
     pub fn rd_kafka_event_DeleteTopics_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_DeleteTopics_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get CreatePartitions result.
+    /// Get CreatePartitions result.
     ///
-    /// @returns the result of a CreatePartitions request, or NULL if event is of
-    ///          different type.
+    /// Returns the result of a CreatePartitions request, or NULL if event is of
+    /// different type.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_CREATEPARTITIONS_RESULT
+    /// RD_KAFKA_EVENT_CREATEPARTITIONS_RESULT
     pub fn rd_kafka_event_CreatePartitions_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_CreatePartitions_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get AlterConfigs result.
+    /// Get AlterConfigs result.
     ///
-    /// @returns the result of a AlterConfigs request, or NULL if event is of
-    ///          different type.
+    /// Returns the result of a AlterConfigs request, or NULL if event is of
+    /// different type.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_ALTERCONFIGS_RESULT
+    /// RD_KAFKA_EVENT_ALTERCONFIGS_RESULT
     pub fn rd_kafka_event_AlterConfigs_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_AlterConfigs_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get IncrementalAlterConfigs result.
+    /// Get IncrementalAlterConfigs result.
     ///
-    /// @returns the result of a IncrementalAlterConfigs request, or NULL if event is
+    /// Returns the result of a IncrementalAlterConfigs request, or NULL if event is
     /// of different type.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_INCREMENTALALTERCONFIGS_RESULT
+    /// RD_KAFKA_EVENT_INCREMENTALALTERCONFIGS_RESULT
     pub fn rd_kafka_event_IncrementalAlterConfigs_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_IncrementalAlterConfigs_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get DescribeConfigs result.
+    /// Get DescribeConfigs result.
     ///
-    /// @returns the result of a DescribeConfigs request, or NULL if event is of
-    ///          different type.
+    /// Returns the result of a DescribeConfigs request, or NULL if event is of
+    /// different type.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_DESCRIBECONFIGS_RESULT
+    /// RD_KAFKA_EVENT_DESCRIBECONFIGS_RESULT
     pub fn rd_kafka_event_DescribeConfigs_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_DescribeConfigs_result_t;
 }
 unsafe extern "C" {
-    /// @returns the result of a DeleteRecords request, or NULL if event is of
-    ///          different type.
+    /// Returns the result of a DeleteRecords request, or NULL if event is of
+    /// different type.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_DELETERECORDS_RESULT
+    /// RD_KAFKA_EVENT_DELETERECORDS_RESULT
     pub fn rd_kafka_event_DeleteRecords_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_DeleteRecords_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get ListConsumerGroups result.
+    /// Get ListConsumerGroups result.
     ///
-    /// @returns the result of a ListConsumerGroups request, or NULL if event is of
-    ///          different type.
+    /// Returns the result of a ListConsumerGroups request, or NULL if event is of
+    /// different type.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p rkev object.
+    /// as the lifetime of the `rkev object.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_LISTCONSUMERGROUPS_RESULT
+    /// RD_KAFKA_EVENT_LISTCONSUMERGROUPS_RESULT
     pub fn rd_kafka_event_ListConsumerGroups_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_ListConsumerGroups_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get DescribeConsumerGroups result.
+    /// Get DescribeConsumerGroups result.
     ///
-    /// @returns the result of a DescribeConsumerGroups request, or NULL if event is
+    /// Returns the result of a DescribeConsumerGroups request, or NULL if event is
     /// of different type.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p rkev object.
+    /// as the lifetime of the `rkev object.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_DESCRIBECONSUMERGROUPS_RESULT
+    /// RD_KAFKA_EVENT_DESCRIBECONSUMERGROUPS_RESULT
     pub fn rd_kafka_event_DescribeConsumerGroups_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_DescribeConsumerGroups_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get DescribeTopics result.
+    /// Get DescribeTopics result.
     ///
-    /// @returns the result of a DescribeTopics request, or NULL if event is
+    /// Returns the result of a DescribeTopics request, or NULL if event is
     /// of different type.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p rkev object.
+    /// as the lifetime of the `rkev object.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_DESCRIBETOPICS_RESULT
+    /// RD_KAFKA_EVENT_DESCRIBETOPICS_RESULT
     pub fn rd_kafka_event_DescribeTopics_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_DescribeTopics_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get DescribeCluster result.
+    /// Get DescribeCluster result.
     ///
-    /// @returns the result of a DescribeCluster request, or NULL if event is
+    /// Returns the result of a DescribeCluster request, or NULL if event is
     /// of different type.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p rkev object.
+    /// as the lifetime of the `rkev object.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_DESCRIBECLUSTER_RESULT
+    /// RD_KAFKA_EVENT_DESCRIBECLUSTER_RESULT
     pub fn rd_kafka_event_DescribeCluster_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_DescribeCluster_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get DeleteGroups result.
+    /// Get DeleteGroups result.
     ///
-    /// @returns the result of a DeleteGroups request, or NULL if event is of
-    ///          different type.
+    /// Returns the result of a DeleteGroups request, or NULL if event is of
+    /// different type.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_DELETEGROUPS_RESULT
+    /// RD_KAFKA_EVENT_DELETEGROUPS_RESULT
     pub fn rd_kafka_event_DeleteGroups_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_DeleteGroups_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get DeleteConsumerGroupOffsets result.
+    /// Get DeleteConsumerGroupOffsets result.
     ///
-    /// @returns the result of a DeleteConsumerGroupOffsets request, or NULL if
-    ///          event is of different type.
+    /// Returns the result of a DeleteConsumerGroupOffsets request, or NULL if
+    /// event is of different type.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_DELETECONSUMERGROUPOFFSETS_RESULT
+    /// RD_KAFKA_EVENT_DELETECONSUMERGROUPOFFSETS_RESULT
     pub fn rd_kafka_event_DeleteConsumerGroupOffsets_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_DeleteConsumerGroupOffsets_result_t;
 }
 unsafe extern "C" {
-    /// @returns the result of a CreateAcls request, or NULL if event is of
-    ///          different type.
+    /// Returns the result of a CreateAcls request, or NULL if event is of
+    /// different type.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_CREATEACLS_RESULT
+    /// RD_KAFKA_EVENT_CREATEACLS_RESULT
     pub fn rd_kafka_event_CreateAcls_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_CreateAcls_result_t;
 }
 unsafe extern "C" {
-    /// @returns the result of a DescribeAcls request, or NULL if event is of
-    ///          different type.
+    /// Returns the result of a DescribeAcls request, or NULL if event is of
+    /// different type.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_DESCRIBEACLS_RESULT
+    /// RD_KAFKA_EVENT_DESCRIBEACLS_RESULT
     pub fn rd_kafka_event_DescribeAcls_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_DescribeAcls_result_t;
 }
 unsafe extern "C" {
-    /// @returns the result of a DeleteAcls request, or NULL if event is of
-    ///          different type.
+    /// Returns the result of a DeleteAcls request, or NULL if event is of
+    /// different type.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_DELETEACLS_RESULT
+    /// RD_KAFKA_EVENT_DELETEACLS_RESULT
     pub fn rd_kafka_event_DeleteAcls_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_DeleteAcls_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get ListConsumerGroupOffsets result.
+    /// Get ListConsumerGroupOffsets result.
     ///
-    /// @returns the result of a ListConsumerGroupOffsets request, or NULL if
-    ///          event is of different type.
+    /// Returns the result of a ListConsumerGroupOffsets request, or NULL if
+    /// event is of different type.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p rkev object.
+    /// as the lifetime of the `rkev object.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_LISTCONSUMERGROUPOFFSETS_RESULT
+    /// RD_KAFKA_EVENT_LISTCONSUMERGROUPOFFSETS_RESULT
     pub fn rd_kafka_event_ListConsumerGroupOffsets_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_ListConsumerGroupOffsets_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get AlterConsumerGroupOffsets result.
+    /// Get AlterConsumerGroupOffsets result.
     ///
-    /// @returns the result of a AlterConsumerGroupOffsets request, or NULL if
-    ///          event is of different type.
+    /// Returns the result of a AlterConsumerGroupOffsets request, or NULL if
+    /// event is of different type.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p rkev object.
+    /// as the lifetime of the `rkev object.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_ALTERCONSUMERGROUPOFFSETS_RESULT
+    /// RD_KAFKA_EVENT_ALTERCONSUMERGROUPOFFSETS_RESULT
     pub fn rd_kafka_event_AlterConsumerGroupOffsets_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_AlterConsumerGroupOffsets_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get ListOffsets result.
+    /// Get ListOffsets result.
     ///
-    /// @returns the result of a ListOffsets request, or NULL if
-    ///          event is of different type.
+    /// Returns the result of a ListOffsets request, or NULL if
+    /// event is of different type.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p rkev object.
+    /// as the lifetime of the `rkev object.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_LISTOFFSETS_RESULT
+    /// RD_KAFKA_EVENT_LISTOFFSETS_RESULT
     pub fn rd_kafka_event_ListOffsets_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_ListOffsets_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get DescribeUserScramCredentials result.
+    /// Get DescribeUserScramCredentials result.
     ///
-    /// @returns the result of a DescribeUserScramCredentials request, or NULL if
-    ///          event is of different type.
+    /// Returns the result of a DescribeUserScramCredentials request, or NULL if
+    /// event is of different type.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p rkev object.
+    /// as the lifetime of the `rkev object.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_DESCRIBEUSERSCRAMCREDENTIALS_RESULT
+    /// RD_KAFKA_EVENT_DESCRIBEUSERSCRAMCREDENTIALS_RESULT
     pub fn rd_kafka_event_DescribeUserScramCredentials_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_DescribeUserScramCredentials_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get AlterUserScramCredentials result.
+    /// Get AlterUserScramCredentials result.
     ///
-    /// @returns the result of a AlterUserScramCredentials request, or NULL if
-    ///          event is of different type.
+    /// Returns the result of a AlterUserScramCredentials request, or NULL if
+    /// event is of different type.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p rkev object.
+    /// as the lifetime of the `rkev object.
     ///
     /// Event types:
-    ///   RD_KAFKA_EVENT_ALTERUSERSCRAMCREDENTIALS_RESULT
+    /// RD_KAFKA_EVENT_ALTERUSERSCRAMCREDENTIALS_RESULT
     pub fn rd_kafka_event_AlterUserScramCredentials_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_AlterUserScramCredentials_result_t;
 }
 unsafe extern "C" {
-    /// @brief Get ElectLeaders result.
+    /// Get ElectLeaders result.
     ///
-    /// @returns the result of a ElectLeaders request, or NULL if
-    ///          event is of different type.
+    /// Returns the result of a ElectLeaders request, or NULL if
+    /// event is of different type.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p rkev object.
+    /// as the lifetime of the `rkev object.
     ///
     /// Event types:
-    ///  RD_KAFKA_EVENT_ELECTLEADERS_RESULT
+    /// RD_KAFKA_EVENT_ELECTLEADERS_RESULT
     pub fn rd_kafka_event_ElectLeaders_result(
         rkev: *mut rd_kafka_event_t,
     ) -> *const rd_kafka_ElectLeaders_result_t;
 }
 unsafe extern "C" {
-    /// @brief Poll a queue for an event for max \p timeout_ms.
+    /// Poll a queue for an event for max \p timeout_ms.
     ///
-    /// @returns an event, or NULL.
+    /// Returns an event, or NULL.
     ///
     /// @remark Use rd_kafka_event_destroy() to free the event.
     ///
@@ -5635,16 +5635,16 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_event_t;
 }
 unsafe extern "C" {
-    /// @brief Poll a queue for events served through callbacks for max \p
+    /// Poll a queue for events served through callbacks for max \p
     /// timeout_ms.
     ///
-    /// @returns the number of events served.
+    /// Returns the number of events served.
     ///
     /// @remark This API must only be used for queues with callbacks registered
-    ///         for all expected event types. E.g., not a message queue.
+    /// for all expected event types. E.g., not a message queue.
     ///
     /// @remark Also see rd_kafka_conf_set_background_event_cb() for triggering
-    ///         event callbacks from a librdkafka-managed background thread.
+    /// event callbacks from a librdkafka-managed background thread.
     ///
     /// @sa rd_kafka_conf_set_background_event_cb()
     pub fn rd_kafka_queue_poll_callback(
@@ -5652,25 +5652,25 @@ unsafe extern "C" {
         timeout_ms: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
-/// @brief Plugin's configuration initializer method called each time the
-///        library is referenced from configuration (even if previously loaded by
-///        another client instance).
+/// Plugin's configuration initializer method called each time the
+/// library is referenced from configuration (even if previously loaded by
+/// another client instance).
 ///
 /// @remark This method MUST be implemented by plugins and have the symbol name
-///         \c conf_init
+/// `conf_init
 ///
-/// @param conf Configuration set up to this point.
-/// @param plug_opaquep Plugin can set this pointer to a per-configuration
-///                     opaque pointer.
-/// @param errstr String buffer of size \p errstr_size where plugin must write
-///               a human readable error string in the case the initializer
-///               fails (returns non-zero).
-/// @param errstr_size Maximum space (including \0) in \p errstr.
+/// - `conf`: Configuration set up to this point.
+/// - `plug_opaquep`: Plugin can set this pointer to a per-configuration
+/// opaque pointer.
+/// - `errstr`: String buffer of size \p errstr_size where plugin must write
+/// a human readable error string in the case the initializer
+/// fails (returns non-zero).
+/// - `errstr_size`: Maximum space (including \0) in \p errstr.
 ///
 /// @remark A plugin may add an on_conf_destroy() interceptor to clean up
-///         plugin-specific resources created in the plugin's conf_init() method.
+/// plugin-specific resources created in the plugin's conf_init() method.
 ///
-/// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an error code on error.
+/// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an error code on error.
 pub type rd_kafka_plugin_f_conf_init_t = ::std::option::Option<
     unsafe extern "C" fn(
         conf: *mut rd_kafka_conf_t,
@@ -5679,24 +5679,24 @@ pub type rd_kafka_plugin_f_conf_init_t = ::std::option::Option<
         errstr_size: usize,
     ) -> rd_kafka_resp_err_t,
 >;
-/// @brief on_conf_set() is called from rd_kafka_*_conf_set() in the order
-///        the interceptors were added.
+/// on_conf_set() is called from rd_kafka_*_conf_set() in the order
+/// the interceptors were added.
 ///
-/// @param conf Configuration object.
-/// @param ic_opaque The interceptor's opaque pointer specified in ..add..().
-/// @param name The configuration property to set.
-/// @param val The configuration value to set, or NULL for reverting to default
-///            in which case the previous value should be freed.
-/// @param errstr A human readable error string in case the interceptor fails.
-/// @param errstr_size Maximum space (including \0) in \p errstr.
+/// - `conf`: Configuration object.
+/// - `ic_opaque`: The interceptor's opaque pointer specified in ..add..().
+/// - `name`: The configuration property to set.
+/// - `val`: The configuration value to set, or NULL for reverting to default
+/// in which case the previous value should be freed.
+/// - `errstr`: A human readable error string in case the interceptor fails.
+/// - `errstr_size`: Maximum space (including \0) in \p errstr.
 ///
-/// @returns RD_KAFKA_CONF_OK if the property was known and successfully
-///          handled by the interceptor, RD_KAFKA_CONF_INVALID if the
-///          property was handled by the interceptor but the value was invalid,
-///          or RD_KAFKA_CONF_UNKNOWN if the interceptor did not handle
-///          this property, in which case the property is passed on on the
-///          interceptor in the chain, finally ending up at the built-in
-///          configuration handler.
+/// Returns RD_KAFKA_CONF_OK if the property was known and successfully
+/// handled by the interceptor, RD_KAFKA_CONF_INVALID if the
+/// property was handled by the interceptor but the value was invalid,
+/// or RD_KAFKA_CONF_UNKNOWN if the interceptor did not handle
+/// this property, in which case the property is passed on on the
+/// interceptor in the chain, finally ending up at the built-in
+/// configuration handler.
 pub type rd_kafka_interceptor_f_on_conf_set_t = ::std::option::Option<
     unsafe extern "C" fn(
         conf: *mut rd_kafka_conf_t,
@@ -5707,25 +5707,25 @@ pub type rd_kafka_interceptor_f_on_conf_set_t = ::std::option::Option<
         ic_opaque: *mut ::std::os::raw::c_void,
     ) -> rd_kafka_conf_res_t,
 >;
-/// @brief on_conf_dup() is called from rd_kafka_conf_dup() in the
-///        order the interceptors were added and is used to let
-///        an interceptor re-register its conf interecptors with a new
-///        opaque value.
-///        The on_conf_dup() method is called prior to the configuration from
-///        \p old_conf being copied to \p new_conf.
+/// on_conf_dup() is called from rd_kafka_conf_dup() in the
+/// order the interceptors were added and is used to let
+/// an interceptor re-register its conf interecptors with a new
+/// opaque value.
+/// The on_conf_dup() method is called prior to the configuration from
+/// `old_conf being copied to `new_conf.
 ///
-/// @param ic_opaque The interceptor's opaque pointer specified in ..add..().
-/// @param new_conf New configuration object.
-/// @param old_conf Old configuration object to copy properties from.
-/// @param filter_cnt Number of property names to filter in \p filter.
-/// @param filter Property names to filter out (ignore) when setting up
-///               \p new_conf.
+/// - `ic_opaque`: The interceptor's opaque pointer specified in ..add..().
+/// - `new_conf`: New configuration object.
+/// - `old_conf`: Old configuration object to copy properties from.
+/// - `filter_cnt`: Number of property names to filter in \p filter.
+/// - `filter`: Property names to filter out (ignore) when setting up
+/// `new_conf.
 ///
-/// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an error code
-///          on failure (which is logged but otherwise ignored).
+/// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an error code
+/// on failure (which is logged but otherwise ignored).
 ///
 /// @remark No on_conf_* interceptors are copied to the new configuration
-///         object on rd_kafka_conf_dup().
+/// object on rd_kafka_conf_dup().
 pub type rd_kafka_interceptor_f_on_conf_dup_t = ::std::option::Option<
     unsafe extern "C" fn(
         new_conf: *mut rd_kafka_conf_t,
@@ -5735,27 +5735,27 @@ pub type rd_kafka_interceptor_f_on_conf_dup_t = ::std::option::Option<
         ic_opaque: *mut ::std::os::raw::c_void,
     ) -> rd_kafka_resp_err_t,
 >;
-/// @brief on_conf_destroy() is called from rd_kafka_*_conf_destroy() in the
-///        order the interceptors were added.
+/// on_conf_destroy() is called from rd_kafka_*_conf_destroy() in the
+/// order the interceptors were added.
 ///
-/// @param ic_opaque The interceptor's opaque pointer specified in ..add..().
+/// - `ic_opaque`: The interceptor's opaque pointer specified in ..add..().
 pub type rd_kafka_interceptor_f_on_conf_destroy_t = ::std::option::Option<
     unsafe extern "C" fn(ic_opaque: *mut ::std::os::raw::c_void) -> rd_kafka_resp_err_t,
 >;
-/// @brief on_new() is called from rd_kafka_new() prior toreturning
-///        the newly created client instance to the application.
+/// on_new() is called from rd_kafka_new() prior toreturning
+/// the newly created client instance to the application.
 ///
-/// @param rk The client instance.
-/// @param conf The client instance's final configuration.
-/// @param ic_opaque The interceptor's opaque pointer specified in ..add..().
-/// @param errstr A human readable error string in case the interceptor fails.
-/// @param errstr_size Maximum space (including \0) in \p errstr.
+/// - `rk`: The client instance.
+/// - `conf`: The client instance's final configuration.
+/// - `ic_opaque`: The interceptor's opaque pointer specified in ..add..().
+/// - `errstr`: A human readable error string in case the interceptor fails.
+/// - `errstr_size`: Maximum space (including \0) in \p errstr.
 ///
-/// @returns an error code on failure, the error is logged but otherwise ignored.
+/// Returns an error code on failure, the error is logged but otherwise ignored.
 ///
-/// @warning The \p rk client instance will not be fully set up when this
-///          interceptor is called and the interceptor MUST NOT call any
-///          other rk-specific APIs than rd_kafka_interceptor_add..().
+/// @warning The `rk client instance will not be fully set up when this
+/// interceptor is called and the interceptor MUST NOT call any
+/// other rk-specific APIs than rd_kafka_interceptor_add..().
 pub type rd_kafka_interceptor_f_on_new_t = ::std::option::Option<
     unsafe extern "C" fn(
         rk: *mut rd_kafka_t,
@@ -5765,35 +5765,35 @@ pub type rd_kafka_interceptor_f_on_new_t = ::std::option::Option<
         errstr_size: usize,
     ) -> rd_kafka_resp_err_t,
 >;
-/// @brief on_destroy() is called from rd_kafka_destroy() or (rd_kafka_new()
-///        if rd_kafka_new() fails during initialization).
+/// on_destroy() is called from rd_kafka_destroy() or (rd_kafka_new()
+/// if rd_kafka_new() fails during initialization).
 ///
-/// @param rk The client instance.
-/// @param ic_opaque The interceptor's opaque pointer specified in ..add..().
+/// - `rk`: The client instance.
+/// - `ic_opaque`: The interceptor's opaque pointer specified in ..add..().
 pub type rd_kafka_interceptor_f_on_destroy_t = ::std::option::Option<
     unsafe extern "C" fn(
         rk: *mut rd_kafka_t,
         ic_opaque: *mut ::std::os::raw::c_void,
     ) -> rd_kafka_resp_err_t,
 >;
-/// @brief on_send() is called from rd_kafka_produce*() (et.al) prior to
-///        the partitioner being called.
+/// on_send() is called from rd_kafka_produce*() (et.al) prior to
+/// the partitioner being called.
 ///
-/// @param rk The client instance.
-/// @param rkmessage The message being produced. Immutable.
-/// @param ic_opaque The interceptor's opaque pointer specified in ..add..().
+/// - `rk`: The client instance.
+/// - `rkmessage`: The message being produced. Immutable.
+/// - `ic_opaque`: The interceptor's opaque pointer specified in ..add..().
 ///
 /// @remark This interceptor is only used by producer instances.
 ///
-/// @remark The \p rkmessage object is NOT mutable and MUST NOT be modified
-///         by the interceptor.
+/// @remark The `rkmessage object is NOT mutable and MUST NOT be modified
+/// by the interceptor.
 ///
 /// @remark If the partitioner fails or an unknown partition was specified,
-///         the on_acknowledgement() interceptor chain will be called from
-///         within the rd_kafka_produce*() call to maintain send-acknowledgement
-///         symmetry.
+/// the on_acknowledgement() interceptor chain will be called from
+/// within the rd_kafka_produce*() call to maintain send-acknowledgement
+/// symmetry.
 ///
-/// @returns an error code on failure, the error is logged but otherwise ignored.
+/// Returns an error code on failure, the error is logged but otherwise ignored.
 pub type rd_kafka_interceptor_f_on_send_t = ::std::option::Option<
     unsafe extern "C" fn(
         rk: *mut rd_kafka_t,
@@ -5801,26 +5801,26 @@ pub type rd_kafka_interceptor_f_on_send_t = ::std::option::Option<
         ic_opaque: *mut ::std::os::raw::c_void,
     ) -> rd_kafka_resp_err_t,
 >;
-/// @brief on_acknowledgement() is called to inform interceptors that a message
-///        was succesfully delivered or permanently failed delivery.
-///        The interceptor chain is called from internal librdkafka background
-///        threads, or rd_kafka_produce*() if the partitioner failed.
+/// on_acknowledgement() is called to inform interceptors that a message
+/// was succesfully delivered or permanently failed delivery.
+/// The interceptor chain is called from internal librdkafka background
+/// threads, or rd_kafka_produce*() if the partitioner failed.
 ///
-/// @param rk The client instance.
-/// @param rkmessage The message being produced. Immutable.
-/// @param ic_opaque The interceptor's opaque pointer specified in ..add..().
+/// - `rk`: The client instance.
+/// - `rkmessage`: The message being produced. Immutable.
+/// - `ic_opaque`: The interceptor's opaque pointer specified in ..add..().
 ///
 /// @remark This interceptor is only used by producer instances.
 ///
-/// @remark The \p rkmessage object is NOT mutable and MUST NOT be modified
-///         by the interceptor.
+/// @remark The `rkmessage object is NOT mutable and MUST NOT be modified
+/// by the interceptor.
 ///
 /// @warning The on_acknowledgement() method may be called from internal
-///         librdkafka threads. An on_acknowledgement() interceptor MUST NOT
-///         call any librdkafka API's associated with the \p rk, or perform
-///         any blocking or prolonged work.
+/// librdkafka threads. An on_acknowledgement() interceptor MUST NOT
+/// call any librdkafka API's associated with the `rk, or perform
+/// any blocking or prolonged work.
 ///
-/// @returns an error code on failure, the error is logged but otherwise ignored.
+/// Returns an error code on failure, the error is logged but otherwise ignored.
 pub type rd_kafka_interceptor_f_on_acknowledgement_t = ::std::option::Option<
     unsafe extern "C" fn(
         rk: *mut rd_kafka_t,
@@ -5828,20 +5828,20 @@ pub type rd_kafka_interceptor_f_on_acknowledgement_t = ::std::option::Option<
         ic_opaque: *mut ::std::os::raw::c_void,
     ) -> rd_kafka_resp_err_t,
 >;
-/// @brief on_consume() is called just prior to passing the message to the
-///        application in rd_kafka_consumer_poll(), rd_kafka_consume*(),
-///        the event interface, etc.
+/// on_consume() is called just prior to passing the message to the
+/// application in rd_kafka_consumer_poll(), rd_kafka_consume*(),
+/// the event interface, etc.
 ///
-/// @param rk The client instance.
-/// @param rkmessage The message being consumed. Immutable.
-/// @param ic_opaque The interceptor's opaque pointer specified in ..add..().
+/// - `rk`: The client instance.
+/// - `rkmessage`: The message being consumed. Immutable.
+/// - `ic_opaque`: The interceptor's opaque pointer specified in ..add..().
 ///
 /// @remark This interceptor is only used by consumer instances.
 ///
-/// @remark The \p rkmessage object is NOT mutable and MUST NOT be modified
-///         by the interceptor.
+/// @remark The `rkmessage object is NOT mutable and MUST NOT be modified
+/// by the interceptor.
 ///
-/// @returns an error code on failure, the error is logged but otherwise ignored.
+/// Returns an error code on failure, the error is logged but otherwise ignored.
 pub type rd_kafka_interceptor_f_on_consume_t = ::std::option::Option<
     unsafe extern "C" fn(
         rk: *mut rd_kafka_t,
@@ -5849,25 +5849,25 @@ pub type rd_kafka_interceptor_f_on_consume_t = ::std::option::Option<
         ic_opaque: *mut ::std::os::raw::c_void,
     ) -> rd_kafka_resp_err_t,
 >;
-/// @brief on_commit() is called on completed or failed offset commit.
-///        It is called from internal librdkafka threads.
+/// on_commit() is called on completed or failed offset commit.
+/// It is called from internal librdkafka threads.
 ///
-/// @param rk The client instance.
-/// @param offsets List of topic+partition+offset+error that were committed.
-///                The error message of each partition should be checked for
-///                error.
-/// @param err The commit error, if any.
-/// @param ic_opaque The interceptor's opaque pointer specified in ..add..().
+/// - `rk`: The client instance.
+/// - `offsets`: List of topic+partition+offset+error that were committed.
+/// The error message of each partition should be checked for
+/// error.
+/// - `err`: The commit error, if any.
+/// - `ic_opaque`: The interceptor's opaque pointer specified in ..add..().
 ///
 /// @remark This interceptor is only used by consumer instances.
 ///
 /// @warning The on_commit() interceptor is called from internal
-///          librdkafka threads. An on_commit() interceptor MUST NOT
-///          call any librdkafka API's associated with the \p rk, or perform
-///          any blocking or prolonged work.
+/// librdkafka threads. An on_commit() interceptor MUST NOT
+/// call any librdkafka API's associated with the `rk, or perform
+/// any blocking or prolonged work.
 ///
 ///
-/// @returns an error code on failure, the error is logged but otherwise ignored.
+/// Returns an error code on failure, the error is logged but otherwise ignored.
 pub type rd_kafka_interceptor_f_on_commit_t = ::std::option::Option<
     unsafe extern "C" fn(
         rk: *mut rd_kafka_t,
@@ -5876,25 +5876,25 @@ pub type rd_kafka_interceptor_f_on_commit_t = ::std::option::Option<
         ic_opaque: *mut ::std::os::raw::c_void,
     ) -> rd_kafka_resp_err_t,
 >;
-/// @brief on_request_sent() is called when a request has been fully written
-///        to a broker TCP connections socket.
+/// on_request_sent() is called when a request has been fully written
+/// to a broker TCP connections socket.
 ///
-/// @param rk The client instance.
-/// @param sockfd Socket file descriptor.
-/// @param brokername Broker request is being sent to.
-/// @param brokerid Broker request is being sent to.
-/// @param ApiKey Kafka protocol request type.
-/// @param ApiVersion Kafka protocol request type version.
-/// @param CorrId Kafka protocol request correlation id.
-/// @param size Size of request.
-/// @param ic_opaque The interceptor's opaque pointer specified in ..add..().
+/// - `rk`: The client instance.
+/// - `sockfd`: Socket file descriptor.
+/// - `brokername`: Broker request is being sent to.
+/// - `brokerid`: Broker request is being sent to.
+/// - `ApiKey`: Kafka protocol request type.
+/// - `ApiVersion`: Kafka protocol request type version.
+/// - `CorrId`: Kafka protocol request correlation id.
+/// - `size`: Size of request.
+/// - `ic_opaque`: The interceptor's opaque pointer specified in ..add..().
 ///
 /// @warning The on_request_sent() interceptor is called from internal
-///          librdkafka broker threads. An on_request_sent() interceptor MUST NOT
-///          call any librdkafka API's associated with the \p rk, or perform
-///          any blocking or prolonged work.
+/// librdkafka broker threads. An on_request_sent() interceptor MUST NOT
+/// call any librdkafka API's associated with the `rk, or perform
+/// any blocking or prolonged work.
 ///
-/// @returns an error code on failure, the error is logged but otherwise ignored.
+/// Returns an error code on failure, the error is logged but otherwise ignored.
 pub type rd_kafka_interceptor_f_on_request_sent_t = ::std::option::Option<
     unsafe extern "C" fn(
         rk: *mut rd_kafka_t,
@@ -5908,29 +5908,29 @@ pub type rd_kafka_interceptor_f_on_request_sent_t = ::std::option::Option<
         ic_opaque: *mut ::std::os::raw::c_void,
     ) -> rd_kafka_resp_err_t,
 >;
-/// @brief on_response_received() is called when a protocol response has been
-///        fully received from a broker TCP connection socket but before the
-///        response payload is parsed.
+/// on_response_received() is called when a protocol response has been
+/// fully received from a broker TCP connection socket but before the
+/// response payload is parsed.
 ///
-/// @param rk The client instance.
-/// @param sockfd Socket file descriptor (always -1).
-/// @param brokername Broker response was received from, possibly empty string
-///                   on error.
-/// @param brokerid Broker response was received from.
-/// @param ApiKey Kafka protocol request type or -1 on error.
-/// @param ApiVersion Kafka protocol request type version or -1 on error.
-/// @param CorrId Kafka protocol request correlation id, possibly -1 on error.
-/// @param size Size of response, possibly 0 on error.
-/// @param rtt Request round-trip-time in microseconds, possibly -1 on error.
-/// @param err Receive error.
-/// @param ic_opaque The interceptor's opaque pointer specified in ..add..().
+/// - `rk`: The client instance.
+/// - `sockfd`: Socket file descriptor (always -1).
+/// - `brokername`: Broker response was received from, possibly empty string
+/// on error.
+/// - `brokerid`: Broker response was received from.
+/// - `ApiKey`: Kafka protocol request type or -1 on error.
+/// - `ApiVersion`: Kafka protocol request type version or -1 on error.
+/// - `CorrId`: Kafka protocol request correlation id, possibly -1 on error.
+/// - `size`: Size of response, possibly 0 on error.
+/// - `rtt`: Request round-trip-time in microseconds, possibly -1 on error.
+/// - `err`: Receive error.
+/// - `ic_opaque`: The interceptor's opaque pointer specified in ..add..().
 ///
 /// @warning The on_response_received() interceptor is called from internal
-///          librdkafka broker threads. An on_response_received() interceptor
-///          MUST NOT call any librdkafka API's associated with the \p rk, or
-///          perform any blocking or prolonged work.
+/// librdkafka broker threads. An on_response_received() interceptor
+/// MUST NOT call any librdkafka API's associated with the `rk, or
+/// perform any blocking or prolonged work.
 ///
-/// @returns an error code on failure, the error is logged but otherwise ignored.
+/// Returns an error code on failure, the error is logged but otherwise ignored.
 pub type rd_kafka_interceptor_f_on_response_received_t = ::std::option::Option<
     unsafe extern "C" fn(
         rk: *mut rd_kafka_t,
@@ -5946,20 +5946,20 @@ pub type rd_kafka_interceptor_f_on_response_received_t = ::std::option::Option<
         ic_opaque: *mut ::std::os::raw::c_void,
     ) -> rd_kafka_resp_err_t,
 >;
-/// @brief on_thread_start() is called from a newly created librdkafka-managed
-///        thread.
+/// on_thread_start() is called from a newly created librdkafka-managed
+/// thread.
 ///
-/// @param rk The client instance.
-/// @param thread_type Thread type.
-/// @param thread_name Human-readable thread name, may not be unique.
-/// @param ic_opaque The interceptor's opaque pointer specified in ..add..().
+/// - `rk`: The client instance.
+/// - `thread_type`: Thread type.
+/// - `thread_name`: Human-readable thread name, may not be unique.
+/// - `ic_opaque`: The interceptor's opaque pointer specified in ..add..().
 ///
 /// @warning The on_thread_start() interceptor is called from internal
-///          librdkafka threads. An on_thread_start() interceptor MUST NOT
-///          call any librdkafka API's associated with the \p rk, or perform
-///          any blocking or prolonged work.
+/// librdkafka threads. An on_thread_start() interceptor MUST NOT
+/// call any librdkafka API's associated with the `rk, or perform
+/// any blocking or prolonged work.
 ///
-/// @returns an error code on failure, the error is logged but otherwise ignored.
+/// Returns an error code on failure, the error is logged but otherwise ignored.
 pub type rd_kafka_interceptor_f_on_thread_start_t = ::std::option::Option<
     unsafe extern "C" fn(
         rk: *mut rd_kafka_t,
@@ -5968,23 +5968,23 @@ pub type rd_kafka_interceptor_f_on_thread_start_t = ::std::option::Option<
         ic_opaque: *mut ::std::os::raw::c_void,
     ) -> rd_kafka_resp_err_t,
 >;
-/// @brief on_thread_exit() is called just prior to a librdkafka-managed
-///        thread exiting from the exiting thread itself.
+/// on_thread_exit() is called just prior to a librdkafka-managed
+/// thread exiting from the exiting thread itself.
 ///
-/// @param rk The client instance.
-/// @param thread_type Thread type.n
-/// @param thread_name Human-readable thread name, may not be unique.
-/// @param ic_opaque The interceptor's opaque pointer specified in ..add..().
+/// - `rk`: The client instance.
+/// - `thread_type`: Thread type.n
+/// - `thread_name`: Human-readable thread name, may not be unique.
+/// - `ic_opaque`: The interceptor's opaque pointer specified in ..add..().
 ///
 /// @remark Depending on the thread type, librdkafka may execute additional
-///         code on the thread after on_thread_exit() returns.
+/// code on the thread after on_thread_exit() returns.
 ///
 /// @warning The on_thread_exit() interceptor is called from internal
-///          librdkafka threads. An on_thread_exit() interceptor MUST NOT
-///          call any librdkafka API's associated with the \p rk, or perform
-///          any blocking or prolonged work.
+/// librdkafka threads. An on_thread_exit() interceptor MUST NOT
+/// call any librdkafka API's associated with the `rk, or perform
+/// any blocking or prolonged work.
 ///
-/// @returns an error code on failure, the error is logged but otherwise ignored.
+/// Returns an error code on failure, the error is logged but otherwise ignored.
 pub type rd_kafka_interceptor_f_on_thread_exit_t = ::std::option::Option<
     unsafe extern "C" fn(
         rk: *mut rd_kafka_t,
@@ -5993,18 +5993,18 @@ pub type rd_kafka_interceptor_f_on_thread_exit_t = ::std::option::Option<
         ic_opaque: *mut ::std::os::raw::c_void,
     ) -> rd_kafka_resp_err_t,
 >;
-/// @brief on_broker_state_change() is called just after a broker
-///        has been created or its state has been changed.
+/// on_broker_state_change() is called just after a broker
+/// has been created or its state has been changed.
 ///
-/// @param rk The client instance.
-/// @param broker_id The broker id (-1 is used for bootstrap brokers).
-/// @param secproto The security protocol.
-/// @param name The original name of the broker.
-/// @param port The port of the broker.
-/// @param state Broker state name.
-/// @param ic_opaque The interceptor's opaque pointer specified in ..add..().
+/// - `rk`: The client instance.
+/// - `broker_id`: The broker id (-1 is used for bootstrap brokers).
+/// - `secproto`: The security protocol.
+/// - `name`: The original name of the broker.
+/// - `port`: The port of the broker.
+/// - `state`: Broker state name.
+/// - `ic_opaque`: The interceptor's opaque pointer specified in ..add..().
 ///
-/// @returns an error code on failure, the error is logged but otherwise ignored.
+/// Returns an error code on failure, the error is logged but otherwise ignored.
 pub type rd_kafka_interceptor_f_on_broker_state_change_t = ::std::option::Option<
     unsafe extern "C" fn(
         rk: *mut rd_kafka_t,
@@ -6017,16 +6017,16 @@ pub type rd_kafka_interceptor_f_on_broker_state_change_t = ::std::option::Option
     ) -> rd_kafka_resp_err_t,
 >;
 unsafe extern "C" {
-    /// @brief Append an on_conf_set() interceptor.
+    /// Append an on_conf_set() interceptor.
     ///
-    /// @param conf Configuration object.
-    /// @param ic_name Interceptor name, used in logging.
-    /// @param on_conf_set Function pointer.
-    /// @param ic_opaque Opaque value that will be passed to the function.
+    /// - `conf`: Configuration object.
+    /// - `ic_name`: Interceptor name, used in logging.
+    /// - `on_conf_set`: Function pointer.
+    /// - `ic_opaque`: Opaque value that will be passed to the function.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
-    ///          if an existing interceptor with the same \p ic_name and function
-    ///          has already been added to \p conf.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
+    /// if an existing interceptor with the same `ic_name and function
+    /// has already been added to `conf.
     pub fn rd_kafka_conf_interceptor_add_on_conf_set(
         conf: *mut rd_kafka_conf_t,
         ic_name: *const ::std::os::raw::c_char,
@@ -6035,16 +6035,16 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Append an on_conf_dup() interceptor.
+    /// Append an on_conf_dup() interceptor.
     ///
-    /// @param conf Configuration object.
-    /// @param ic_name Interceptor name, used in logging.
-    /// @param on_conf_dup Function pointer.
-    /// @param ic_opaque Opaque value that will be passed to the function.
+    /// - `conf`: Configuration object.
+    /// - `ic_name`: Interceptor name, used in logging.
+    /// - `on_conf_dup`: Function pointer.
+    /// - `ic_opaque`: Opaque value that will be passed to the function.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
-    ///          if an existing interceptor with the same \p ic_name and function
-    ///          has already been added to \p conf.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
+    /// if an existing interceptor with the same `ic_name and function
+    /// has already been added to `conf.
     pub fn rd_kafka_conf_interceptor_add_on_conf_dup(
         conf: *mut rd_kafka_conf_t,
         ic_name: *const ::std::os::raw::c_char,
@@ -6053,17 +6053,17 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Append an on_conf_destroy() interceptor.
+    /// Append an on_conf_destroy() interceptor.
     ///
-    /// @param conf Configuration object.
-    /// @param ic_name Interceptor name, used in logging.
-    /// @param on_conf_destroy Function pointer.
-    /// @param ic_opaque Opaque value that will be passed to the function.
+    /// - `conf`: Configuration object.
+    /// - `ic_name`: Interceptor name, used in logging.
+    /// - `on_conf_destroy`: Function pointer.
+    /// - `ic_opaque`: Opaque value that will be passed to the function.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR
     ///
     /// @remark Multiple on_conf_destroy() interceptors are allowed to be added
-    ///         to the same configuration object.
+    /// to the same configuration object.
     pub fn rd_kafka_conf_interceptor_add_on_conf_destroy(
         conf: *mut rd_kafka_conf_t,
         ic_name: *const ::std::os::raw::c_char,
@@ -6072,25 +6072,25 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Append an on_new() interceptor.
+    /// Append an on_new() interceptor.
     ///
-    /// @param conf Configuration object.
-    /// @param ic_name Interceptor name, used in logging.
-    /// @param on_new Function pointer.
-    /// @param ic_opaque Opaque value that will be passed to the function.
+    /// - `conf`: Configuration object.
+    /// - `ic_name`: Interceptor name, used in logging.
+    /// - `on_new`: Function pointer.
+    /// - `ic_opaque`: Opaque value that will be passed to the function.
     ///
     /// @remark Since the on_new() interceptor is added to the configuration object
-    ///         it may be copied by rd_kafka_conf_dup().
-    ///         An interceptor implementation must thus be able to handle
-    ///         the same interceptor,ic_opaque tuple to be used by multiple
-    ///         client instances.
+    /// it may be copied by rd_kafka_conf_dup().
+    /// An interceptor implementation must thus be able to handle
+    /// the same interceptor,ic_opaque tuple to be used by multiple
+    /// client instances.
     ///
     /// @remark An interceptor plugin should check the return value to make sure it
-    ///         has not already been added.
+    /// has not already been added.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
-    ///          if an existing interceptor with the same \p ic_name and function
-    ///          has already been added to \p conf.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
+    /// if an existing interceptor with the same `ic_name and function
+    /// has already been added to `conf.
     pub fn rd_kafka_conf_interceptor_add_on_new(
         conf: *mut rd_kafka_conf_t,
         ic_name: *const ::std::os::raw::c_char,
@@ -6099,16 +6099,16 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Append an on_destroy() interceptor.
+    /// Append an on_destroy() interceptor.
     ///
-    /// @param rk Client instance.
-    /// @param ic_name Interceptor name, used in logging.
-    /// @param on_destroy Function pointer.
-    /// @param ic_opaque Opaque value that will be passed to the function.
+    /// - `rk`: Client instance.
+    /// - `ic_name`: Interceptor name, used in logging.
+    /// - `on_destroy`: Function pointer.
+    /// - `ic_opaque`: Opaque value that will be passed to the function.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
-    ///          if an existing interceptor with the same \p ic_name and function
-    ///          has already been added to \p conf.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
+    /// if an existing interceptor with the same `ic_name and function
+    /// has already been added to `conf.
     pub fn rd_kafka_interceptor_add_on_destroy(
         rk: *mut rd_kafka_t,
         ic_name: *const ::std::os::raw::c_char,
@@ -6117,16 +6117,16 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Append an on_send() interceptor.
+    /// Append an on_send() interceptor.
     ///
-    /// @param rk Client instance.
-    /// @param ic_name Interceptor name, used in logging.
-    /// @param on_send Function pointer.
-    /// @param ic_opaque Opaque value that will be passed to the function.
+    /// - `rk`: Client instance.
+    /// - `ic_name`: Interceptor name, used in logging.
+    /// - `on_send`: Function pointer.
+    /// - `ic_opaque`: Opaque value that will be passed to the function.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
-    ///          if an existing intercepted with the same \p ic_name and function
-    ///          has already been added to \p conf.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
+    /// if an existing intercepted with the same `ic_name and function
+    /// has already been added to `conf.
     pub fn rd_kafka_interceptor_add_on_send(
         rk: *mut rd_kafka_t,
         ic_name: *const ::std::os::raw::c_char,
@@ -6135,16 +6135,16 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Append an on_acknowledgement() interceptor.
+    /// Append an on_acknowledgement() interceptor.
     ///
-    /// @param rk Client instance.
-    /// @param ic_name Interceptor name, used in logging.
-    /// @param on_acknowledgement Function pointer.
-    /// @param ic_opaque Opaque value that will be passed to the function.
+    /// - `rk`: Client instance.
+    /// - `ic_name`: Interceptor name, used in logging.
+    /// - `on_acknowledgement`: Function pointer.
+    /// - `ic_opaque`: Opaque value that will be passed to the function.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
-    ///          if an existing interceptor with the same \p ic_name and function
-    ///          has already been added to \p conf.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
+    /// if an existing interceptor with the same `ic_name and function
+    /// has already been added to `conf.
     pub fn rd_kafka_interceptor_add_on_acknowledgement(
         rk: *mut rd_kafka_t,
         ic_name: *const ::std::os::raw::c_char,
@@ -6153,16 +6153,16 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Append an on_consume() interceptor.
+    /// Append an on_consume() interceptor.
     ///
-    /// @param rk Client instance.
-    /// @param ic_name Interceptor name, used in logging.
-    /// @param on_consume Function pointer.
-    /// @param ic_opaque Opaque value that will be passed to the function.
+    /// - `rk`: Client instance.
+    /// - `ic_name`: Interceptor name, used in logging.
+    /// - `on_consume`: Function pointer.
+    /// - `ic_opaque`: Opaque value that will be passed to the function.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
-    ///          if an existing interceptor with the same \p ic_name and function
-    ///          has already been added to \p conf.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
+    /// if an existing interceptor with the same `ic_name and function
+    /// has already been added to `conf.
     pub fn rd_kafka_interceptor_add_on_consume(
         rk: *mut rd_kafka_t,
         ic_name: *const ::std::os::raw::c_char,
@@ -6171,16 +6171,16 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Append an on_commit() interceptor.
+    /// Append an on_commit() interceptor.
     ///
-    /// @param rk Client instance.
-    /// @param ic_name Interceptor name, used in logging.
-    /// @param on_commit() Function pointer.
-    /// @param ic_opaque Opaque value that will be passed to the function.
+    /// - `rk`: Client instance.
+    /// - `ic_name`: Interceptor name, used in logging.
+    /// - `on_commit()`: Function pointer.
+    /// - `ic_opaque`: Opaque value that will be passed to the function.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
-    ///          if an existing interceptor with the same \p ic_name and function
-    ///          has already been added to \p conf.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
+    /// if an existing interceptor with the same `ic_name and function
+    /// has already been added to `conf.
     pub fn rd_kafka_interceptor_add_on_commit(
         rk: *mut rd_kafka_t,
         ic_name: *const ::std::os::raw::c_char,
@@ -6189,16 +6189,16 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Append an on_request_sent() interceptor.
+    /// Append an on_request_sent() interceptor.
     ///
-    /// @param rk Client instance.
-    /// @param ic_name Interceptor name, used in logging.
-    /// @param on_request_sent() Function pointer.
-    /// @param ic_opaque Opaque value that will be passed to the function.
+    /// - `rk`: Client instance.
+    /// - `ic_name`: Interceptor name, used in logging.
+    /// - `on_request_sent()`: Function pointer.
+    /// - `ic_opaque`: Opaque value that will be passed to the function.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
-    ///          if an existing interceptor with the same \p ic_name and function
-    ///          has already been added to \p conf.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
+    /// if an existing interceptor with the same `ic_name and function
+    /// has already been added to `conf.
     pub fn rd_kafka_interceptor_add_on_request_sent(
         rk: *mut rd_kafka_t,
         ic_name: *const ::std::os::raw::c_char,
@@ -6207,16 +6207,16 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Append an on_response_received() interceptor.
+    /// Append an on_response_received() interceptor.
     ///
-    /// @param rk Client instance.
-    /// @param ic_name Interceptor name, used in logging.
-    /// @param on_response_received() Function pointer.
-    /// @param ic_opaque Opaque value that will be passed to the function.
+    /// - `rk`: Client instance.
+    /// - `ic_name`: Interceptor name, used in logging.
+    /// - `on_response_received()`: Function pointer.
+    /// - `ic_opaque`: Opaque value that will be passed to the function.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
-    ///          if an existing interceptor with the same \p ic_name and function
-    ///          has already been added to \p conf.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
+    /// if an existing interceptor with the same `ic_name and function
+    /// has already been added to `conf.
     pub fn rd_kafka_interceptor_add_on_response_received(
         rk: *mut rd_kafka_t,
         ic_name: *const ::std::os::raw::c_char,
@@ -6225,16 +6225,16 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Append an on_thread_start() interceptor.
+    /// Append an on_thread_start() interceptor.
     ///
-    /// @param rk Client instance.
-    /// @param ic_name Interceptor name, used in logging.
-    /// @param on_thread_start() Function pointer.
-    /// @param ic_opaque Opaque value that will be passed to the function.
+    /// - `rk`: Client instance.
+    /// - `ic_name`: Interceptor name, used in logging.
+    /// - `on_thread_start()`: Function pointer.
+    /// - `ic_opaque`: Opaque value that will be passed to the function.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
-    ///          if an existing interceptor with the same \p ic_name and function
-    ///          has already been added to \p conf.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
+    /// if an existing interceptor with the same `ic_name and function
+    /// has already been added to `conf.
     pub fn rd_kafka_interceptor_add_on_thread_start(
         rk: *mut rd_kafka_t,
         ic_name: *const ::std::os::raw::c_char,
@@ -6243,16 +6243,16 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Append an on_thread_exit() interceptor.
+    /// Append an on_thread_exit() interceptor.
     ///
-    /// @param rk Client instance.
-    /// @param ic_name Interceptor name, used in logging.
-    /// @param on_thread_exit() Function pointer.
-    /// @param ic_opaque Opaque value that will be passed to the function.
+    /// - `rk`: Client instance.
+    /// - `ic_name`: Interceptor name, used in logging.
+    /// - `on_thread_exit()`: Function pointer.
+    /// - `ic_opaque`: Opaque value that will be passed to the function.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
-    ///          if an existing interceptor with the same \p ic_name and function
-    ///          has already been added to \p conf.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
+    /// if an existing interceptor with the same `ic_name and function
+    /// has already been added to `conf.
     pub fn rd_kafka_interceptor_add_on_thread_exit(
         rk: *mut rd_kafka_t,
         ic_name: *const ::std::os::raw::c_char,
@@ -6261,16 +6261,16 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Append an on_broker_state_change() interceptor.
+    /// Append an on_broker_state_change() interceptor.
     ///
-    /// @param rk Client instance.
-    /// @param ic_name Interceptor name, used in logging.
-    /// @param on_broker_state_change() Function pointer.
-    /// @param ic_opaque Opaque value that will be passed to the function.
+    /// - `rk`: Client instance.
+    /// - `ic_name`: Interceptor name, used in logging.
+    /// - `on_broker_state_change()`: Function pointer.
+    /// - `ic_opaque`: Opaque value that will be passed to the function.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
-    ///          if an existing interceptor with the same \p ic_name and function
-    ///          has already been added to \p conf.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or RD_KAFKA_RESP_ERR__CONFLICT
+    /// if an existing interceptor with the same `ic_name and function
+    /// has already been added to `conf.
     pub fn rd_kafka_interceptor_add_on_broker_state_change(
         rk: *mut rd_kafka_t,
         ic_name: *const ::std::os::raw::c_char,
@@ -6279,64 +6279,64 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @returns the error code for the given topic result.
+    /// Returns the error code for the given topic result.
     pub fn rd_kafka_topic_result_error(
         topicres: *const rd_kafka_topic_result_t,
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @returns the human readable error string for the given topic result,
-    ///          or NULL if there was no error.
+    /// Returns the human readable error string for the given topic result,
+    /// or NULL if there was no error.
     ///
-    /// @remark lifetime of the returned string is the same as the \p topicres.
+    /// @remark lifetime of the returned string is the same as the `topicres.
     pub fn rd_kafka_topic_result_error_string(
         topicres: *const rd_kafka_topic_result_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns the name of the topic for the given topic result.
-    /// @remark lifetime of the returned string is the same as the \p topicres.
+    /// Returns the name of the topic for the given topic result.
+    /// @remark lifetime of the returned string is the same as the `topicres.
     pub fn rd_kafka_topic_result_name(
         topicres: *const rd_kafka_topic_result_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns the error for the given group result, or NULL on success.
-    /// @remark lifetime of the returned error is the same as the \p groupres.
+    /// Returns the error for the given group result, or NULL on success.
+    /// @remark lifetime of the returned error is the same as the `groupres.
     pub fn rd_kafka_group_result_error(
         groupres: *const rd_kafka_group_result_t,
     ) -> *const rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @returns the name of the group for the given group result.
-    /// @remark lifetime of the returned string is the same as the \p groupres.
+    /// Returns the name of the group for the given group result.
+    /// @remark lifetime of the returned string is the same as the `groupres.
     pub fn rd_kafka_group_result_name(
         groupres: *const rd_kafka_group_result_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns the partitions/offsets for the given group result, if applicable
-    ///          to the request type, else NULL.
-    /// @remark lifetime of the returned list is the same as the \p groupres.
+    /// Returns the partitions/offsets for the given group result, if applicable
+    /// to the request type, else NULL.
+    /// @remark lifetime of the returned list is the same as the `groupres.
     pub fn rd_kafka_group_result_partitions(
         groupres: *const rd_kafka_group_result_t,
     ) -> *const rd_kafka_topic_partition_list_t;
 }
 unsafe extern "C" {
-    /// @returns the topic partition object from the topic partition result object.
+    /// Returns the topic partition object from the topic partition result object.
     /// @remarks lifetime of the returned string is the same as the \p
-    ///          partition_result.
-    ///          The error object is set inside the topic partition object. For the
-    ///          detailed error information, use
-    ///          rd_kafka_topic_partition_result_error()
+    /// partition_result.
+    /// The error object is set inside the topic partition object. For the
+    /// detailed error information, use
+    /// rd_kafka_topic_partition_result_error()
     pub fn rd_kafka_topic_partition_result_partition(
         partition_result: *const rd_kafka_topic_partition_result_t,
     ) -> *const rd_kafka_topic_partition_t;
 }
 unsafe extern "C" {
-    /// @returns the error object from the topic partition result object.
+    /// Returns the error object from the topic partition result object.
     /// @remarks lifetime of the returned string is the same as the \p
-    ///          partition_result.
+    /// partition_result.
     pub fn rd_kafka_topic_partition_result_error(
         partition_result: *const rd_kafka_topic_partition_result_t,
     ) -> *const rd_kafka_error_t;
@@ -6344,38 +6344,38 @@ unsafe extern "C" {
 #[repr(u32)]
 /// @enum rd_kafka_admin_op_t
 ///
-/// @brief Admin operation enum name for use with rd_kafka_AdminOptions_new()
+/// Admin operation enum name for use with rd_kafka_AdminOptions_new()
 ///
 /// @sa rd_kafka_AdminOptions_new()
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_admin_op_t {
-    ///< Default value
+    /// < Default value
     RD_KAFKA_ADMIN_OP_ANY = 0,
-    ///< CreateTopics
+    /// < CreateTopics
     RD_KAFKA_ADMIN_OP_CREATETOPICS = 1,
-    ///< DeleteTopics
+    /// < DeleteTopics
     RD_KAFKA_ADMIN_OP_DELETETOPICS = 2,
-    ///< CreatePartitions
+    /// < CreatePartitions
     RD_KAFKA_ADMIN_OP_CREATEPARTITIONS = 3,
-    ///< AlterConfigs
+    /// < AlterConfigs
     RD_KAFKA_ADMIN_OP_ALTERCONFIGS = 4,
-    ///< DescribeConfigs
+    /// < DescribeConfigs
     RD_KAFKA_ADMIN_OP_DESCRIBECONFIGS = 5,
-    ///< DeleteRecords
+    /// < DeleteRecords
     RD_KAFKA_ADMIN_OP_DELETERECORDS = 6,
-    ///< DeleteGroups
+    /// < DeleteGroups
     RD_KAFKA_ADMIN_OP_DELETEGROUPS = 7,
     /// DeleteConsumerGroupOffsets
     RD_KAFKA_ADMIN_OP_DELETECONSUMERGROUPOFFSETS = 8,
-    ///< CreateAcls
+    /// < CreateAcls
     RD_KAFKA_ADMIN_OP_CREATEACLS = 9,
-    ///< DescribeAcls
+    /// < DescribeAcls
     RD_KAFKA_ADMIN_OP_DESCRIBEACLS = 10,
-    ///< DeleteAcls
+    /// < DeleteAcls
     RD_KAFKA_ADMIN_OP_DELETEACLS = 11,
-    ///< ListConsumerGroups
+    /// < ListConsumerGroups
     RD_KAFKA_ADMIN_OP_LISTCONSUMERGROUPS = 12,
-    ///< DescribeConsumerGroups
+    /// < DescribeConsumerGroups
     RD_KAFKA_ADMIN_OP_DESCRIBECONSUMERGROUPS = 13,
     /// ListConsumerGroupOffsets
     RD_KAFKA_ADMIN_OP_LISTCONSUMERGROUPOFFSETS = 14,
@@ -6387,15 +6387,15 @@ pub enum rd_kafka_admin_op_t {
     RD_KAFKA_ADMIN_OP_DESCRIBEUSERSCRAMCREDENTIALS = 17,
     /// AlterUserScramCredentials
     RD_KAFKA_ADMIN_OP_ALTERUSERSCRAMCREDENTIALS = 18,
-    ///< DescribeTopics
+    /// < DescribeTopics
     RD_KAFKA_ADMIN_OP_DESCRIBETOPICS = 19,
-    ///< DescribeCluster
+    /// < DescribeCluster
     RD_KAFKA_ADMIN_OP_DESCRIBECLUSTER = 20,
-    ///< ListOffsets
+    /// < ListOffsets
     RD_KAFKA_ADMIN_OP_LISTOFFSETS = 21,
-    ///< ElectLeaders
+    /// < ElectLeaders
     RD_KAFKA_ADMIN_OP_ELECTLEADERS = 22,
-    ///< Number of ops defined
+    /// < Number of ops defined
     RD_KAFKA_ADMIN_OP__CNT = 23,
 }
 #[repr(C)]
@@ -6403,19 +6403,19 @@ pub enum rd_kafka_admin_op_t {
 pub struct rd_kafka_AdminOptions_s {
     _unused: [u8; 0],
 }
-/// @brief AdminOptions provides a generic mechanism for setting optional
-///        parameters for the Admin API requests.
+/// AdminOptions provides a generic mechanism for setting optional
+/// parameters for the Admin API requests.
 ///
 /// @remark Since AdminOptions is decoupled from the actual request type
-///         there is no enforcement to prevent setting unrelated properties,
-///         e.g. setting validate_only on a DescribeConfigs request is allowed
-///         but is silently ignored by DescribeConfigs.
-///         Future versions may introduce such enforcement.
+/// there is no enforcement to prevent setting unrelated properties,
+/// e.g. setting validate_only on a DescribeConfigs request is allowed
+/// but is silently ignored by DescribeConfigs.
+/// Future versions may introduce such enforcement.
 pub type rd_kafka_AdminOptions_t = rd_kafka_AdminOptions_s;
 #[repr(u32)]
 /// @enum rd_kafka_IsolationLevel_t
 ///
-/// @brief IsolationLevel enum name for use with rd_kafka_AdminOptions_new()
+/// IsolationLevel enum name for use with rd_kafka_AdminOptions_new()
 ///
 /// @sa rd_kafka_AdminOptions_new()
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -6424,46 +6424,46 @@ pub enum rd_kafka_IsolationLevel_t {
     RD_KAFKA_ISOLATION_LEVEL_READ_COMMITTED = 1,
 }
 unsafe extern "C" {
-    /// @brief Create a new AdminOptions object.
+    /// Create a new AdminOptions object.
     ///
-    ///        The options object is not modified by the Admin API request APIs,
-    ///        (e.g. CreateTopics) and may be reused for multiple calls.
+    /// The options object is not modified by the Admin API request APIs,
+    /// (e.g. CreateTopics) and may be reused for multiple calls.
     ///
-    /// @param rk Client instance.
-    /// @param for_api Specifies what Admin API this AdminOptions object will be used
-    ///                for, which will enforce what AdminOptions_set_..() calls may
-    ///                be used based on the API, causing unsupported set..() calls
-    ///                to fail.
-    ///                Specifying RD_KAFKA_ADMIN_OP_ANY disables the enforcement
-    ///                allowing any option to be set, even if the option
-    ///                is not used in a future call to an Admin API method.
+    /// - `rk`: Client instance.
+    /// - `for_api`: Specifies what Admin API this AdminOptions object will be used
+    /// for, which will enforce what AdminOptions_set_..() calls may
+    /// be used based on the API, causing unsupported set..() calls
+    /// to fail.
+    /// Specifying RD_KAFKA_ADMIN_OP_ANY disables the enforcement
+    /// allowing any option to be set, even if the option
+    /// is not used in a future call to an Admin API method.
     ///
-    /// @returns a new AdminOptions object (which must be freed with
-    ///          rd_kafka_AdminOptions_destroy()), or NULL if \p for_api was set to
-    ///          an unknown API op type.
+    /// Returns a new AdminOptions object (which must be freed with
+    /// rd_kafka_AdminOptions_destroy()), or NULL if `for_api was set to
+    /// an unknown API op type.
     pub fn rd_kafka_AdminOptions_new(
         rk: *mut rd_kafka_t,
         for_api: rd_kafka_admin_op_t,
     ) -> *mut rd_kafka_AdminOptions_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy a AdminOptions object.
+    /// Destroy a AdminOptions object.
     pub fn rd_kafka_AdminOptions_destroy(options: *mut rd_kafka_AdminOptions_t);
 }
 unsafe extern "C" {
-    /// @brief Sets the overall request timeout, including broker lookup,
-    ///        request transmission, operation time on broker, and response.
+    /// Sets the overall request timeout, including broker lookup,
+    /// request transmission, operation time on broker, and response.
     ///
-    /// @param options Admin options.
-    /// @param timeout_ms Timeout in milliseconds. Defaults to `socket.timeout.ms`.
-    /// @param errstr A human readable error string (nul-terminated) is written to
-    ///               this location that must be of at least \p errstr_size bytes.
-    ///               The \p errstr is only written in case of error.
-    /// @param errstr_size Writable size in \p errstr.
+    /// - `options`: Admin options.
+    /// - `timeout_ms`: Timeout in milliseconds. Defaults to `socket.timeout.ms`.
+    /// - `errstr`: A human readable error string (nul-terminated) is written to
+    /// this location that must be of at least `errstr_size bytes.
+    /// The `errstr is only written in case of error.
+    /// - `errstr_size`: Writable size in \p errstr.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success, or
-    ///          RD_KAFKA_RESP_ERR__INVALID_ARG if timeout was out of range in which
-    ///          case an error string will be written \p errstr.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success, or
+    /// RD_KAFKA_RESP_ERR__INVALID_ARG if timeout was out of range in which
+    /// case an error string will be written `errstr.
     ///
     /// @remark This option is valid for all Admin API requests.
     pub fn rd_kafka_AdminOptions_set_request_timeout(
@@ -6474,9 +6474,9 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Sets the broker's operation timeout, such as the timeout for
-    ///        CreateTopics to complete the creation of topics on the controller
-    ///        before returning a result to the application.
+    /// Sets the broker's operation timeout, such as the timeout for
+    /// CreateTopics to complete the creation of topics on the controller
+    /// before returning a result to the application.
     ///
     /// CreateTopics: values <= 0 will return immediately after triggering topic
     /// creation, while > 0 will wait this long for topic creation to propagate
@@ -6485,19 +6485,19 @@ unsafe extern "C" {
     /// DeleteTopics: same semantics as CreateTopics.
     /// CreatePartitions: same semantics as CreateTopics.
     ///
-    /// @param options Admin options.
-    /// @param timeout_ms Timeout in milliseconds.
-    /// @param errstr A human readable error string (nul-terminated) is written to
-    ///               this location that must be of at least \p errstr_size bytes.
-    ///               The \p errstr is only written in case of error.
-    /// @param errstr_size Writable size in \p errstr.
+    /// - `options`: Admin options.
+    /// - `timeout_ms`: Timeout in milliseconds.
+    /// - `errstr`: A human readable error string (nul-terminated) is written to
+    /// this location that must be of at least `errstr_size bytes.
+    /// The `errstr is only written in case of error.
+    /// - `errstr_size`: Writable size in \p errstr.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success, or
-    ///          RD_KAFKA_RESP_ERR__INVALID_ARG if timeout was out of range in which
-    ///          case an error string will be written \p errstr.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success, or
+    /// RD_KAFKA_RESP_ERR__INVALID_ARG if timeout was out of range in which
+    /// case an error string will be written `errstr.
     ///
     /// @remark This option is valid for CreateTopics, DeleteTopics,
-    ///         CreatePartitions, and DeleteRecords.
+    /// CreatePartitions, and DeleteRecords.
     pub fn rd_kafka_AdminOptions_set_operation_timeout(
         options: *mut rd_kafka_AdminOptions_t,
         timeout_ms: ::std::os::raw::c_int,
@@ -6506,22 +6506,22 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Tell broker to only validate the request, without performing
-    ///        the requested operation (create topics, etc).
+    /// Tell broker to only validate the request, without performing
+    /// the requested operation (create topics, etc).
     ///
-    /// @param options Admin options.
-    /// @param true_or_false Defaults to false.
-    /// @param errstr A human readable error string (nul-terminated) is written to
-    ///               this location that must be of at least \p errstr_size bytes.
-    ///               The \p errstr is only written in case of error.
-    /// @param errstr_size Writable size in \p errstr.
+    /// - `options`: Admin options.
+    /// - `true_or_false`: Defaults to false.
+    /// - `errstr`: A human readable error string (nul-terminated) is written to
+    /// this location that must be of at least `errstr_size bytes.
+    /// The `errstr is only written in case of error.
+    /// - `errstr_size`: Writable size in \p errstr.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an
-    ///          error code on failure in which case an error string will
-    ///          be written \p errstr.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an
+    /// error code on failure in which case an error string will
+    /// be written `errstr.
     ///
     /// @remark This option is valid for CreateTopics,
-    ///         CreatePartitions, AlterConfigs.
+    /// CreatePartitions, AlterConfigs.
     pub fn rd_kafka_AdminOptions_set_validate_only(
         options: *mut rd_kafka_AdminOptions_t,
         true_or_false: ::std::os::raw::c_int,
@@ -6530,31 +6530,31 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Override what broker the Admin request will be sent to.
+    /// Override what broker the Admin request will be sent to.
     ///
     /// By default, Admin requests are sent to the controller broker, with
     /// the following exceptions:
-    ///   - AlterConfigs with a BROKER resource are sent to the broker id set
-    ///     as the resource name.
-    ///   - IncrementalAlterConfigs with a BROKER resource are sent to the broker id
-    ///     set as the resource name.
-    ///   - DescribeConfigs with a BROKER resource are sent to the broker id set
-    ///     as the resource name.
+    /// - AlterConfigs with a BROKER resource are sent to the broker id set
+    /// as the resource name.
+    /// - IncrementalAlterConfigs with a BROKER resource are sent to the broker id
+    /// set as the resource name.
+    /// - DescribeConfigs with a BROKER resource are sent to the broker id set
+    /// as the resource name.
     ///
-    /// @param options Admin Options.
-    /// @param broker_id The broker to send the request to.
-    /// @param errstr A human readable error string (nul-terminated) is written to
-    ///               this location that must be of at least \p errstr_size bytes.
-    ///               The \p errstr is only written in case of error.
-    /// @param errstr_size Writable size in \p errstr.
+    /// - `options`: Admin Options.
+    /// - `broker_id`: The broker to send the request to.
+    /// - `errstr`: A human readable error string (nul-terminated) is written to
+    /// this location that must be of at least `errstr_size bytes.
+    /// The `errstr is only written in case of error.
+    /// - `errstr_size`: Writable size in \p errstr.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an
-    ///          error code on failure in which case an error string will
-    ///          be written \p errstr.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an
+    /// error code on failure in which case an error string will
+    /// be written `errstr.
     ///
     /// @remark This API should typically not be used, but serves as a workaround
-    ///         if new resource types are to the broker that the client
-    ///         does not know where to send.
+    /// if new resource types are to the broker that the client
+    /// does not know where to send.
     pub fn rd_kafka_AdminOptions_set_broker(
         options: *mut rd_kafka_AdminOptions_t,
         broker_id: i32,
@@ -6563,14 +6563,14 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Whether broker should return stable offsets
-    ///        (transaction-committed).
+    /// Whether broker should return stable offsets
+    /// (transaction-committed).
     ///
-    /// @param options Admin options.
-    /// @param true_or_false Defaults to false.
+    /// - `options`: Admin options.
+    /// - `true_or_false`: Defaults to false.
     ///
-    /// @return NULL on success, a new error instance that must be
-    ///         released with rd_kafka_error_destroy() in case of error.
+    /// Returns NULL on success, a new error instance that must be
+    /// released with rd_kafka_error_destroy() in case of error.
     ///
     /// @remark This option is valid for ListConsumerGroupOffsets.
     pub fn rd_kafka_AdminOptions_set_require_stable_offsets(
@@ -6579,32 +6579,32 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Whether broker should return authorized operations for the given
-    ///        resource in the DescribeConsumerGroups, DescribeTopics, or
-    ///        DescribeCluster calls.
+    /// Whether broker should return authorized operations for the given
+    /// resource in the DescribeConsumerGroups, DescribeTopics, or
+    /// DescribeCluster calls.
     ///
-    /// @param options Admin options.
-    /// @param true_or_false Defaults to false.
+    /// - `options`: Admin options.
+    /// - `true_or_false`: Defaults to false.
     ///
-    /// @return NULL on success, a new error instance that must be
-    ///         released with rd_kafka_error_destroy() in case of error.
+    /// Returns NULL on success, a new error instance that must be
+    /// released with rd_kafka_error_destroy() in case of error.
     ///
     /// @remark This option is valid for DescribeConsumerGroups, DescribeTopics,
-    ///         DescribeCluster.
+    /// DescribeCluster.
     pub fn rd_kafka_AdminOptions_set_include_authorized_operations(
         options: *mut rd_kafka_AdminOptions_t,
         true_or_false: ::std::os::raw::c_int,
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Set consumer groups states to query for.
+    /// Set consumer groups states to query for.
     ///
-    /// @param options Admin options.
-    /// @param consumer_group_states Array of consumer group states.
-    /// @param consumer_group_states_cnt Size of the \p consumer_group_states array.
+    /// - `options`: Admin options.
+    /// - `consumer_group_states`: Array of consumer group states.
+    /// - `consumer_group_states_cnt`: Size of the \p consumer_group_states array.
     ///
-    /// @return NULL on success, a new error instance that must be
-    ///         released with rd_kafka_error_destroy() in case of error.
+    /// Returns NULL on success, a new error instance that must be
+    /// released with rd_kafka_error_destroy() in case of error.
     ///
     /// @remark This option is valid for ListConsumerGroups.
     pub fn rd_kafka_AdminOptions_set_match_consumer_group_states(
@@ -6614,14 +6614,14 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Set consumer groups types to query for.
+    /// Set consumer groups types to query for.
     ///
-    /// @param options Admin options.
-    /// @param consumer_group_types Array of consumer group types.
-    /// @param consumer_group_types_cnt Size of the \p consumer_group_types array.
+    /// - `options`: Admin options.
+    /// - `consumer_group_types`: Array of consumer group types.
+    /// - `consumer_group_types_cnt`: Size of the \p consumer_group_types array.
     ///
-    /// @return NULL on success, a new error instance that must be
-    ///         released with rd_kafka_error_destroy() in case of error.
+    /// Returns NULL on success, a new error instance that must be
+    /// released with rd_kafka_error_destroy() in case of error.
     ///
     /// @remark This option is valid for ListConsumerGroups.
     pub fn rd_kafka_AdminOptions_set_match_consumer_group_types(
@@ -6631,15 +6631,15 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Set Isolation Level to an allowed `rd_kafka_IsolationLevel_t` value.
+    /// Set Isolation Level to an allowed `rd_kafka_IsolationLevel_t` value.
     pub fn rd_kafka_AdminOptions_set_isolation_level(
         options: *mut rd_kafka_AdminOptions_t,
         value: rd_kafka_IsolationLevel_t,
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Set application opaque value that can be extracted from the
-    ///        result event using rd_kafka_event_opaque()
+    /// Set application opaque value that can be extracted from the
+    /// result event using rd_kafka_event_opaque()
     pub fn rd_kafka_AdminOptions_set_opaque(
         options: *mut rd_kafka_AdminOptions_t,
         ev_opaque: *mut ::std::os::raw::c_void,
@@ -6647,26 +6647,26 @@ unsafe extern "C" {
 }
 #[repr(u32)]
 /// @enum rd_kafka_AclOperation_t
-/// @brief Apache Kafka ACL operation types. Common type for multiple Admin API
+/// Apache Kafka ACL operation types. Common type for multiple Admin API
 /// functions.
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_AclOperation_t {
-    ///< Unknown
+    /// < Unknown
     RD_KAFKA_ACL_OPERATION_UNKNOWN = 0,
     RD_KAFKA_ACL_OPERATION_ANY = 1,
-    ///< ALL operation
+    /// < ALL operation
     RD_KAFKA_ACL_OPERATION_ALL = 2,
-    ///< READ operation
+    /// < READ operation
     RD_KAFKA_ACL_OPERATION_READ = 3,
-    ///< WRITE operation
+    /// < WRITE operation
     RD_KAFKA_ACL_OPERATION_WRITE = 4,
-    ///< CREATE operation
+    /// < CREATE operation
     RD_KAFKA_ACL_OPERATION_CREATE = 5,
-    ///< DELETE operation
+    /// < DELETE operation
     RD_KAFKA_ACL_OPERATION_DELETE = 6,
-    ///< ALTER operation
+    /// < ALTER operation
     RD_KAFKA_ACL_OPERATION_ALTER = 7,
-    ///< DESCRIBE operation
+    /// < DESCRIBE operation
     RD_KAFKA_ACL_OPERATION_DESCRIBE = 8,
     RD_KAFKA_ACL_OPERATION_CLUSTER_ACTION = 9,
     RD_KAFKA_ACL_OPERATION_DESCRIBE_CONFIGS = 10,
@@ -6682,25 +6682,25 @@ pub struct rd_kafka_NewTopic_s {
 /// Defines a new topic to be created.
 pub type rd_kafka_NewTopic_t = rd_kafka_NewTopic_s;
 unsafe extern "C" {
-    /// @brief Create a new NewTopic object. This object is later passed to
-    ///        rd_kafka_CreateTopics().
+    /// Create a new NewTopic object. This object is later passed to
+    /// rd_kafka_CreateTopics().
     ///
-    /// @param topic Topic name to create.
-    /// @param num_partitions Number of partitions in topic, or -1 to use the
-    ///                       broker's default partition count (>= 2.4.0).
-    /// @param replication_factor Default replication factor for the topic's
-    ///                           partitions, or -1 to use the broker's default
-    ///                           replication factor (>= 2.4.0) or if
-    ///                           set_replica_assignment() will be used.
-    /// @param errstr A human readable error string (nul-terminated) is written to
-    ///               this location that must be of at least \p errstr_size bytes.
-    ///               The \p errstr is only written in case of error.
-    /// @param errstr_size Writable size in \p errstr.
+    /// - `topic`: Topic name to create.
+    /// - `num_partitions`: Number of partitions in topic, or -1 to use the
+    /// broker's default partition count (>= 2.4.0).
+    /// - `replication_factor`: Default replication factor for the topic's
+    /// partitions, or -1 to use the broker's default
+    /// replication factor (>= 2.4.0) or if
+    /// set_replica_assignment() will be used.
+    /// - `errstr`: A human readable error string (nul-terminated) is written to
+    /// this location that must be of at least `errstr_size bytes.
+    /// The `errstr is only written in case of error.
+    /// - `errstr_size`: Writable size in \p errstr.
     ///
     ///
-    /// @returns a new allocated NewTopic object, or NULL if the input parameters
-    ///          are invalid.
-    ///          Use rd_kafka_NewTopic_destroy() to free object when done.
+    /// Returns a new allocated NewTopic object, or NULL if the input parameters
+    /// are invalid.
+    /// Use rd_kafka_NewTopic_destroy() to free object when done.
     pub fn rd_kafka_NewTopic_new(
         topic: *const ::std::os::raw::c_char,
         num_partitions: ::std::os::raw::c_int,
@@ -6710,37 +6710,37 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_NewTopic_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy and free a NewTopic object previously created with
-    ///        rd_kafka_NewTopic_new()
+    /// Destroy and free a NewTopic object previously created with
+    /// rd_kafka_NewTopic_new()
     pub fn rd_kafka_NewTopic_destroy(new_topic: *mut rd_kafka_NewTopic_t);
 }
 unsafe extern "C" {
-    /// @brief Helper function to destroy all NewTopic objects in the \p new_topics
-    ///        array (of \p new_topic_cnt elements).
-    ///        The array itself is not freed.
+    /// Helper function to destroy all NewTopic objects in the \p new_topics
+    /// array (of `new_topic_cnt elements).
+    /// The array itself is not freed.
     pub fn rd_kafka_NewTopic_destroy_array(
         new_topics: *mut *mut rd_kafka_NewTopic_t,
         new_topic_cnt: usize,
     );
 }
 unsafe extern "C" {
-    /// @brief Set the replica (broker) assignment for \p partition to the
-    ///        replica set in \p broker_ids (of \p broker_id_cnt elements).
+    /// Set the replica (broker) assignment for \p partition to the
+    /// replica set in `broker_ids (of `broker_id_cnt elements).
     ///
     /// @remark When this method is used, rd_kafka_NewTopic_new() must have
-    ///         been called with a \c replication_factor of -1.
+    /// been called with a `replication_factor of -1.
     ///
     /// @remark An application must either set the replica assignment for
-    ///         all new partitions, or none.
+    /// all new partitions, or none.
     ///
     /// @remark If called, this function must be called consecutively for each
-    ///         partition, starting at 0.
+    /// partition, starting at 0.
     ///
     /// @remark Use rd_kafka_metadata() to retrieve the list of brokers
-    ///         in the cluster.
+    /// in the cluster.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success, or an error code
-    ///          if the arguments were invalid.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success, or an error code
+    /// if the arguments were invalid.
     ///
     /// @sa rd_kafka_AdminOptions_set_validate_only()
     pub fn rd_kafka_NewTopic_set_replica_assignment(
@@ -6753,16 +6753,16 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Set (broker-side) topic configuration name/value pair.
+    /// Set (broker-side) topic configuration name/value pair.
     ///
     /// @remark The name and value are not validated by the client, the validation
-    ///         takes place on the broker.
+    /// takes place on the broker.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success, or an error code
-    ///          if the arguments were invalid.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success, or an error code
+    /// if the arguments were invalid.
     ///
     /// @sa rd_kafka_AdminOptions_set_validate_only()
-    /// @sa http://kafka.apache.org/documentation.html#topicconfigs
+    /// @sa <http://kafka.apache.org/documentation.html#topicconfigs>
     pub fn rd_kafka_NewTopic_set_config(
         new_topic: *mut rd_kafka_NewTopic_t,
         name: *const ::std::os::raw::c_char,
@@ -6770,22 +6770,22 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Create topics in cluster as specified by the \p new_topics
-    ///        array of size \p new_topic_cnt elements.
+    /// Create topics in cluster as specified by the \p new_topics
+    /// array of size `new_topic_cnt elements.
     ///
-    /// @param rk Client instance.
-    /// @param new_topics Array of new topics to create.
-    /// @param new_topic_cnt Number of elements in \p new_topics array.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `new_topics`: Array of new topics to create.
+    /// - `new_topic_cnt`: Number of elements in \p new_topics array.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// Supported admin options:
-    ///  - rd_kafka_AdminOptions_set_validate_only() - default false
-    ///  - rd_kafka_AdminOptions_set_operation_timeout() - default 60 seconds
-    ///  - rd_kafka_AdminOptions_set_request_timeout() - default socket.timeout.ms
+    /// - rd_kafka_AdminOptions_set_validate_only() - default false
+    /// - rd_kafka_AdminOptions_set_operation_timeout() - default 60 seconds
+    /// - rd_kafka_AdminOptions_set_request_timeout() - default socket.timeout.ms
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_CREATETOPICS_RESULT
+    /// `RD_KAFKA_EVENT_CREATETOPICS_RESULT
     pub fn rd_kafka_CreateTopics(
         rk: *mut rd_kafka_t,
         new_topics: *mut *mut rd_kafka_NewTopic_t,
@@ -6795,12 +6795,12 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get an array of topic results from a CreateTopics result.
+    /// Get an array of topic results from a CreateTopics result.
     ///
-    /// The returned \p topics life-time is the same as the \p result object.
+    /// The returned `topics life-time is the same as the `result object.
     ///
-    /// @param result Result to get topics from.
-    /// @param cntp Updated to the number of elements in the array.
+    /// - `result`: Result to get topics from.
+    /// - `cntp`: Updated to the number of elements in the array.
     pub fn rd_kafka_CreateTopics_result_topics(
         result: *const rd_kafka_CreateTopics_result_t,
         cntp: *mut usize,
@@ -6814,43 +6814,43 @@ pub struct rd_kafka_DeleteTopic_s {
 /// Represents a topic to be deleted.
 pub type rd_kafka_DeleteTopic_t = rd_kafka_DeleteTopic_s;
 unsafe extern "C" {
-    /// @brief Create a new DeleteTopic object. This object is later passed to
-    ///        rd_kafka_DeleteTopics().
+    /// Create a new DeleteTopic object. This object is later passed to
+    /// rd_kafka_DeleteTopics().
     ///
-    /// @param topic Topic name to delete.
+    /// - `topic`: Topic name to delete.
     ///
-    /// @returns a new allocated DeleteTopic object.
-    ///          Use rd_kafka_DeleteTopic_destroy() to free object when done.
+    /// Returns a new allocated DeleteTopic object.
+    /// Use rd_kafka_DeleteTopic_destroy() to free object when done.
     pub fn rd_kafka_DeleteTopic_new(
         topic: *const ::std::os::raw::c_char,
     ) -> *mut rd_kafka_DeleteTopic_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy and free a DeleteTopic object previously created with
-    ///        rd_kafka_DeleteTopic_new()
+    /// Destroy and free a DeleteTopic object previously created with
+    /// rd_kafka_DeleteTopic_new()
     pub fn rd_kafka_DeleteTopic_destroy(del_topic: *mut rd_kafka_DeleteTopic_t);
 }
 unsafe extern "C" {
-    /// @brief Helper function to destroy all DeleteTopic objects in
-    ///        the \p del_topics array (of \p del_topic_cnt elements).
-    ///        The array itself is not freed.
+    /// Helper function to destroy all DeleteTopic objects in
+    /// the `del_topics array (of `del_topic_cnt elements).
+    /// The array itself is not freed.
     pub fn rd_kafka_DeleteTopic_destroy_array(
         del_topics: *mut *mut rd_kafka_DeleteTopic_t,
         del_topic_cnt: usize,
     );
 }
 unsafe extern "C" {
-    /// @brief Delete topics from cluster as specified by the \p topics
-    ///        array of size \p topic_cnt elements.
+    /// Delete topics from cluster as specified by the \p topics
+    /// array of size `topic_cnt elements.
     ///
-    /// @param rk Client instance.
-    /// @param del_topics Array of topics to delete.
-    /// @param del_topic_cnt Number of elements in \p topics array.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `del_topics`: Array of topics to delete.
+    /// - `del_topic_cnt`: Number of elements in \p topics array.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_DELETETOPICS_RESULT
+    /// `RD_KAFKA_EVENT_DELETETOPICS_RESULT
     pub fn rd_kafka_DeleteTopics(
         rk: *mut rd_kafka_t,
         del_topics: *mut *mut rd_kafka_DeleteTopic_t,
@@ -6860,12 +6860,12 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get an array of topic results from a DeleteTopics result.
+    /// Get an array of topic results from a DeleteTopics result.
     ///
-    /// The returned \p topics life-time is the same as the \p result object.
+    /// The returned `topics life-time is the same as the `result object.
     ///
-    /// @param result Result to get topic results from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `result`: Result to get topic results from.
+    /// - `cntp`: is updated to the number of elements in the array.
     pub fn rd_kafka_DeleteTopics_result_topics(
         result: *const rd_kafka_DeleteTopics_result_t,
         cntp: *mut usize,
@@ -6879,20 +6879,20 @@ pub struct rd_kafka_NewPartitions_s {
 /// Defines a new partition to be created.
 pub type rd_kafka_NewPartitions_t = rd_kafka_NewPartitions_s;
 unsafe extern "C" {
-    /// @brief Create a new NewPartitions. This object is later passed to
-    ///        rd_kafka_CreatePartitions() to increase the number of partitions
-    ///        to \p new_total_cnt for an existing topic.
+    /// Create a new NewPartitions. This object is later passed to
+    /// rd_kafka_CreatePartitions() to increase the number of partitions
+    /// to `new_total_cnt for an existing topic.
     ///
-    /// @param topic Topic name to create more partitions for.
-    /// @param new_total_cnt Increase the topic's partition count to this value.
-    /// @param errstr A human readable error string (nul-terminated) is written to
-    ///               this location that must be of at least \p errstr_size bytes.
-    ///               The \p errstr is only written in case of error.
-    /// @param errstr_size Writable size in \p errstr.
+    /// - `topic`: Topic name to create more partitions for.
+    /// - `new_total_cnt`: Increase the topic's partition count to this value.
+    /// - `errstr`: A human readable error string (nul-terminated) is written to
+    /// this location that must be of at least `errstr_size bytes.
+    /// The `errstr is only written in case of error.
+    /// - `errstr_size`: Writable size in \p errstr.
     ///
-    /// @returns a new allocated NewPartitions object, or NULL if the
-    ///          input parameters are invalid.
-    ///          Use rd_kafka_NewPartitions_destroy() to free object when done.
+    /// Returns a new allocated NewPartitions object, or NULL if the
+    /// input parameters are invalid.
+    /// Use rd_kafka_NewPartitions_destroy() to free object when done.
     pub fn rd_kafka_NewPartitions_new(
         topic: *const ::std::os::raw::c_char,
         new_total_cnt: usize,
@@ -6901,38 +6901,38 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_NewPartitions_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy and free a NewPartitions object previously created with
-    ///        rd_kafka_NewPartitions_new()
+    /// Destroy and free a NewPartitions object previously created with
+    /// rd_kafka_NewPartitions_new()
     pub fn rd_kafka_NewPartitions_destroy(new_parts: *mut rd_kafka_NewPartitions_t);
 }
 unsafe extern "C" {
-    /// @brief Helper function to destroy all NewPartitions objects in the
-    ///        \p new_parts array (of \p new_parts_cnt elements).
-    ///        The array itself is not freed.
+    /// Helper function to destroy all NewPartitions objects in the
+    /// `new_parts array (of `new_parts_cnt elements).
+    /// The array itself is not freed.
     pub fn rd_kafka_NewPartitions_destroy_array(
         new_parts: *mut *mut rd_kafka_NewPartitions_t,
         new_parts_cnt: usize,
     );
 }
 unsafe extern "C" {
-    /// @brief Set the replica (broker id) assignment for \p new_partition_idx to the
-    ///        replica set in \p broker_ids (of \p broker_id_cnt elements).
+    /// Set the replica (broker id) assignment for \p new_partition_idx to the
+    /// replica set in `broker_ids (of `broker_id_cnt elements).
     ///
     /// @remark An application must either set the replica assignment for
-    ///         all new partitions, or none.
+    /// all new partitions, or none.
     ///
     /// @remark If called, this function must be called consecutively for each
-    ///         new partition being created,
-    ///         where \p new_partition_idx 0 is the first new partition,
-    ///         1 is the second, and so on.
+    /// new partition being created,
+    /// where `new_partition_idx 0 is the first new partition,
+    /// 1 is the second, and so on.
     ///
-    /// @remark \p broker_id_cnt should match the topic's replication factor.
+    /// @remark `broker_id_cnt should match the topic's replication factor.
     ///
     /// @remark Use rd_kafka_metadata() to retrieve the list of brokers
-    ///         in the cluster.
+    /// in the cluster.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR on success, or an error code
-    ///          if the arguments were invalid.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR on success, or an error code
+    /// if the arguments were invalid.
     ///
     /// @sa rd_kafka_AdminOptions_set_validate_only()
     pub fn rd_kafka_NewPartitions_set_replica_assignment(
@@ -6945,22 +6945,22 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Create additional partitions for the given topics, as specified
-    ///        by the \p new_parts array of size \p new_parts_cnt elements.
+    /// Create additional partitions for the given topics, as specified
+    /// by the `new_parts array of size `new_parts_cnt elements.
     ///
-    /// @param rk Client instance.
-    /// @param new_parts Array of topics for which new partitions are to be created.
-    /// @param new_parts_cnt Number of elements in \p new_parts array.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `new_parts`: Array of topics for which new partitions are to be created.
+    /// - `new_parts_cnt`: Number of elements in \p new_parts array.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// Supported admin options:
-    ///  - rd_kafka_AdminOptions_set_validate_only() - default false
-    ///  - rd_kafka_AdminOptions_set_operation_timeout() - default 60 seconds
-    ///  - rd_kafka_AdminOptions_set_request_timeout() - default socket.timeout.ms
+    /// - rd_kafka_AdminOptions_set_validate_only() - default false
+    /// - rd_kafka_AdminOptions_set_operation_timeout() - default 60 seconds
+    /// - rd_kafka_AdminOptions_set_request_timeout() - default socket.timeout.ms
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_CREATEPARTITIONS_RESULT
+    /// `RD_KAFKA_EVENT_CREATEPARTITIONS_RESULT
     pub fn rd_kafka_CreatePartitions(
         rk: *mut rd_kafka_t,
         new_parts: *mut *mut rd_kafka_NewPartitions_t,
@@ -6970,12 +6970,12 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get an array of topic results from a CreatePartitions result.
+    /// Get an array of topic results from a CreatePartitions result.
     ///
-    /// The returned \p topics life-time is the same as the \p result object.
+    /// The returned `topics life-time is the same as the `result object.
     ///
-    /// @param result Result o get topic results from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `result`: Result o get topic results from.
+    /// - `cntp`: is updated to the number of elements in the array.
     pub fn rd_kafka_CreatePartitions_result_topics(
         result: *const rd_kafka_CreatePartitions_result_t,
         cntp: *mut usize,
@@ -6984,7 +6984,7 @@ unsafe extern "C" {
 #[repr(u32)]
 /// @enum rd_kafka_ConfigSource_t
 ///
-/// @brief Apache Kafka config sources.
+/// Apache Kafka config sources.
 ///
 /// @remark These entities relate to the cluster, not the local client.
 ///
@@ -6992,26 +6992,26 @@ unsafe extern "C" {
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_ConfigSource_t {
     /// Source unknown, e.g., in the ConfigEntry used for alter requests
-    ///  where source is not set
+    /// where source is not set
     RD_KAFKA_CONFIG_SOURCE_UNKNOWN_CONFIG = 0,
     /// Dynamic topic config that is configured for a specific topic
     RD_KAFKA_CONFIG_SOURCE_DYNAMIC_TOPIC_CONFIG = 1,
     /// Dynamic broker config that is configured for a specific broker
     RD_KAFKA_CONFIG_SOURCE_DYNAMIC_BROKER_CONFIG = 2,
     /// Dynamic broker config that is configured as default for all
-    ///  brokers in the cluster
+    /// brokers in the cluster
     RD_KAFKA_CONFIG_SOURCE_DYNAMIC_DEFAULT_BROKER_CONFIG = 3,
     /// Static broker config provided as broker properties at startup
-    ///  (e.g. from server.properties file)
+    /// (e.g. from server.properties file)
     RD_KAFKA_CONFIG_SOURCE_STATIC_BROKER_CONFIG = 4,
     /// Built-in default configuration for configs that have a
-    ///  default value
+    /// default value
     RD_KAFKA_CONFIG_SOURCE_DEFAULT_CONFIG = 5,
     /// Number of source types defined
     RD_KAFKA_CONFIG_SOURCE__CNT = 6,
 }
 unsafe extern "C" {
-    /// @returns a string representation of the \p confsource.
+    /// Returns a string representation of the \p confsource.
     pub fn rd_kafka_ConfigSource_name(
         confsource: rd_kafka_ConfigSource_t,
     ) -> *const ::std::os::raw::c_char;
@@ -7024,64 +7024,64 @@ pub struct rd_kafka_ConfigEntry_s {
 /// Apache Kafka configuration entry.
 pub type rd_kafka_ConfigEntry_t = rd_kafka_ConfigEntry_s;
 unsafe extern "C" {
-    /// @returns the configuration property name
+    /// Returns the configuration property name
     pub fn rd_kafka_ConfigEntry_name(
         entry: *const rd_kafka_ConfigEntry_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns the configuration value, may be NULL for sensitive or unset
-    ///          properties.
+    /// Returns the configuration value, may be NULL for sensitive or unset
+    /// properties.
     pub fn rd_kafka_ConfigEntry_value(
         entry: *const rd_kafka_ConfigEntry_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns the config source.
+    /// Returns the config source.
     pub fn rd_kafka_ConfigEntry_source(
         entry: *const rd_kafka_ConfigEntry_t,
     ) -> rd_kafka_ConfigSource_t;
 }
 unsafe extern "C" {
-    /// @returns 1 if the config property is read-only on the broker, else 0.
+    /// Returns 1 if the config property is read-only on the broker, else 0.
     /// @remark Shall only be used on a DescribeConfigs result, otherwise returns -1.
     pub fn rd_kafka_ConfigEntry_is_read_only(
         entry: *const rd_kafka_ConfigEntry_t,
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @returns 1 if the config property is set to its default value on the broker,
-    ///          else 0.
+    /// Returns 1 if the config property is set to its default value on the broker,
+    /// else 0.
     /// @remark Shall only be used on a DescribeConfigs result, otherwise returns -1.
     pub fn rd_kafka_ConfigEntry_is_default(
         entry: *const rd_kafka_ConfigEntry_t,
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @returns 1 if the config property contains sensitive information (such as
-    ///          security configuration), else 0.
+    /// Returns 1 if the config property contains sensitive information (such as
+    /// security configuration), else 0.
     /// @remark An application should take care not to include the value of
-    ///         sensitive configuration entries in its output.
+    /// sensitive configuration entries in its output.
     /// @remark Shall only be used on a DescribeConfigs result, otherwise returns -1.
     pub fn rd_kafka_ConfigEntry_is_sensitive(
         entry: *const rd_kafka_ConfigEntry_t,
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @returns 1 if this entry is a synonym, else 0.
+    /// Returns 1 if this entry is a synonym, else 0.
     pub fn rd_kafka_ConfigEntry_is_synonym(
         entry: *const rd_kafka_ConfigEntry_t,
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @returns the synonym config entry array.
+    /// Returns the synonym config entry array.
     ///
-    /// @param entry Entry to get synonyms for.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `entry`: Entry to get synonyms for.
+    /// - `cntp`: is updated to the number of elements in the array.
     ///
-    /// @remark The lifetime of the returned entry is the same as \p conf .
+    /// @remark The lifetime of the returned entry is the same as `conf .
     /// @remark Shall only be used on a DescribeConfigs result,
-    ///         otherwise returns NULL.
+    /// otherwise returns NULL.
     pub fn rd_kafka_ConfigEntry_synonyms(
         entry: *const rd_kafka_ConfigEntry_t,
         cntp: *mut usize,
@@ -7089,27 +7089,27 @@ unsafe extern "C" {
 }
 #[repr(u32)]
 /// @enum rd_kafka_ResourceType_t
-/// @brief Apache Kafka resource types
+/// Apache Kafka resource types
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_ResourceType_t {
-    ///< Unknown
+    /// < Unknown
     RD_KAFKA_RESOURCE_UNKNOWN = 0,
-    ///< Any (used for lookups)
+    /// < Any (used for lookups)
     RD_KAFKA_RESOURCE_ANY = 1,
-    ///< Topic
+    /// < Topic
     RD_KAFKA_RESOURCE_TOPIC = 2,
-    ///< Group
+    /// < Group
     RD_KAFKA_RESOURCE_GROUP = 3,
-    ///< Broker
+    /// < Broker
     RD_KAFKA_RESOURCE_BROKER = 4,
-    ///< Transactional ID
+    /// < Transactional ID
     RD_KAFKA_RESOURCE_TRANSACTIONAL_ID = 5,
-    ///< Number of resource types defined
+    /// < Number of resource types defined
     RD_KAFKA_RESOURCE__CNT = 6,
 }
 #[repr(u32)]
 /// @enum rd_kafka_ResourcePatternType_t
-/// @brief Apache Kafka pattern types
+/// Apache Kafka pattern types
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_ResourcePatternType_t {
     /// Unknown
@@ -7127,7 +7127,7 @@ pub enum rd_kafka_ResourcePatternType_t {
 }
 #[repr(u32)]
 /// @enum rd_kafka_AlterConfigOpType_t
-/// @brief Incremental alter configs operations.
+/// Incremental alter configs operations.
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_AlterConfigOpType_t {
     RD_KAFKA_ALTER_CONFIG_OP_TYPE_SET = 0,
@@ -7137,13 +7137,13 @@ pub enum rd_kafka_AlterConfigOpType_t {
     RD_KAFKA_ALTER_CONFIG_OP_TYPE__CNT = 4,
 }
 unsafe extern "C" {
-    /// @returns a string representation of the \p resource_pattern_type
+    /// Returns a string representation of the \p resource_pattern_type
     pub fn rd_kafka_ResourcePatternType_name(
         resource_pattern_type: rd_kafka_ResourcePatternType_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns a string representation of the \p restype
+    /// Returns a string representation of the \p restype
     pub fn rd_kafka_ResourceType_name(
         restype: rd_kafka_ResourceType_t,
     ) -> *const ::std::os::raw::c_char;
@@ -7156,43 +7156,43 @@ pub struct rd_kafka_ConfigResource_s {
 /// Apache Kafka configuration resource.
 pub type rd_kafka_ConfigResource_t = rd_kafka_ConfigResource_s;
 unsafe extern "C" {
-    /// @brief Create new ConfigResource object.
+    /// Create new ConfigResource object.
     ///
-    /// @param restype The resource type (e.g., RD_KAFKA_RESOURCE_TOPIC)
-    /// @param resname The resource name (e.g., the topic name)
+    /// - `restype`: The resource type (e.g., RD_KAFKA_RESOURCE_TOPIC)
+    /// - `resname`: The resource name (e.g., the topic name)
     ///
-    /// @returns a newly allocated object
+    /// Returns a newly allocated object
     pub fn rd_kafka_ConfigResource_new(
         restype: rd_kafka_ResourceType_t,
         resname: *const ::std::os::raw::c_char,
     ) -> *mut rd_kafka_ConfigResource_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy and free a ConfigResource object previously created with
-    ///        rd_kafka_ConfigResource_new()
+    /// Destroy and free a ConfigResource object previously created with
+    /// rd_kafka_ConfigResource_new()
     pub fn rd_kafka_ConfigResource_destroy(config: *mut rd_kafka_ConfigResource_t);
 }
 unsafe extern "C" {
-    /// @brief Helper function to destroy all ConfigResource objects in
-    ///        the \p configs array (of \p config_cnt elements).
-    ///        The array itself is not freed.
+    /// Helper function to destroy all ConfigResource objects in
+    /// the `configs array (of `config_cnt elements).
+    /// The array itself is not freed.
     pub fn rd_kafka_ConfigResource_destroy_array(
         config: *mut *mut rd_kafka_ConfigResource_t,
         config_cnt: usize,
     );
 }
 unsafe extern "C" {
-    /// @brief Set configuration name value pair.
+    /// Set configuration name value pair.
     ///
-    /// @param config ConfigResource to set config property on.
-    /// @param name Configuration name, depends on resource type.
-    /// @param value Configuration value, depends on resource type and \p name.
-    ///              Set to \c NULL to revert configuration value to default.
+    /// - `config`: ConfigResource to set config property on.
+    /// - `name`: Configuration name, depends on resource type.
+    /// - `value`: Configuration value, depends on resource type and \p name.
+    /// Set to `NULL to revert configuration value to default.
     ///
     /// This will overwrite the current value.
     ///
-    /// @returns RD_KAFKA_RESP_ERR_NO_ERROR if config was added to resource,
-    ///          or RD_KAFKA_RESP_ERR__INVALID_ARG on invalid input.
+    /// Returns RD_KAFKA_RESP_ERR_NO_ERROR if config was added to resource,
+    /// or RD_KAFKA_RESP_ERR__INVALID_ARG on invalid input.
     pub fn rd_kafka_ConfigResource_set_config(
         config: *mut rd_kafka_ConfigResource_t,
         name: *const ::std::os::raw::c_char,
@@ -7200,22 +7200,22 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Add the value of the configuration entry for a subsequent
-    ///        incremental alter config operation. APPEND and SUBTRACT are
-    ///        possible for list-type configuration entries only.
+    /// Add the value of the configuration entry for a subsequent
+    /// incremental alter config operation. APPEND and SUBTRACT are
+    /// possible for list-type configuration entries only.
     ///
-    /// @param config ConfigResource to add config property to.
-    /// @param name Configuration name, depends on resource type.
-    /// @param op_type Operation type, one of rd_kafka_AlterConfigOpType_t.
-    /// @param value Configuration value, depends on resource type and \p name.
-    ///              Set to \c NULL, only with with op_type set to DELETE,
-    ///              to revert configuration value to default.
+    /// - `config`: ConfigResource to add config property to.
+    /// - `name`: Configuration name, depends on resource type.
+    /// - `op_type`: Operation type, one of rd_kafka_AlterConfigOpType_t.
+    /// - `value`: Configuration value, depends on resource type and \p name.
+    /// Set to `NULL, only with with op_type set to DELETE,
+    /// to revert configuration value to default.
     ///
-    /// @returns NULL on success, or an rd_kafka_error_t *
-    ///          with the corresponding error code and string.
-    ///          Error ownership belongs to the caller.
-    ///          Possible error codes:
-    ///          - RD_KAFKA_RESP_ERR__INVALID_ARG on invalid input.
+    /// Returns NULL on success, or an rd_kafka_error_t *
+    /// with the corresponding error code and string.
+    /// Error ownership belongs to the caller.
+    /// Possible error codes:
+    /// - RD_KAFKA_RESP_ERR__INVALID_ARG on invalid input.
     pub fn rd_kafka_ConfigResource_add_incremental_config(
         config: *mut rd_kafka_ConfigResource_t,
         name: *const ::std::os::raw::c_char,
@@ -7224,60 +7224,60 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Get an array of config entries from a ConfigResource object.
+    /// Get an array of config entries from a ConfigResource object.
     ///
-    /// The returned object life-times are the same as the \p config object.
+    /// The returned object life-times are the same as the `config object.
     ///
-    /// @param config ConfigResource to get configs from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `config`: ConfigResource to get configs from.
+    /// - `cntp`: is updated to the number of elements in the array.
     pub fn rd_kafka_ConfigResource_configs(
         config: *const rd_kafka_ConfigResource_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_ConfigEntry_t;
 }
 unsafe extern "C" {
-    /// @returns the ResourceType for \p config
+    /// Returns the ResourceType for \p config
     pub fn rd_kafka_ConfigResource_type(
         config: *const rd_kafka_ConfigResource_t,
     ) -> rd_kafka_ResourceType_t;
 }
 unsafe extern "C" {
-    /// @returns the name for \p config
+    /// Returns the name for \p config
     pub fn rd_kafka_ConfigResource_name(
         config: *const rd_kafka_ConfigResource_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns the error for this resource from an AlterConfigs request
+    /// Returns the error for this resource from an AlterConfigs request
     pub fn rd_kafka_ConfigResource_error(
         config: *const rd_kafka_ConfigResource_t,
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @returns the error string for this resource from an AlterConfigs
-    ///          request, or NULL if no error.
+    /// Returns the error string for this resource from an AlterConfigs
+    /// request, or NULL if no error.
     pub fn rd_kafka_ConfigResource_error_string(
         config: *const rd_kafka_ConfigResource_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Update the configuration for the specified resources.
-    ///        Updates are not transactional so they may succeed for a subset
-    ///        of the provided resources while the others fail.
-    ///        The configuration for a particular resource is updated atomically,
-    ///        replacing values using the provided ConfigEntrys and reverting
-    ///        unspecified ConfigEntrys to their default values.
+    /// Update the configuration for the specified resources.
+    /// Updates are not transactional so they may succeed for a subset
+    /// of the provided resources while the others fail.
+    /// The configuration for a particular resource is updated atomically,
+    /// replacing values using the provided ConfigEntrys and reverting
+    /// unspecified ConfigEntrys to their default values.
     ///
     /// @remark Requires broker version >=0.11.0.0
     ///
     /// @warning AlterConfigs will replace all existing configuration for
-    ///          the provided resources with the new configuration given,
-    ///          reverting all other configuration to their default values.
+    /// the provided resources with the new configuration given,
+    /// reverting all other configuration to their default values.
     ///
     /// @remark Multiple resources and resource types may be set, but at most one
-    ///         resource of type \c RD_KAFKA_RESOURCE_BROKER is allowed per call
-    ///         since these resource requests must be sent to the broker specified
-    ///         in the resource.
+    /// resource of type `RD_KAFKA_RESOURCE_BROKER is allowed per call
+    /// since these resource requests must be sent to the broker specified
+    /// in the resource.
     ///
     /// @deprecated Use rd_kafka_IncrementalAlterConfigs().
     pub fn rd_kafka_AlterConfigs(
@@ -7289,42 +7289,42 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get an array of resource results from a AlterConfigs result.
+    /// Get an array of resource results from a AlterConfigs result.
     ///
-    /// Use \c rd_kafka_ConfigResource_error() and
-    /// \c rd_kafka_ConfigResource_error_string() to extract per-resource error
+    /// Use `rd_kafka_ConfigResource_error() and
+    /// `rd_kafka_ConfigResource_error_string() to extract per-resource error
     /// results on the returned array elements.
     ///
-    /// The returned object life-times are the same as the \p result object.
+    /// The returned object life-times are the same as the `result object.
     ///
-    /// @param result Result object to get resource results from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `result`: Result object to get resource results from.
+    /// - `cntp`: is updated to the number of elements in the array.
     ///
-    /// @returns an array of ConfigResource elements, or NULL if not available.
+    /// Returns an array of ConfigResource elements, or NULL if not available.
     pub fn rd_kafka_AlterConfigs_result_resources(
         result: *const rd_kafka_AlterConfigs_result_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_ConfigResource_t;
 }
 unsafe extern "C" {
-    /// @brief Incrementally update the configuration for the specified resources.
-    ///        Updates are not transactional so they may succeed for some resources
-    ///        while fail for others. The configs for a particular resource are
-    ///        updated atomically, executing the corresponding incremental operations
-    ///        on the provided configurations.
+    /// Incrementally update the configuration for the specified resources.
+    /// Updates are not transactional so they may succeed for some resources
+    /// while fail for others. The configs for a particular resource are
+    /// updated atomically, executing the corresponding incremental operations
+    /// on the provided configurations.
     ///
     /// @remark Requires broker version >=2.3.0
     ///
     /// @remark Multiple resources and resource types may be set, but at most one
-    ///         resource of type \c RD_KAFKA_RESOURCE_BROKER is allowed per call
-    ///         since these resource requests must be sent to the broker specified
-    ///         in the resource. Broker option will be ignored in this case.
+    /// resource of type `RD_KAFKA_RESOURCE_BROKER is allowed per call
+    /// since these resource requests must be sent to the broker specified
+    /// in the resource. Broker option will be ignored in this case.
     ///
-    /// @param rk Client instance.
-    /// @param configs Array of config entries to alter.
-    /// @param config_cnt Number of elements in \p configs array.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `configs`: Array of config entries to alter.
+    /// - `config_cnt`: Number of elements in \p configs array.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     pub fn rd_kafka_IncrementalAlterConfigs(
         rk: *mut rd_kafka_t,
         configs: *mut *mut rd_kafka_ConfigResource_t,
@@ -7334,26 +7334,26 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get an array of resource results from a IncrementalAlterConfigs
+    /// Get an array of resource results from a IncrementalAlterConfigs
     /// result.
     ///
-    /// Use \c rd_kafka_ConfigResource_error() and
-    /// \c rd_kafka_ConfigResource_error_string() to extract per-resource error
+    /// Use `rd_kafka_ConfigResource_error() and
+    /// `rd_kafka_ConfigResource_error_string() to extract per-resource error
     /// results on the returned array elements.
     ///
-    /// The returned object life-times are the same as the \p result object.
+    /// The returned object life-times are the same as the `result object.
     ///
-    /// @param result Result object to get resource results from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `result`: Result object to get resource results from.
+    /// - `cntp`: is updated to the number of elements in the array.
     ///
-    /// @returns an array of ConfigResource elements, or NULL if not available.
+    /// Returns an array of ConfigResource elements, or NULL if not available.
     pub fn rd_kafka_IncrementalAlterConfigs_result_resources(
         result: *const rd_kafka_IncrementalAlterConfigs_result_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_ConfigResource_t;
 }
 unsafe extern "C" {
-    /// @brief Get configuration for the specified resources in \p configs.
+    /// Get configuration for the specified resources in \p configs.
     ///
     /// The returned configuration includes default values and the
     /// rd_kafka_ConfigEntry_is_default() or rd_kafka_ConfigEntry_source()
@@ -7372,9 +7372,9 @@ unsafe extern "C" {
     /// @remark Requires broker version >=0.11.0.0
     ///
     /// @remark Multiple resources and resource types may be requested, but at most
-    ///         one resource of type \c RD_KAFKA_RESOURCE_BROKER is allowed per call
-    ///         since these resource requests must be sent to the broker specified
-    ///         in the resource.
+    /// one resource of type `RD_KAFKA_RESOURCE_BROKER is allowed per call
+    /// since these resource requests must be sent to the broker specified
+    /// in the resource.
     pub fn rd_kafka_DescribeConfigs(
         rk: *mut rd_kafka_t,
         configs: *mut *mut rd_kafka_ConfigResource_t,
@@ -7384,12 +7384,12 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get an array of resource results from a DescribeConfigs result.
+    /// Get an array of resource results from a DescribeConfigs result.
     ///
-    /// The returned \p resources life-time is the same as the \p result object.
+    /// The returned `resources life-time is the same as the `result object.
     ///
-    /// @param result Result object to get resource results from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `result`: Result object to get resource results from.
+    /// - `cntp`: is updated to the number of elements in the array.
     pub fn rd_kafka_DescribeConfigs_result_resources(
         result: *const rd_kafka_DescribeConfigs_result_t,
         cntp: *mut usize,
@@ -7403,58 +7403,58 @@ pub struct rd_kafka_DeleteRecords_s {
 /// Represents records to be deleted
 pub type rd_kafka_DeleteRecords_t = rd_kafka_DeleteRecords_s;
 unsafe extern "C" {
-    /// @brief Create a new DeleteRecords object. This object is later passed to
-    ///        rd_kafka_DeleteRecords().
+    /// Create a new DeleteRecords object. This object is later passed to
+    /// rd_kafka_DeleteRecords().
     ///
-    /// \p before_offsets must contain \c topic, \c partition, and
-    /// \c offset is the offset before which the messages will
+    /// `before_offsets must contain `topic, `partition, and
+    /// `offset is the offset before which the messages will
     /// be deleted (exclusive).
-    /// Set \c offset to RD_KAFKA_OFFSET_END (high-watermark) in order to
+    /// Set `offset to RD_KAFKA_OFFSET_END (high-watermark) in order to
     /// delete all data in the partition.
     ///
-    /// @param before_offsets For each partition delete all messages up to but not
-    ///                       including the specified offset.
+    /// - `before_offsets`: For each partition delete all messages up to but not
+    /// including the specified offset.
     ///
-    /// @returns a new allocated DeleteRecords object.
-    ///          Use rd_kafka_DeleteRecords_destroy() to free object when done.
+    /// Returns a new allocated DeleteRecords object.
+    /// Use rd_kafka_DeleteRecords_destroy() to free object when done.
     pub fn rd_kafka_DeleteRecords_new(
         before_offsets: *const rd_kafka_topic_partition_list_t,
     ) -> *mut rd_kafka_DeleteRecords_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy and free a DeleteRecords object previously created with
-    ///        rd_kafka_DeleteRecords_new()
+    /// Destroy and free a DeleteRecords object previously created with
+    /// rd_kafka_DeleteRecords_new()
     pub fn rd_kafka_DeleteRecords_destroy(del_records: *mut rd_kafka_DeleteRecords_t);
 }
 unsafe extern "C" {
-    /// @brief Helper function to destroy all DeleteRecords objects in
-    ///        the \p del_groups array (of \p del_group_cnt elements).
-    ///        The array itself is not freed.
+    /// Helper function to destroy all DeleteRecords objects in
+    /// the `del_groups array (of `del_group_cnt elements).
+    /// The array itself is not freed.
     pub fn rd_kafka_DeleteRecords_destroy_array(
         del_records: *mut *mut rd_kafka_DeleteRecords_t,
         del_record_cnt: usize,
     );
 }
 unsafe extern "C" {
-    /// @brief Delete records (messages) in topic partitions older than the
-    ///        offsets provided.
+    /// Delete records (messages) in topic partitions older than the
+    /// offsets provided.
     ///
-    /// @param rk Client instance.
-    /// @param del_records The offsets to delete (up to).
-    ///                    Currently only one DeleteRecords_t (but containing
-    ///                    multiple offsets) is supported.
-    /// @param del_record_cnt The number of elements in del_records, must be 1.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `del_records`: The offsets to delete (up to).
+    /// Currently only one DeleteRecords_t (but containing
+    /// multiple offsets) is supported.
+    /// - `del_record_cnt`: The number of elements in del_records, must be 1.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// Supported admin options:
-    ///  - rd_kafka_AdminOptions_set_operation_timeout() - default 60 seconds.
-    ///    Controls how long the brokers will wait for records to be deleted.
-    ///  - rd_kafka_AdminOptions_set_request_timeout() - default socket.timeout.ms.
-    ///    Controls how long \c rdkafka will wait for the request to complete.
+    /// - rd_kafka_AdminOptions_set_operation_timeout() - default 60 seconds.
+    /// Controls how long the brokers will wait for records to be deleted.
+    /// - rd_kafka_AdminOptions_set_request_timeout() - default socket.timeout.ms.
+    /// Controls how long `rdkafka will wait for the request to complete.
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_DELETERECORDS_RESULT
+    /// `RD_KAFKA_EVENT_DELETERECORDS_RESULT
     pub fn rd_kafka_DeleteRecords(
         rk: *mut rd_kafka_t,
         del_records: *mut *mut rd_kafka_DeleteRecords_t,
@@ -7464,13 +7464,13 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get a list of topic and partition results from a DeleteRecords result.
-    ///        The returned objects will contain \c topic, \c partition, \c offset
-    ///        and \c err. \c offset will be set to the post-deletion low-watermark
-    ///        (smallest available offset of all live replicas). \c err will be set
-    ///        per-partition if deletion failed.
+    /// Get a list of topic and partition results from a DeleteRecords result.
+    /// The returned objects will contain `topic, `partition, `offset
+    /// and `err. `offset will be set to the post-deletion low-watermark
+    /// (smallest available offset of all live replicas). `err will be set
+    /// per-partition if deletion failed.
     ///
-    /// The returned object's life-time is the same as the \p result object.
+    /// The returned object's life-time is the same as the `result object.
     pub fn rd_kafka_DeleteRecords_result_offsets(
         result: *const rd_kafka_DeleteRecords_result_t,
     ) -> *const rd_kafka_topic_partition_list_t;
@@ -7480,53 +7480,53 @@ unsafe extern "C" {
 pub struct rd_kafka_TopicCollection_s {
     _unused: [u8; 0],
 }
-/// @brief Represents a collection of topics, to be passed to DescribeTopics.
+/// Represents a collection of topics, to be passed to DescribeTopics.
 pub type rd_kafka_TopicCollection_t = rd_kafka_TopicCollection_s;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_TopicPartitionInfo_s {
     _unused: [u8; 0],
 }
-/// @brief TopicPartition represents a partition in the DescribeTopics result.
+/// TopicPartition represents a partition in the DescribeTopics result.
 pub type rd_kafka_TopicPartitionInfo_t = rd_kafka_TopicPartitionInfo_s;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_TopicDescription_s {
     _unused: [u8; 0],
 }
-/// @brief DescribeTopics result type.
+/// DescribeTopics result type.
 pub type rd_kafka_TopicDescription_t = rd_kafka_TopicDescription_s;
 unsafe extern "C" {
-    /// @brief Creates a new TopicCollection for passing to rd_kafka_DescribeTopics.
+    /// Creates a new TopicCollection for passing to rd_kafka_DescribeTopics.
     ///
-    /// @param topics A list of topics.
-    /// @param topics_cnt Count of topics.
+    /// - `topics`: A list of topics.
+    /// - `topics_cnt`: Count of topics.
     ///
-    /// @return a newly allocated TopicCollection object. Must be freed using
-    ///         rd_kafka_TopicCollection_destroy when done.
+    /// Returns a newly allocated TopicCollection object. Must be freed using
+    /// rd_kafka_TopicCollection_destroy when done.
     pub fn rd_kafka_TopicCollection_of_topic_names(
         topics: *mut *const ::std::os::raw::c_char,
         topics_cnt: usize,
     ) -> *mut rd_kafka_TopicCollection_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy and free a TopicCollection object created with
-    ///        rd_kafka_TopicCollection_new_* methods.
+    /// Destroy and free a TopicCollection object created with
+    /// rd_kafka_TopicCollection_new_* methods.
     pub fn rd_kafka_TopicCollection_destroy(topics: *mut rd_kafka_TopicCollection_t);
 }
 unsafe extern "C" {
-    /// @brief Describe topics as specified by the \p topics
-    ///        array of size \p topics_cnt elements.
+    /// Describe topics as specified by the \p topics
+    /// array of size `topics_cnt elements.
     ///
-    /// @param rk Client instance.
-    /// @param topics Collection of topics to describe.
-    /// @param options Optional admin options, or NULL for defaults.
-    ///                Valid options:
-    ///                 - include_authorized_operations
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `topics`: Collection of topics to describe.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// Valid options:
+    /// - include_authorized_operations
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_DESCRIBETOPICS_RESULT
+    /// `RD_KAFKA_EVENT_DESCRIBETOPICS_RESULT
     pub fn rd_kafka_DescribeTopics(
         rk: *mut rd_kafka_t,
         topics: *const rd_kafka_TopicCollection_t,
@@ -7535,160 +7535,160 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get an array of topic results from a DescribeTopics result.
+    /// Get an array of topic results from a DescribeTopics result.
     ///
-    /// @param result Result to get topics results from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `result`: Result to get topics results from.
+    /// - `cntp`: is updated to the number of elements in the array.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p result object.
+    /// as the lifetime of the `result object.
     pub fn rd_kafka_DescribeTopics_result_topics(
         result: *const rd_kafka_DescribeTopics_result_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_TopicDescription_t;
 }
 unsafe extern "C" {
-    /// @brief Gets an array of partitions for the \p topicdesc topic.
+    /// Gets an array of partitions for the \p topicdesc topic.
     ///
-    /// @param topicdesc The topic description.
-    /// @param cntp is updated to the number of partitions in the array.
+    /// - `topicdesc`: The topic description.
+    /// - `cntp`: is updated to the number of partitions in the array.
     ///
-    /// @return An array of TopicPartitionInfos.
+    /// Returns An array of TopicPartitionInfos.
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p topicdesc object.
+    /// as the lifetime of the `topicdesc object.
     pub fn rd_kafka_TopicDescription_partitions(
         topicdesc: *const rd_kafka_TopicDescription_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_TopicPartitionInfo_t;
 }
 unsafe extern "C" {
-    /// @brief Gets the partition id for \p partition.
+    /// Gets the partition id for \p partition.
     ///
-    /// @param partition The partition info.
+    /// - `partition`: The partition info.
     ///
-    /// @return The partition id.
+    /// Returns The partition id.
     pub fn rd_kafka_TopicPartitionInfo_partition(
         partition: *const rd_kafka_TopicPartitionInfo_t,
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Gets the partition leader for \p partition.
+    /// Gets the partition leader for \p partition.
     ///
-    /// @param partition The partition info.
+    /// - `partition`: The partition info.
     ///
-    /// @return The partition leader.
+    /// Returns The partition leader.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p partition object.
+    /// as the lifetime of the `partition object.
     pub fn rd_kafka_TopicPartitionInfo_leader(
         partition: *const rd_kafka_TopicPartitionInfo_t,
     ) -> *const rd_kafka_Node_t;
 }
 unsafe extern "C" {
-    /// @brief Gets the partition in-sync replicas for \p partition.
+    /// Gets the partition in-sync replicas for \p partition.
     ///
-    /// @param partition The partition info.
-    /// @param cntp is updated with in-sync replicas count.
+    /// - `partition`: The partition info.
+    /// - `cntp`: is updated with in-sync replicas count.
     ///
-    /// @return The in-sync replica nodes.
+    /// Returns The in-sync replica nodes.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p partition object.
+    /// as the lifetime of the `partition object.
     pub fn rd_kafka_TopicPartitionInfo_isr(
         partition: *const rd_kafka_TopicPartitionInfo_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_Node_t;
 }
 unsafe extern "C" {
-    /// @brief Gets the partition replicas for \p partition.
+    /// Gets the partition replicas for \p partition.
     ///
-    /// @param partition The partition info.
-    /// @param cntp is updated with partition replicas count.
+    /// - `partition`: The partition info.
+    /// - `cntp`: is updated with partition replicas count.
     ///
-    /// @return The partition replicas nodes.
+    /// Returns The partition replicas nodes.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p partition object.
+    /// as the lifetime of the `partition object.
     pub fn rd_kafka_TopicPartitionInfo_replicas(
         partition: *const rd_kafka_TopicPartitionInfo_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_Node_t;
 }
 unsafe extern "C" {
-    /// @brief Gets the topic authorized ACL operations for the \p topicdesc topic.
+    /// Gets the topic authorized ACL operations for the \p topicdesc topic.
     ///
-    /// @param topicdesc The topic description.
-    /// @param cntp is updated with authorized ACL operations count.
+    /// - `topicdesc`: The topic description.
+    /// - `cntp`: is updated with authorized ACL operations count.
     ///
-    /// @return The topic authorized operations. Is NULL if operations were not
-    ///         requested.
+    /// Returns The topic authorized operations. Is NULL if operations were not
+    /// requested.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p topicdesc object.
+    /// as the lifetime of the `topicdesc object.
     pub fn rd_kafka_TopicDescription_authorized_operations(
         topicdesc: *const rd_kafka_TopicDescription_t,
         cntp: *mut usize,
     ) -> *const rd_kafka_AclOperation_t;
 }
 unsafe extern "C" {
-    /// @brief Gets the topic name for the \p topicdesc topic.
+    /// Gets the topic name for the \p topicdesc topic.
     ///
-    /// @param topicdesc The topic description.
+    /// - `topicdesc`: The topic description.
     ///
-    /// @return The topic name.
+    /// Returns The topic name.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p topicdesc object.
+    /// as the lifetime of the `topicdesc object.
     pub fn rd_kafka_TopicDescription_name(
         topicdesc: *const rd_kafka_TopicDescription_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Gets the topic id for the \p topicdesc topic.
+    /// Gets the topic id for the \p topicdesc topic.
     ///
-    /// @param topicdesc The topic description.
-    /// @return The topic id
+    /// - `topicdesc`: The topic description.
+    /// Returns The topic id
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p topicdesc object.
+    /// as the lifetime of the `topicdesc object.
     pub fn rd_kafka_TopicDescription_topic_id(
         topicdesc: *const rd_kafka_TopicDescription_t,
     ) -> *const rd_kafka_Uuid_t;
 }
 unsafe extern "C" {
-    /// @brief Gets if the \p topicdesc topic is internal.
+    /// Gets if the \p topicdesc topic is internal.
     ///
-    /// @param topicdesc The topic description.
+    /// - `topicdesc`: The topic description.
     ///
-    /// @return 1 if the topic is internal to Kafka, 0 otherwise.
+    /// Returns 1 if the topic is internal to Kafka, 0 otherwise.
     pub fn rd_kafka_TopicDescription_is_internal(
         topicdesc: *const rd_kafka_TopicDescription_t,
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Gets the error for the \p topicdesc topic.
+    /// Gets the error for the \p topicdesc topic.
     ///
-    /// @param topicdesc The topic description.
+    /// - `topicdesc`: The topic description.
     ///
-    /// @return The topic description error.
+    /// Returns The topic description error.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p topicdesc object.
+    /// as the lifetime of the `topicdesc object.
     pub fn rd_kafka_TopicDescription_error(
         topicdesc: *const rd_kafka_TopicDescription_t,
     ) -> *const rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Describes the cluster.
+    /// Describes the cluster.
     ///
-    /// @param rk Client instance.
-    /// @param options Optional admin options, or NULL for defaults.
-    ///                Valid options:
-    ///                 - include_authorized_operations
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// Valid options:
+    /// - include_authorized_operations
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_DESCRIBECLUSTER_RESULT
+    /// `RD_KAFKA_EVENT_DESCRIBECLUSTER_RESULT
     pub fn rd_kafka_DescribeCluster(
         rk: *mut rd_kafka_t,
         options: *const rd_kafka_AdminOptions_t,
@@ -7696,52 +7696,52 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Gets the broker nodes for the \p result cluster.
+    /// Gets the broker nodes for the \p result cluster.
     ///
-    /// @param result The result of DescribeCluster.
-    /// @param cntp is updated with the count of broker nodes.
+    /// - `result`: The result of DescribeCluster.
+    /// - `cntp`: is updated with the count of broker nodes.
     ///
-    /// @return An array of broker nodes.
+    /// Returns An array of broker nodes.
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p result object.
+    /// as the lifetime of the `result object.
     pub fn rd_kafka_DescribeCluster_result_nodes(
         result: *const rd_kafka_DescribeCluster_result_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_Node_t;
 }
 unsafe extern "C" {
-    /// @brief Gets the authorized ACL operations for the \p result cluster.
+    /// Gets the authorized ACL operations for the \p result cluster.
     ///
-    /// @param result The result of DescribeCluster.
-    /// @param cntp is updated with authorized ACL operations count.
+    /// - `result`: The result of DescribeCluster.
+    /// - `cntp`: is updated with authorized ACL operations count.
     ///
-    /// @return The cluster authorized operations. Is NULL if operations were not
-    ///         requested.
+    /// Returns The cluster authorized operations. Is NULL if operations were not
+    /// requested.
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p result object.
+    /// as the lifetime of the `result object.
     pub fn rd_kafka_DescribeCluster_result_authorized_operations(
         result: *const rd_kafka_DescribeCluster_result_t,
         cntp: *mut usize,
     ) -> *const rd_kafka_AclOperation_t;
 }
 unsafe extern "C" {
-    /// @brief Gets the current controller for the \p result cluster.
+    /// Gets the current controller for the \p result cluster.
     ///
-    /// @param result The result of DescribeCluster.
+    /// - `result`: The result of DescribeCluster.
     ///
-    /// @return The cluster current controller.
+    /// Returns The cluster current controller.
     pub fn rd_kafka_DescribeCluster_result_controller(
         result: *const rd_kafka_DescribeCluster_result_t,
     ) -> *const rd_kafka_Node_t;
 }
 unsafe extern "C" {
-    /// @brief Gets the cluster id for the \p result cluster.
+    /// Gets the cluster id for the \p result cluster.
     ///
-    /// @param result The result of DescribeCluster.
+    /// - `result`: The result of DescribeCluster.
     ///
-    /// @return The cluster id.
+    /// Returns The cluster id.
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p result object.
+    /// as the lifetime of the `result object.
     pub fn rd_kafka_DescribeCluster_result_cluster_id(
         result: *const rd_kafka_DescribeCluster_result_t,
     ) -> *const ::std::os::raw::c_char;
@@ -7761,14 +7761,14 @@ pub struct rd_kafka_ListConsumerGroupsResult_s {
 /// ListConsumerGroups results and errors
 pub type rd_kafka_ListConsumerGroupsResult_t = rd_kafka_ListConsumerGroupsResult_s;
 unsafe extern "C" {
-    /// @brief List the consumer groups available in the cluster.
+    /// List the consumer groups available in the cluster.
     ///
-    /// @param rk Client instance.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_LISTCONSUMERGROUPS_RESULT
+    /// `RD_KAFKA_EVENT_LISTCONSUMERGROUPS_RESULT
     pub fn rd_kafka_ListConsumerGroups(
         rk: *mut rd_kafka_t,
         options: *const rd_kafka_AdminOptions_t,
@@ -7776,76 +7776,76 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Gets the group id for the \p grplist group.
+    /// Gets the group id for the \p grplist group.
     ///
-    /// @param grplist The group listing.
+    /// - `grplist`: The group listing.
     ///
-    /// @return The group id.
+    /// Returns The group id.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p grplist object.
+    /// as the lifetime of the `grplist object.
     pub fn rd_kafka_ConsumerGroupListing_group_id(
         grplist: *const rd_kafka_ConsumerGroupListing_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Is the \p grplist group a simple consumer group.
+    /// Is the \p grplist group a simple consumer group.
     ///
-    /// @param grplist The group listing.
+    /// - `grplist`: The group listing.
     ///
-    /// @return 1 if the group is a simple consumer group,
-    ///         else 0.
+    /// Returns 1 if the group is a simple consumer group,
+    /// else 0.
     pub fn rd_kafka_ConsumerGroupListing_is_simple_consumer_group(
         grplist: *const rd_kafka_ConsumerGroupListing_t,
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Gets state for the \p grplist group.
+    /// Gets state for the \p grplist group.
     ///
-    /// @param grplist The group listing.
+    /// - `grplist`: The group listing.
     ///
-    /// @return A group state.
+    /// Returns A group state.
     pub fn rd_kafka_ConsumerGroupListing_state(
         grplist: *const rd_kafka_ConsumerGroupListing_t,
     ) -> rd_kafka_consumer_group_state_t;
 }
 unsafe extern "C" {
-    /// @brief Gets type for the \p grplist group.
+    /// Gets type for the \p grplist group.
     ///
-    /// @param grplist The group listing.
+    /// - `grplist`: The group listing.
     ///
-    /// @return A group type.
+    /// Returns A group type.
     pub fn rd_kafka_ConsumerGroupListing_type(
         grplist: *const rd_kafka_ConsumerGroupListing_t,
     ) -> rd_kafka_consumer_group_type_t;
 }
 unsafe extern "C" {
-    /// @brief Get an array of valid list groups from a ListConsumerGroups result.
+    /// Get an array of valid list groups from a ListConsumerGroups result.
     ///
-    /// The returned groups life-time is the same as the \p result object.
+    /// The returned groups life-time is the same as the `result object.
     ///
-    /// @param result Result to get group results from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `result`: Result to get group results from.
+    /// - `cntp`: is updated to the number of elements in the array.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p result object.
+    /// as the lifetime of the `result object.
     pub fn rd_kafka_ListConsumerGroups_result_valid(
         result: *const rd_kafka_ListConsumerGroups_result_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_ConsumerGroupListing_t;
 }
 unsafe extern "C" {
-    /// @brief Get an array of errors from a ListConsumerGroups call result.
+    /// Get an array of errors from a ListConsumerGroups call result.
     ///
-    /// The returned errors life-time is the same as the \p result object.
+    /// The returned errors life-time is the same as the `result object.
     ///
-    /// @param result ListConsumerGroups result.
-    /// @param cntp Is updated to the number of elements in the array.
+    /// - `result`: ListConsumerGroups result.
+    /// - `cntp`: Is updated to the number of elements in the array.
     ///
-    /// @return Array of errors in \p result.
+    /// Returns Array of errors in \p result.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p result object.
+    /// as the lifetime of the `result object.
     pub fn rd_kafka_ListConsumerGroups_result_errors(
         result: *const rd_kafka_ListConsumerGroups_result_t,
         cntp: *mut usize,
@@ -7856,36 +7856,36 @@ unsafe extern "C" {
 pub struct rd_kafka_ConsumerGroupDescription_s {
     _unused: [u8; 0],
 }
-/// @brief DescribeConsumerGroups result type.
+/// DescribeConsumerGroups result type.
 pub type rd_kafka_ConsumerGroupDescription_t = rd_kafka_ConsumerGroupDescription_s;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_MemberDescription_s {
     _unused: [u8; 0],
 }
-/// @brief Member description included in ConsumerGroupDescription.
+/// Member description included in ConsumerGroupDescription.
 pub type rd_kafka_MemberDescription_t = rd_kafka_MemberDescription_s;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_MemberAssignment_s {
     _unused: [u8; 0],
 }
-/// @brief Member assignment included in MemberDescription.
+/// Member assignment included in MemberDescription.
 pub type rd_kafka_MemberAssignment_t = rd_kafka_MemberAssignment_s;
 unsafe extern "C" {
-    /// @brief Describe groups from cluster as specified by the \p groups
-    ///        array of size \p groups_cnt elements.
+    /// Describe groups from cluster as specified by the \p groups
+    /// array of size `groups_cnt elements.
     ///
-    /// @param rk Client instance.
-    /// @param groups Array of groups to describe.
-    /// @param groups_cnt Number of elements in \p groups array.
-    /// @param options Optional admin options, or NULL for defaults.
-    ///                Valid options:
-    ///                 - include_authorized_operations
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `groups`: Array of groups to describe.
+    /// - `groups_cnt`: Number of elements in \p groups array.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// Valid options:
+    /// - include_authorized_operations
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_DESCRIBECONSUMERGROUPS_RESULT
+    /// `RD_KAFKA_EVENT_DESCRIBECONSUMERGROUPS_RESULT
     pub fn rd_kafka_DescribeConsumerGroups(
         rk: *mut rd_kafka_t,
         groups: *mut *const ::std::os::raw::c_char,
@@ -7895,208 +7895,208 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get an array of group results from a DescribeConsumerGroups result.
+    /// Get an array of group results from a DescribeConsumerGroups result.
     ///
-    /// The returned groups life-time is the same as the \p result object.
+    /// The returned groups life-time is the same as the `result object.
     ///
-    /// @param result Result to get group results from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `result`: Result to get group results from.
+    /// - `cntp`: is updated to the number of elements in the array.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p result object.
+    /// as the lifetime of the `result object.
     pub fn rd_kafka_DescribeConsumerGroups_result_groups(
         result: *const rd_kafka_DescribeConsumerGroups_result_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_ConsumerGroupDescription_t;
 }
 unsafe extern "C" {
-    /// @brief Gets the group id for the \p grpdesc group.
+    /// Gets the group id for the \p grpdesc group.
     ///
-    /// @param grpdesc The group description.
+    /// - `grpdesc`: The group description.
     ///
-    /// @return The group id.
+    /// Returns The group id.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p grpdesc object.
+    /// as the lifetime of the `grpdesc object.
     pub fn rd_kafka_ConsumerGroupDescription_group_id(
         grpdesc: *const rd_kafka_ConsumerGroupDescription_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Gets the error for the \p grpdesc group.
+    /// Gets the error for the \p grpdesc group.
     ///
-    /// @param grpdesc The group description.
+    /// - `grpdesc`: The group description.
     ///
-    /// @return The group description error.
+    /// Returns The group description error.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p grpdesc object.
+    /// as the lifetime of the `grpdesc object.
     pub fn rd_kafka_ConsumerGroupDescription_error(
         grpdesc: *const rd_kafka_ConsumerGroupDescription_t,
     ) -> *const rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Is the \p grpdesc group a simple consumer group.
+    /// Is the \p grpdesc group a simple consumer group.
     ///
-    /// @param grpdesc The group description.
-    /// @return 1 if the group is a simple consumer group,
-    ///         else 0.
+    /// - `grpdesc`: The group description.
+    /// Returns 1 if the group is a simple consumer group,
+    /// else 0.
     pub fn rd_kafka_ConsumerGroupDescription_is_simple_consumer_group(
         grpdesc: *const rd_kafka_ConsumerGroupDescription_t,
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
-    /// @brief Gets the partition assignor for the \p grpdesc group.
+    /// Gets the partition assignor for the \p grpdesc group.
     ///
-    /// @param grpdesc The group description.
+    /// - `grpdesc`: The group description.
     ///
-    /// @return The partition assignor.
+    /// Returns The partition assignor.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p grpdesc object.
+    /// as the lifetime of the `grpdesc object.
     pub fn rd_kafka_ConsumerGroupDescription_partition_assignor(
         grpdesc: *const rd_kafka_ConsumerGroupDescription_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Gets the authorized ACL operations for the \p grpdesc group.
+    /// Gets the authorized ACL operations for the \p grpdesc group.
     ///
-    /// @param grpdesc The group description.
-    /// @param cntp is updated with authorized ACL operations count.
+    /// - `grpdesc`: The group description.
+    /// - `cntp`: is updated with authorized ACL operations count.
     ///
-    /// @return The group authorized operations. Is NULL if operations were not
-    ///         requested.
+    /// Returns The group authorized operations. Is NULL if operations were not
+    /// requested.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p grpdesc object.
+    /// as the lifetime of the `grpdesc object.
     pub fn rd_kafka_ConsumerGroupDescription_authorized_operations(
         grpdesc: *const rd_kafka_ConsumerGroupDescription_t,
         cntp: *mut usize,
     ) -> *const rd_kafka_AclOperation_t;
 }
 unsafe extern "C" {
-    /// @brief Gets state for the \p grpdesc group.
+    /// Gets state for the \p grpdesc group.
     ///
-    /// @param grpdesc The group description.
+    /// - `grpdesc`: The group description.
     ///
-    /// @return A group state.
+    /// Returns A group state.
     pub fn rd_kafka_ConsumerGroupDescription_state(
         grpdesc: *const rd_kafka_ConsumerGroupDescription_t,
     ) -> rd_kafka_consumer_group_state_t;
 }
 unsafe extern "C" {
-    /// @brief Gets the coordinator for the \p grpdesc group.
+    /// Gets the coordinator for the \p grpdesc group.
     ///
-    /// @param grpdesc The group description.
+    /// - `grpdesc`: The group description.
     ///
-    /// @return The group coordinator.
+    /// Returns The group coordinator.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p grpdesc object.
+    /// as the lifetime of the `grpdesc object.
     pub fn rd_kafka_ConsumerGroupDescription_coordinator(
         grpdesc: *const rd_kafka_ConsumerGroupDescription_t,
     ) -> *const rd_kafka_Node_t;
 }
 unsafe extern "C" {
-    /// @brief Gets the members count of \p grpdesc group.
+    /// Gets the members count of \p grpdesc group.
     ///
-    /// @param grpdesc The group description.
+    /// - `grpdesc`: The group description.
     ///
-    /// @return The member count.
+    /// Returns The member count.
     pub fn rd_kafka_ConsumerGroupDescription_member_count(
         grpdesc: *const rd_kafka_ConsumerGroupDescription_t,
     ) -> usize;
 }
 unsafe extern "C" {
-    /// @brief Gets a member of \p grpdesc group.
+    /// Gets a member of \p grpdesc group.
     ///
-    /// @param grpdesc The group description.
-    /// @param idx The member idx.
+    /// - `grpdesc`: The group description.
+    /// - `idx`: The member idx.
     ///
-    /// @return A member at index \p idx, or NULL if
-    ///         \p idx is out of range.
+    /// Returns A member at index \p idx, or NULL if
+    /// `idx is out of range.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p grpdesc object.
+    /// as the lifetime of the `grpdesc object.
     pub fn rd_kafka_ConsumerGroupDescription_member(
         grpdesc: *const rd_kafka_ConsumerGroupDescription_t,
         idx: usize,
     ) -> *const rd_kafka_MemberDescription_t;
 }
 unsafe extern "C" {
-    /// @brief Gets client id of \p member.
+    /// Gets client id of \p member.
     ///
-    /// @param member The group member.
+    /// - `member`: The group member.
     ///
-    /// @return The client id.
+    /// Returns The client id.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p member object.
+    /// as the lifetime of the `member object.
     pub fn rd_kafka_MemberDescription_client_id(
         member: *const rd_kafka_MemberDescription_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Gets group instance id of \p member.
+    /// Gets group instance id of \p member.
     ///
-    /// @param member The group member.
+    /// - `member`: The group member.
     ///
-    /// @return The group instance id, or NULL if not available.
+    /// Returns The group instance id, or NULL if not available.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p member object.
+    /// as the lifetime of the `member object.
     pub fn rd_kafka_MemberDescription_group_instance_id(
         member: *const rd_kafka_MemberDescription_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Gets consumer id of \p member.
+    /// Gets consumer id of \p member.
     ///
-    /// @param member The group member.
+    /// - `member`: The group member.
     ///
-    /// @return The consumer id.
+    /// Returns The consumer id.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p member object.
+    /// as the lifetime of the `member object.
     pub fn rd_kafka_MemberDescription_consumer_id(
         member: *const rd_kafka_MemberDescription_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Gets host of \p member.
+    /// Gets host of \p member.
     ///
-    /// @param member The group member.
+    /// - `member`: The group member.
     ///
-    /// @return The host.
+    /// Returns The host.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p member object.
+    /// as the lifetime of the `member object.
     pub fn rd_kafka_MemberDescription_host(
         member: *const rd_kafka_MemberDescription_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Gets assignment of \p member.
+    /// Gets assignment of \p member.
     ///
-    /// @param member The group member.
+    /// - `member`: The group member.
     ///
-    /// @return The member assignment.
+    /// Returns The member assignment.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p member object.
+    /// as the lifetime of the `member object.
     pub fn rd_kafka_MemberDescription_assignment(
         member: *const rd_kafka_MemberDescription_t,
     ) -> *const rd_kafka_MemberAssignment_t;
 }
 unsafe extern "C" {
-    /// @brief Gets assigned partitions of a member \p assignment.
+    /// Gets assigned partitions of a member \p assignment.
     ///
-    /// @param assignment The group member assignment.
+    /// - `assignment`: The group member assignment.
     ///
-    /// @return The assigned partitions.
+    /// Returns The assigned partitions.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p assignment object.
+    /// as the lifetime of the `assignment object.
     pub fn rd_kafka_MemberAssignment_partitions(
         assignment: *const rd_kafka_MemberAssignment_t,
     ) -> *const rd_kafka_topic_partition_list_t;
@@ -8109,43 +8109,43 @@ pub struct rd_kafka_DeleteGroup_s {
 /// Represents a group to be deleted.
 pub type rd_kafka_DeleteGroup_t = rd_kafka_DeleteGroup_s;
 unsafe extern "C" {
-    /// @brief Create a new DeleteGroup object. This object is later passed to
-    ///        rd_kafka_DeleteGroups().
+    /// Create a new DeleteGroup object. This object is later passed to
+    /// rd_kafka_DeleteGroups().
     ///
-    /// @param group Name of group to delete.
+    /// - `group`: Name of group to delete.
     ///
-    /// @returns a new allocated DeleteGroup object.
-    ///          Use rd_kafka_DeleteGroup_destroy() to free object when done.
+    /// Returns a new allocated DeleteGroup object.
+    /// Use rd_kafka_DeleteGroup_destroy() to free object when done.
     pub fn rd_kafka_DeleteGroup_new(
         group: *const ::std::os::raw::c_char,
     ) -> *mut rd_kafka_DeleteGroup_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy and free a DeleteGroup object previously created with
-    ///        rd_kafka_DeleteGroup_new()
+    /// Destroy and free a DeleteGroup object previously created with
+    /// rd_kafka_DeleteGroup_new()
     pub fn rd_kafka_DeleteGroup_destroy(del_group: *mut rd_kafka_DeleteGroup_t);
 }
 unsafe extern "C" {
-    /// @brief Helper function to destroy all DeleteGroup objects in
-    ///        the \p del_groups array (of \p del_group_cnt elements).
-    ///        The array itself is not freed.
+    /// Helper function to destroy all DeleteGroup objects in
+    /// the `del_groups array (of `del_group_cnt elements).
+    /// The array itself is not freed.
     pub fn rd_kafka_DeleteGroup_destroy_array(
         del_groups: *mut *mut rd_kafka_DeleteGroup_t,
         del_group_cnt: usize,
     );
 }
 unsafe extern "C" {
-    /// @brief Delete groups from cluster as specified by the \p del_groups
-    ///        array of size \p del_group_cnt elements.
+    /// Delete groups from cluster as specified by the \p del_groups
+    /// array of size `del_group_cnt elements.
     ///
-    /// @param rk Client instance.
-    /// @param del_groups Array of groups to delete.
-    /// @param del_group_cnt Number of elements in \p del_groups array.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `del_groups`: Array of groups to delete.
+    /// - `del_group_cnt`: Number of elements in \p del_groups array.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_DELETEGROUPS_RESULT
+    /// `RD_KAFKA_EVENT_DELETEGROUPS_RESULT
     ///
     /// @remark This function in called deleteConsumerGroups in the Java client.
     pub fn rd_kafka_DeleteGroups(
@@ -8157,12 +8157,12 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get an array of group results from a DeleteGroups result.
+    /// Get an array of group results from a DeleteGroups result.
     ///
-    /// The returned groups life-time is the same as the \p result object.
+    /// The returned groups life-time is the same as the `result object.
     ///
-    /// @param result Result to get group results from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `result`: Result to get group results from.
+    /// - `cntp`: is updated to the number of elements in the array.
     pub fn rd_kafka_DeleteGroups_result_groups(
         result: *const rd_kafka_DeleteGroups_result_t,
         cntp: *mut usize,
@@ -8176,51 +8176,51 @@ pub struct rd_kafka_ListConsumerGroupOffsets_s {
 /// Represents consumer group committed offsets to be listed.
 pub type rd_kafka_ListConsumerGroupOffsets_t = rd_kafka_ListConsumerGroupOffsets_s;
 unsafe extern "C" {
-    /// @brief Create a new ListConsumerGroupOffsets object.
-    ///        This object is later passed to rd_kafka_ListConsumerGroupOffsets().
+    /// Create a new ListConsumerGroupOffsets object.
+    /// This object is later passed to rd_kafka_ListConsumerGroupOffsets().
     ///
-    /// @param group_id Consumer group id.
-    /// @param partitions Partitions to list committed offsets for.
-    ///                   Only the topic and partition fields are used.
+    /// - `group_id`: Consumer group id.
+    /// - `partitions`: Partitions to list committed offsets for.
+    /// Only the topic and partition fields are used.
     ///
-    /// @returns a new allocated ListConsumerGroupOffsets object.
-    ///          Use rd_kafka_ListConsumerGroupOffsets_destroy() to free
-    ///          object when done.
+    /// Returns a new allocated ListConsumerGroupOffsets object.
+    /// Use rd_kafka_ListConsumerGroupOffsets_destroy() to free
+    /// object when done.
     pub fn rd_kafka_ListConsumerGroupOffsets_new(
         group_id: *const ::std::os::raw::c_char,
         partitions: *const rd_kafka_topic_partition_list_t,
     ) -> *mut rd_kafka_ListConsumerGroupOffsets_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy and free a ListConsumerGroupOffsets object previously
-    ///        created with rd_kafka_ListConsumerGroupOffsets_new()
+    /// Destroy and free a ListConsumerGroupOffsets object previously
+    /// created with rd_kafka_ListConsumerGroupOffsets_new()
     pub fn rd_kafka_ListConsumerGroupOffsets_destroy(
         list_grpoffsets: *mut rd_kafka_ListConsumerGroupOffsets_t,
     );
 }
 unsafe extern "C" {
-    /// @brief Helper function to destroy all ListConsumerGroupOffsets objects in
-    ///        the \p list_grpoffsets array (of \p list_grpoffsets_cnt elements).
-    ///        The array itself is not freed.
+    /// Helper function to destroy all ListConsumerGroupOffsets objects in
+    /// the `list_grpoffsets array (of `list_grpoffsets_cnt elements).
+    /// The array itself is not freed.
     pub fn rd_kafka_ListConsumerGroupOffsets_destroy_array(
         list_grpoffsets: *mut *mut rd_kafka_ListConsumerGroupOffsets_t,
         list_grpoffset_cnt: usize,
     );
 }
 unsafe extern "C" {
-    /// @brief List committed offsets for a set of partitions in a consumer
-    ///        group.
+    /// List committed offsets for a set of partitions in a consumer
+    /// group.
     ///
-    /// @param rk Client instance.
-    /// @param list_grpoffsets Array of group committed offsets to list.
-    ///                       MUST only be one single element.
-    /// @param list_grpoffsets_cnt Number of elements in \p list_grpoffsets array.
-    ///                           MUST always be 1.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `list_grpoffsets`: Array of group committed offsets to list.
+    /// MUST only be one single element.
+    /// - `list_grpoffsets_cnt`: Number of elements in \p list_grpoffsets array.
+    /// MUST always be 1.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_LISTCONSUMERGROUPOFFSETS_RESULT
+    /// `RD_KAFKA_EVENT_LISTCONSUMERGROUPOFFSETS_RESULT
     ///
     /// @remark The current implementation only supports one group per invocation.
     pub fn rd_kafka_ListConsumerGroupOffsets(
@@ -8232,15 +8232,15 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get an array of results from a ListConsumerGroupOffsets result.
+    /// Get an array of results from a ListConsumerGroupOffsets result.
     ///
-    /// The returned groups life-time is the same as the \p result object.
+    /// The returned groups life-time is the same as the `result object.
     ///
-    /// @param result Result to get group results from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `result`: Result to get group results from.
+    /// - `cntp`: is updated to the number of elements in the array.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p result object.
+    /// as the lifetime of the `result object.
     pub fn rd_kafka_ListConsumerGroupOffsets_result_groups(
         result: *const rd_kafka_ListConsumerGroupOffsets_result_t,
         cntp: *mut usize,
@@ -8254,52 +8254,52 @@ pub struct rd_kafka_AlterConsumerGroupOffsets_s {
 /// Represents consumer group committed offsets to be altered.
 pub type rd_kafka_AlterConsumerGroupOffsets_t = rd_kafka_AlterConsumerGroupOffsets_s;
 unsafe extern "C" {
-    /// @brief Create a new AlterConsumerGroupOffsets object.
-    ///        This object is later passed to rd_kafka_AlterConsumerGroupOffsets().
+    /// Create a new AlterConsumerGroupOffsets object.
+    /// This object is later passed to rd_kafka_AlterConsumerGroupOffsets().
     ///
-    /// @param group_id Consumer group id.
-    /// @param partitions Partitions to alter committed offsets for.
-    ///                   Only the topic and partition fields are used.
+    /// - `group_id`: Consumer group id.
+    /// - `partitions`: Partitions to alter committed offsets for.
+    /// Only the topic and partition fields are used.
     ///
-    /// @returns a new allocated AlterConsumerGroupOffsets object.
-    ///          Use rd_kafka_AlterConsumerGroupOffsets_destroy() to free
-    ///          object when done.
+    /// Returns a new allocated AlterConsumerGroupOffsets object.
+    /// Use rd_kafka_AlterConsumerGroupOffsets_destroy() to free
+    /// object when done.
     pub fn rd_kafka_AlterConsumerGroupOffsets_new(
         group_id: *const ::std::os::raw::c_char,
         partitions: *const rd_kafka_topic_partition_list_t,
     ) -> *mut rd_kafka_AlterConsumerGroupOffsets_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy and free a AlterConsumerGroupOffsets object previously
-    ///        created with rd_kafka_AlterConsumerGroupOffsets_new()
+    /// Destroy and free a AlterConsumerGroupOffsets object previously
+    /// created with rd_kafka_AlterConsumerGroupOffsets_new()
     pub fn rd_kafka_AlterConsumerGroupOffsets_destroy(
         alter_grpoffsets: *mut rd_kafka_AlterConsumerGroupOffsets_t,
     );
 }
 unsafe extern "C" {
-    /// @brief Helper function to destroy all AlterConsumerGroupOffsets objects in
-    ///        the \p alter_grpoffsets array (of \p alter_grpoffsets_cnt elements).
-    ///        The array itself is not freed.
+    /// Helper function to destroy all AlterConsumerGroupOffsets objects in
+    /// the `alter_grpoffsets array (of `alter_grpoffsets_cnt elements).
+    /// The array itself is not freed.
     pub fn rd_kafka_AlterConsumerGroupOffsets_destroy_array(
         alter_grpoffsets: *mut *mut rd_kafka_AlterConsumerGroupOffsets_t,
         alter_grpoffset_cnt: usize,
     );
 }
 unsafe extern "C" {
-    /// @brief Alter committed offsets for a set of partitions in a consumer
-    ///        group. This will succeed at the partition level only if the group
-    ///        is not actively subscribed to the corresponding topic.
+    /// Alter committed offsets for a set of partitions in a consumer
+    /// group. This will succeed at the partition level only if the group
+    /// is not actively subscribed to the corresponding topic.
     ///
-    /// @param rk Client instance.
-    /// @param alter_grpoffsets Array of group committed offsets to alter.
-    ///                       MUST only be one single element.
-    /// @param alter_grpoffsets_cnt Number of elements in \p alter_grpoffsets array.
-    ///                           MUST always be 1.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `alter_grpoffsets`: Array of group committed offsets to alter.
+    /// MUST only be one single element.
+    /// - `alter_grpoffsets_cnt`: Number of elements in \p alter_grpoffsets array.
+    /// MUST always be 1.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_ALTERCONSUMERGROUPOFFSETS_RESULT
+    /// `RD_KAFKA_EVENT_ALTERCONSUMERGROUPOFFSETS_RESULT
     ///
     /// @remark The current implementation only supports one group per invocation.
     pub fn rd_kafka_AlterConsumerGroupOffsets(
@@ -8311,15 +8311,15 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get an array of results from a AlterConsumerGroupOffsets result.
+    /// Get an array of results from a AlterConsumerGroupOffsets result.
     ///
-    /// The returned groups life-time is the same as the \p result object.
+    /// The returned groups life-time is the same as the `result object.
     ///
-    /// @param result Result to get group results from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `result`: Result to get group results from.
+    /// - `cntp`: is updated to the number of elements in the array.
     ///
     /// @remark The lifetime of the returned memory is the same
-    ///         as the lifetime of the \p result object.
+    /// as the lifetime of the `result object.
     pub fn rd_kafka_AlterConsumerGroupOffsets_result_groups(
         result: *const rd_kafka_AlterConsumerGroupOffsets_result_t,
         cntp: *mut usize,
@@ -8333,52 +8333,52 @@ pub struct rd_kafka_DeleteConsumerGroupOffsets_s {
 /// Represents consumer group committed offsets to be deleted.
 pub type rd_kafka_DeleteConsumerGroupOffsets_t = rd_kafka_DeleteConsumerGroupOffsets_s;
 unsafe extern "C" {
-    /// @brief Create a new DeleteConsumerGroupOffsets object.
-    ///        This object is later passed to rd_kafka_DeleteConsumerGroupOffsets().
+    /// Create a new DeleteConsumerGroupOffsets object.
+    /// This object is later passed to rd_kafka_DeleteConsumerGroupOffsets().
     ///
-    /// @param group Consumer group id.
-    /// @param partitions Partitions to delete committed offsets for.
-    ///                   Only the topic and partition fields are used.
+    /// - `group`: Consumer group id.
+    /// - `partitions`: Partitions to delete committed offsets for.
+    /// Only the topic and partition fields are used.
     ///
-    /// @returns a new allocated DeleteConsumerGroupOffsets object.
-    ///          Use rd_kafka_DeleteConsumerGroupOffsets_destroy() to free
-    ///          object when done.
+    /// Returns a new allocated DeleteConsumerGroupOffsets object.
+    /// Use rd_kafka_DeleteConsumerGroupOffsets_destroy() to free
+    /// object when done.
     pub fn rd_kafka_DeleteConsumerGroupOffsets_new(
         group: *const ::std::os::raw::c_char,
         partitions: *const rd_kafka_topic_partition_list_t,
     ) -> *mut rd_kafka_DeleteConsumerGroupOffsets_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy and free a DeleteConsumerGroupOffsets object previously
-    ///        created with rd_kafka_DeleteConsumerGroupOffsets_new()
+    /// Destroy and free a DeleteConsumerGroupOffsets object previously
+    /// created with rd_kafka_DeleteConsumerGroupOffsets_new()
     pub fn rd_kafka_DeleteConsumerGroupOffsets_destroy(
         del_grpoffsets: *mut rd_kafka_DeleteConsumerGroupOffsets_t,
     );
 }
 unsafe extern "C" {
-    /// @brief Helper function to destroy all DeleteConsumerGroupOffsets objects in
-    ///        the \p del_grpoffsets array (of \p del_grpoffsets_cnt elements).
-    ///        The array itself is not freed.
+    /// Helper function to destroy all DeleteConsumerGroupOffsets objects in
+    /// the `del_grpoffsets array (of `del_grpoffsets_cnt elements).
+    /// The array itself is not freed.
     pub fn rd_kafka_DeleteConsumerGroupOffsets_destroy_array(
         del_grpoffsets: *mut *mut rd_kafka_DeleteConsumerGroupOffsets_t,
         del_grpoffset_cnt: usize,
     );
 }
 unsafe extern "C" {
-    /// @brief Delete committed offsets for a set of partitions in a consumer
-    ///        group. This will succeed at the partition level only if the group
-    ///        is not actively subscribed to the corresponding topic.
+    /// Delete committed offsets for a set of partitions in a consumer
+    /// group. This will succeed at the partition level only if the group
+    /// is not actively subscribed to the corresponding topic.
     ///
-    /// @param rk Client instance.
-    /// @param del_grpoffsets Array of group committed offsets to delete.
-    ///                       MUST only be one single element.
-    /// @param del_grpoffsets_cnt Number of elements in \p del_grpoffsets array.
-    ///                           MUST always be 1.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `del_grpoffsets`: Array of group committed offsets to delete.
+    /// MUST only be one single element.
+    /// - `del_grpoffsets_cnt`: Number of elements in \p del_grpoffsets array.
+    /// MUST always be 1.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_DELETECONSUMERGROUPOFFSETS_RESULT
+    /// `RD_KAFKA_EVENT_DELETECONSUMERGROUPOFFSETS_RESULT
     ///
     /// @remark The current implementation only supports one group per invocation.
     pub fn rd_kafka_DeleteConsumerGroupOffsets(
@@ -8390,12 +8390,12 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get an array of results from a DeleteConsumerGroupOffsets result.
+    /// Get an array of results from a DeleteConsumerGroupOffsets result.
     ///
-    /// The returned groups life-time is the same as the \p result object.
+    /// The returned groups life-time is the same as the `result object.
     ///
-    /// @param result Result to get group results from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `result`: Result to get group results from.
+    /// - `cntp`: is updated to the number of elements in the array.
     pub fn rd_kafka_DeleteConsumerGroupOffsets_result_groups(
         result: *const rd_kafka_DeleteConsumerGroupOffsets_result_t,
         cntp: *mut usize,
@@ -8403,7 +8403,7 @@ unsafe extern "C" {
 }
 #[repr(i32)]
 /// @enum rd_kafka_OffsetSpec_t
-/// @brief Allows to specify the desired offsets when using ListOffsets.
+/// Allows to specify the desired offsets when using ListOffsets.
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_OffsetSpec_t {
     RD_KAFKA_OFFSET_SPEC_MAX_TIMESTAMP = -3,
@@ -8415,52 +8415,52 @@ pub enum rd_kafka_OffsetSpec_t {
 pub struct rd_kafka_ListOffsetsResultInfo_s {
     _unused: [u8; 0],
 }
-/// @brief Information returned from a ListOffsets call for a specific
-///        `rd_kafka_topic_partition_t`.
+/// Information returned from a ListOffsets call for a specific
+/// `rd_kafka_topic_partition_t`.
 pub type rd_kafka_ListOffsetsResultInfo_t = rd_kafka_ListOffsetsResultInfo_s;
 unsafe extern "C" {
-    /// @brief Returns the topic partition of the passed \p result_info.
+    /// Returns the topic partition of the passed \p result_info.
     pub fn rd_kafka_ListOffsetsResultInfo_topic_partition(
         result_info: *const rd_kafka_ListOffsetsResultInfo_t,
     ) -> *const rd_kafka_topic_partition_t;
 }
 unsafe extern "C" {
-    /// @brief Returns the timestamp corresponding to the offset in \p result_info.
+    /// Returns the timestamp corresponding to the offset in \p result_info.
     pub fn rd_kafka_ListOffsetsResultInfo_timestamp(
         result_info: *const rd_kafka_ListOffsetsResultInfo_t,
     ) -> i64;
 }
 unsafe extern "C" {
-    /// @brief Returns the array of ListOffsetsResultInfo in \p result
-    ///        and populates the size of the array in \p cntp.
+    /// Returns the array of ListOffsetsResultInfo in \p result
+    /// and populates the size of the array in `cntp.
     pub fn rd_kafka_ListOffsets_result_infos(
         result: *const rd_kafka_ListOffsets_result_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_ListOffsetsResultInfo_t;
 }
 unsafe extern "C" {
-    /// @brief List offsets for the specified \p topic_partitions.
-    ///        This operation enables to find the beginning offset,
-    ///        end offset as well as the offset matching a timestamp in partitions
-    ///        or the offset with max timestamp.
+    /// List offsets for the specified \p topic_partitions.
+    /// This operation enables to find the beginning offset,
+    /// end offset as well as the offset matching a timestamp in partitions
+    /// or the offset with max timestamp.
     ///
-    /// @param rk Client instance.
-    /// @param topic_partitions topic_partition_list_t with the partitions and
-    ///                         offsets to list. Each topic partition offset can be
-    ///                         a value of the `rd_kafka_OffsetSpec_t` enum or
-    ///                         a non-negative value, representing a timestamp,
-    ///                         to query for the first offset after the
-    ///                         given timestamp.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `topic_partitions`: topic_partition_list_t with the partitions and
+    /// offsets to list. Each topic partition offset can be
+    /// a value of the `rd_kafka_OffsetSpec_t` enum or
+    /// a non-negative value, representing a timestamp,
+    /// to query for the first offset after the
+    /// given timestamp.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// Supported admin options:
-    ///  - rd_kafka_AdminOptions_set_isolation_level() - default  \c
+    /// - rd_kafka_AdminOptions_set_isolation_level() - default  \c
     /// RD_KAFKA_ISOLATION_LEVEL_READ_UNCOMMITTED
-    ///  - rd_kafka_AdminOptions_set_request_timeout() - default socket.timeout.ms
+    /// - rd_kafka_AdminOptions_set_request_timeout() - default socket.timeout.ms
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_LISTOFFSETS_RESULT
+    /// `RD_KAFKA_EVENT_LISTOFFSETS_RESULT
     pub fn rd_kafka_ListOffsets(
         rk: *mut rd_kafka_t,
         topic_partitions: *mut rd_kafka_topic_partition_list_t,
@@ -8470,7 +8470,7 @@ unsafe extern "C" {
 }
 #[repr(u32)]
 /// @enum rd_kafka_ScramMechanism_t
-/// @brief Apache Kafka ScramMechanism values.
+/// Apache Kafka ScramMechanism values.
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_ScramMechanism_t {
     RD_KAFKA_SCRAM_MECHANISM_UNKNOWN = 0,
@@ -8483,18 +8483,18 @@ pub enum rd_kafka_ScramMechanism_t {
 pub struct rd_kafka_ScramCredentialInfo_s {
     _unused: [u8; 0],
 }
-/// @brief Scram credential info.
-///        Mechanism and iterations for a SASL/SCRAM
-///        credential associated with a user.
+/// Scram credential info.
+/// Mechanism and iterations for a SASL/SCRAM
+/// credential associated with a user.
 pub type rd_kafka_ScramCredentialInfo_t = rd_kafka_ScramCredentialInfo_s;
 unsafe extern "C" {
-    /// @brief Returns the mechanism of a given ScramCredentialInfo.
+    /// Returns the mechanism of a given ScramCredentialInfo.
     pub fn rd_kafka_ScramCredentialInfo_mechanism(
         scram_credential_info: *const rd_kafka_ScramCredentialInfo_t,
     ) -> rd_kafka_ScramMechanism_t;
 }
 unsafe extern "C" {
-    /// @brief Returns the iterations of a given ScramCredentialInfo.
+    /// Returns the iterations of a given ScramCredentialInfo.
     pub fn rd_kafka_ScramCredentialInfo_iterations(
         scram_credential_info: *const rd_kafka_ScramCredentialInfo_t,
     ) -> i32;
@@ -8504,32 +8504,32 @@ unsafe extern "C" {
 pub struct rd_kafka_UserScramCredentialsDescription_s {
     _unused: [u8; 0],
 }
-/// @brief Representation of all SASL/SCRAM credentials associated
-///        with a user that can be retrieved,
-///        or an error indicating why credentials
-///        could not be retrieved.
+/// Representation of all SASL/SCRAM credentials associated
+/// with a user that can be retrieved,
+/// or an error indicating why credentials
+/// could not be retrieved.
 pub type rd_kafka_UserScramCredentialsDescription_t = rd_kafka_UserScramCredentialsDescription_s;
 unsafe extern "C" {
-    /// @brief Returns the username of a UserScramCredentialsDescription.
+    /// Returns the username of a UserScramCredentialsDescription.
     pub fn rd_kafka_UserScramCredentialsDescription_user(
         description: *const rd_kafka_UserScramCredentialsDescription_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Returns the error associated with a UserScramCredentialsDescription.
+    /// Returns the error associated with a UserScramCredentialsDescription.
     pub fn rd_kafka_UserScramCredentialsDescription_error(
         description: *const rd_kafka_UserScramCredentialsDescription_t,
     ) -> *const rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Returns the count of ScramCredentialInfos of a
+    /// Returns the count of ScramCredentialInfos of a
     /// UserScramCredentialsDescription.
     pub fn rd_kafka_UserScramCredentialsDescription_scramcredentialinfo_count(
         description: *const rd_kafka_UserScramCredentialsDescription_t,
     ) -> usize;
 }
 unsafe extern "C" {
-    /// @brief Returns the ScramCredentialInfo at index idx of
+    /// Returns the ScramCredentialInfo at index idx of
     /// UserScramCredentialsDescription.
     pub fn rd_kafka_UserScramCredentialsDescription_scramcredentialinfo(
         description: *const rd_kafka_UserScramCredentialsDescription_t,
@@ -8537,28 +8537,28 @@ unsafe extern "C" {
     ) -> *const rd_kafka_ScramCredentialInfo_t;
 }
 unsafe extern "C" {
-    /// @brief Get an array of descriptions from a DescribeUserScramCredentials
+    /// Get an array of descriptions from a DescribeUserScramCredentials
     /// result.
     ///
-    /// The returned value life-time is the same as the \p result object.
+    /// The returned value life-time is the same as the `result object.
     ///
-    /// @param result Result to get descriptions from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `result`: Result to get descriptions from.
+    /// - `cntp`: is updated to the number of elements in the array.
     pub fn rd_kafka_DescribeUserScramCredentials_result_descriptions(
         result: *const rd_kafka_DescribeUserScramCredentials_result_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_UserScramCredentialsDescription_t;
 }
 unsafe extern "C" {
-    /// @brief Describe SASL/SCRAM credentials.
-    ///        This operation is supported by brokers with version 2.7.0 or higher.
+    /// Describe SASL/SCRAM credentials.
+    /// This operation is supported by brokers with version 2.7.0 or higher.
     ///
-    /// @param rk Client instance.
-    /// @param users The users for which credentials are to be described.
-    ///              All users' credentials are described if NULL.
-    /// @param user_cnt Number of elements in \p users array.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `users`: The users for which credentials are to be described.
+    /// All users' credentials are described if NULL.
+    /// - `user_cnt`: Number of elements in \p users array.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     pub fn rd_kafka_DescribeUserScramCredentials(
         rk: *mut rd_kafka_t,
         users: *mut *const ::std::os::raw::c_char,
@@ -8572,27 +8572,27 @@ unsafe extern "C" {
 pub struct rd_kafka_UserScramCredentialAlteration_s {
     _unused: [u8; 0],
 }
-/// @brief A request to alter a user's SASL/SCRAM credentials.
+/// A request to alter a user's SASL/SCRAM credentials.
 pub type rd_kafka_UserScramCredentialAlteration_t = rd_kafka_UserScramCredentialAlteration_s;
 unsafe extern "C" {
-    /// @brief Allocates a new UserScramCredentialUpsertion given its fields.
-    ///        If salt isn't given a 64 B salt is generated using OpenSSL
-    ///        RAND_priv_bytes, if available.
+    /// Allocates a new UserScramCredentialUpsertion given its fields.
+    /// If salt isn't given a 64 B salt is generated using OpenSSL
+    /// RAND_priv_bytes, if available.
     ///
-    /// @param username The username (not empty).
-    /// @param mechanism SASL/SCRAM mechanism.
-    /// @param iterations SASL/SCRAM iterations.
-    /// @param password Password bytes (not empty).
-    /// @param password_size Size of \p password (greater than 0).
-    /// @param salt Salt bytes (optional).
-    /// @param salt_size Size of \p salt (optional).
+    /// - `username`: The username (not empty).
+    /// - `mechanism`: SASL/SCRAM mechanism.
+    /// - `iterations`: SASL/SCRAM iterations.
+    /// - `password`: Password bytes (not empty).
+    /// - `password_size`: Size of \p password (greater than 0).
+    /// - `salt`: Salt bytes (optional).
+    /// - `salt_size`: Size of \p salt (optional).
     ///
     /// @remark A random salt is generated, when NULL, only if OpenSSL >= 1.1.1.
-    ///         Otherwise it's a required param.
+    /// Otherwise it's a required param.
     ///
-    /// @return A newly created instance of rd_kafka_UserScramCredentialAlteration_t.
-    ///         Ownership belongs to the caller, use
-    ///         rd_kafka_UserScramCredentialAlteration_destroy to destroy.
+    /// Returns A newly created instance of rd_kafka_UserScramCredentialAlteration_t.
+    /// Ownership belongs to the caller, use
+    /// rd_kafka_UserScramCredentialAlteration_destroy to destroy.
     pub fn rd_kafka_UserScramCredentialUpsertion_new(
         username: *const ::std::os::raw::c_char,
         mechanism: rd_kafka_ScramMechanism_t,
@@ -8604,26 +8604,26 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_UserScramCredentialAlteration_t;
 }
 unsafe extern "C" {
-    /// @brief Allocates a new UserScramCredentialDeletion given its fields.
+    /// Allocates a new UserScramCredentialDeletion given its fields.
     ///
-    /// @param username The username (not empty).
-    /// @param mechanism SASL/SCRAM mechanism.
-    /// @return A newly created instance of rd_kafka_UserScramCredentialAlteration_t.
-    ///         Ownership belongs to the caller, use
-    ///         rd_kafka_UserScramCredentialAlteration_destroy to destroy.
+    /// - `username`: The username (not empty).
+    /// - `mechanism`: SASL/SCRAM mechanism.
+    /// Returns A newly created instance of rd_kafka_UserScramCredentialAlteration_t.
+    /// Ownership belongs to the caller, use
+    /// rd_kafka_UserScramCredentialAlteration_destroy to destroy.
     pub fn rd_kafka_UserScramCredentialDeletion_new(
         username: *const ::std::os::raw::c_char,
         mechanism: rd_kafka_ScramMechanism_t,
     ) -> *mut rd_kafka_UserScramCredentialAlteration_t;
 }
 unsafe extern "C" {
-    /// @brief Destroys a UserScramCredentialAlteration given its pointer
+    /// Destroys a UserScramCredentialAlteration given its pointer
     pub fn rd_kafka_UserScramCredentialAlteration_destroy(
         alteration: *mut rd_kafka_UserScramCredentialAlteration_t,
     );
 }
 unsafe extern "C" {
-    /// @brief Destroys an array of UserScramCredentialAlteration
+    /// Destroys an array of UserScramCredentialAlteration
     pub fn rd_kafka_UserScramCredentialAlteration_destroy_array(
         alterations: *mut *mut rd_kafka_UserScramCredentialAlteration_t,
         alteration_cnt: usize,
@@ -8634,47 +8634,47 @@ unsafe extern "C" {
 pub struct rd_kafka_AlterUserScramCredentials_result_response_s {
     _unused: [u8; 0],
 }
-/// @brief Result of a single user SCRAM alteration.
+/// Result of a single user SCRAM alteration.
 pub type rd_kafka_AlterUserScramCredentials_result_response_t =
     rd_kafka_AlterUserScramCredentials_result_response_s;
 unsafe extern "C" {
-    /// @brief Returns the username for a
+    /// Returns the username for a
     /// rd_kafka_AlterUserScramCredentials_result_response.
     pub fn rd_kafka_AlterUserScramCredentials_result_response_user(
         response: *const rd_kafka_AlterUserScramCredentials_result_response_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Returns the error of a
+    /// Returns the error of a
     /// rd_kafka_AlterUserScramCredentials_result_response.
     pub fn rd_kafka_AlterUserScramCredentials_result_response_error(
         response: *const rd_kafka_AlterUserScramCredentials_result_response_t,
     ) -> *const rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Get an array of responses from a AlterUserScramCredentials result.
+    /// Get an array of responses from a AlterUserScramCredentials result.
     ///
-    /// The returned value life-time is the same as the \p result object.
+    /// The returned value life-time is the same as the `result object.
     ///
-    /// @param result Result to get responses from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// - `result`: Result to get responses from.
+    /// - `cntp`: is updated to the number of elements in the array.
     pub fn rd_kafka_AlterUserScramCredentials_result_responses(
         result: *const rd_kafka_AlterUserScramCredentials_result_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_AlterUserScramCredentials_result_response_t;
 }
 unsafe extern "C" {
-    /// @brief Alter SASL/SCRAM credentials.
-    ///        This operation is supported by brokers with version 2.7.0 or higher.
+    /// Alter SASL/SCRAM credentials.
+    /// This operation is supported by brokers with version 2.7.0 or higher.
     ///
     /// @remark For upsertions to be processed, librdkfka must be build with
-    ///         OpenSSL support. It's needed to calculate the HMAC.
+    /// OpenSSL support. It's needed to calculate the HMAC.
     ///
-    /// @param rk Client instance.
-    /// @param alterations The alterations to be applied.
-    /// @param alteration_cnt Number of elements in \p alterations array.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `alterations`: The alterations to be applied.
+    /// - `alteration_cnt`: Number of elements in \p alterations array.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     pub fn rd_kafka_AlterUserScramCredentials(
         rk: *mut rd_kafka_t,
         alterations: *mut *mut rd_kafka_UserScramCredentialAlteration_t,
@@ -8688,60 +8688,59 @@ unsafe extern "C" {
 pub struct rd_kafka_AclBinding_s {
     _unused: [u8; 0],
 }
-/// @brief ACL Binding is used to create access control lists.
-///
+/// ACL Binding is used to create access control lists.
 pub type rd_kafka_AclBinding_t = rd_kafka_AclBinding_s;
-/// @brief ACL Binding filter is used to filter access control lists.
+/// ACL Binding filter is used to filter access control lists.
 pub type rd_kafka_AclBindingFilter_t = rd_kafka_AclBinding_t;
 unsafe extern "C" {
-    /// @returns the error object for the given acl result, or NULL on success.
+    /// Returns the error object for the given acl result, or NULL on success.
     pub fn rd_kafka_acl_result_error(
         aclres: *const rd_kafka_acl_result_t,
     ) -> *const rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @returns a string representation of the \p acl_operation
+    /// Returns a string representation of the \p acl_operation
     pub fn rd_kafka_AclOperation_name(
         acl_operation: rd_kafka_AclOperation_t,
     ) -> *const ::std::os::raw::c_char;
 }
 #[repr(u32)]
 /// @enum rd_kafka_AclPermissionType_t
-/// @brief Apache Kafka ACL permission types.
+/// Apache Kafka ACL permission types.
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_AclPermissionType_t {
-    ///< Unknown
+    /// < Unknown
     RD_KAFKA_ACL_PERMISSION_TYPE_UNKNOWN = 0,
     RD_KAFKA_ACL_PERMISSION_TYPE_ANY = 1,
-    ///< Disallows access
+    /// < Disallows access
     RD_KAFKA_ACL_PERMISSION_TYPE_DENY = 2,
-    ///< Grants access.
+    /// < Grants access.
     RD_KAFKA_ACL_PERMISSION_TYPE_ALLOW = 3,
     RD_KAFKA_ACL_PERMISSION_TYPE__CNT = 4,
 }
 unsafe extern "C" {
-    /// @returns a string representation of the \p acl_permission_type
+    /// Returns a string representation of the \p acl_permission_type
     pub fn rd_kafka_AclPermissionType_name(
         acl_permission_type: rd_kafka_AclPermissionType_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @brief Create a new AclBinding object. This object is later passed to
-    ///        rd_kafka_CreateAcls().
+    /// Create a new AclBinding object. This object is later passed to
+    /// rd_kafka_CreateAcls().
     ///
-    /// @param restype The ResourceType.
-    /// @param name The resource name.
-    /// @param resource_pattern_type The pattern type.
-    /// @param principal A principal, following the kafka specification.
-    /// @param host An hostname or ip.
-    /// @param operation A Kafka operation.
-    /// @param permission_type A Kafka permission type.
-    /// @param errstr An error string for returning errors or NULL to not use it.
-    /// @param errstr_size The \p errstr size or 0 to not use it.
+    /// - `restype`: The ResourceType.
+    /// - `name`: The resource name.
+    /// - `resource_pattern_type`: The pattern type.
+    /// - `principal`: A principal, following the kafka specification.
+    /// - `host`: An hostname or ip.
+    /// - `operation`: A Kafka operation.
+    /// - `permission_type`: A Kafka permission type.
+    /// - `errstr`: An error string for returning errors or NULL to not use it.
+    /// - `errstr_size`: The \p errstr size or 0 to not use it.
     ///
-    /// @returns a new allocated AclBinding object, or NULL if the input parameters
-    ///          are invalid.
-    ///          Use rd_kafka_AclBinding_destroy() to free object when done.
+    /// Returns a new allocated AclBinding object, or NULL if the input parameters
+    /// are invalid.
+    /// Use rd_kafka_AclBinding_destroy() to free object when done.
     pub fn rd_kafka_AclBinding_new(
         restype: rd_kafka_ResourceType_t,
         name: *const ::std::os::raw::c_char,
@@ -8755,27 +8754,27 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_AclBinding_t;
 }
 unsafe extern "C" {
-    /// @brief Create a new AclBindingFilter object. This object is later passed to
-    ///        rd_kafka_DescribeAcls() or
-    ///        rd_kafka_DeletesAcls() in order to filter
-    ///        the acls to retrieve or to delete.
-    ///        Use the same rd_kafka_AclBinding functions to query or destroy it.
+    /// Create a new AclBindingFilter object. This object is later passed to
+    /// rd_kafka_DescribeAcls() or
+    /// rd_kafka_DeletesAcls() in order to filter
+    /// the acls to retrieve or to delete.
+    /// Use the same rd_kafka_AclBinding functions to query or destroy it.
     ///
-    /// @param restype The ResourceType or \c RD_KAFKA_RESOURCE_ANY if
-    ///                not filtering by this field.
-    /// @param name The resource name or NULL if not filtering by this field.
-    /// @param resource_pattern_type The pattern type or \c
+    /// - `restype`: The ResourceType or \c RD_KAFKA_RESOURCE_ANY if
+    /// not filtering by this field.
+    /// - `name`: The resource name or NULL if not filtering by this field.
+    /// - `resource_pattern_type`: The pattern type or \c
     /// RD_KAFKA_RESOURCE_PATTERN_ANY if not filtering by this field.
-    /// @param principal A principal or NULL if not filtering by this field.
-    /// @param host An hostname or ip or NULL if not filtering by this field.
-    /// @param operation A Kafka operation or \c RD_KAFKA_ACL_OPERATION_ANY if not
+    /// - `principal`: A principal or NULL if not filtering by this field.
+    /// - `host`: An hostname or ip or NULL if not filtering by this field.
+    /// - `operation`: A Kafka operation or \c RD_KAFKA_ACL_OPERATION_ANY if not
     /// filtering by this field.
-    /// @param permission_type A Kafka permission type or \c
+    /// - `permission_type`: A Kafka permission type or \c
     /// RD_KAFKA_ACL_PERMISSION_TYPE_ANY if not filtering by this field.
-    /// @param errstr An error string for returning errors or NULL to not use it.
-    /// @param errstr_size The \p errstr size or 0 to not use it.
+    /// - `errstr`: An error string for returning errors or NULL to not use it.
+    /// - `errstr_size`: The \p errstr size or 0 to not use it.
     ///
-    /// @returns a new allocated AclBindingFilter object, or NULL if the input
+    /// Returns a new allocated AclBindingFilter object, or NULL if the input
     /// parameters are invalid. Use rd_kafka_AclBinding_destroy() to free object when
     /// done.
     pub fn rd_kafka_AclBindingFilter_new(
@@ -8791,97 +8790,97 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_AclBindingFilter_t;
 }
 unsafe extern "C" {
-    /// @returns the resource type for the given acl binding.
+    /// Returns the resource type for the given acl binding.
     pub fn rd_kafka_AclBinding_restype(
         acl: *const rd_kafka_AclBinding_t,
     ) -> rd_kafka_ResourceType_t;
 }
 unsafe extern "C" {
-    /// @returns the resource name for the given acl binding.
+    /// Returns the resource name for the given acl binding.
     ///
-    /// @remark lifetime of the returned string is the same as the \p acl.
+    /// @remark lifetime of the returned string is the same as the `acl.
     pub fn rd_kafka_AclBinding_name(
         acl: *const rd_kafka_AclBinding_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns the principal for the given acl binding.
+    /// Returns the principal for the given acl binding.
     ///
-    /// @remark lifetime of the returned string is the same as the \p acl.
+    /// @remark lifetime of the returned string is the same as the `acl.
     pub fn rd_kafka_AclBinding_principal(
         acl: *const rd_kafka_AclBinding_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns the host for the given acl binding.
+    /// Returns the host for the given acl binding.
     ///
-    /// @remark lifetime of the returned string is the same as the \p acl.
+    /// @remark lifetime of the returned string is the same as the `acl.
     pub fn rd_kafka_AclBinding_host(
         acl: *const rd_kafka_AclBinding_t,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    /// @returns the acl operation for the given acl binding.
+    /// Returns the acl operation for the given acl binding.
     pub fn rd_kafka_AclBinding_operation(
         acl: *const rd_kafka_AclBinding_t,
     ) -> rd_kafka_AclOperation_t;
 }
 unsafe extern "C" {
-    /// @returns the permission type for the given acl binding.
+    /// Returns the permission type for the given acl binding.
     pub fn rd_kafka_AclBinding_permission_type(
         acl: *const rd_kafka_AclBinding_t,
     ) -> rd_kafka_AclPermissionType_t;
 }
 unsafe extern "C" {
-    /// @returns the resource pattern type for the given acl binding.
+    /// Returns the resource pattern type for the given acl binding.
     pub fn rd_kafka_AclBinding_resource_pattern_type(
         acl: *const rd_kafka_AclBinding_t,
     ) -> rd_kafka_ResourcePatternType_t;
 }
 unsafe extern "C" {
-    /// @returns the error object for the given acl binding, or NULL on success.
+    /// Returns the error object for the given acl binding, or NULL on success.
     pub fn rd_kafka_AclBinding_error(acl: *const rd_kafka_AclBinding_t) -> *const rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy and free an AclBinding object previously created with
-    ///        rd_kafka_AclBinding_new()
+    /// Destroy and free an AclBinding object previously created with
+    /// rd_kafka_AclBinding_new()
     pub fn rd_kafka_AclBinding_destroy(acl_binding: *mut rd_kafka_AclBinding_t);
 }
 unsafe extern "C" {
-    /// @brief Helper function to destroy all AclBinding objects in
-    ///        the \p acl_bindings array (of \p acl_bindings_cnt elements).
-    ///        The array itself is not freed.
+    /// Helper function to destroy all AclBinding objects in
+    /// the `acl_bindings array (of `acl_bindings_cnt elements).
+    /// The array itself is not freed.
     pub fn rd_kafka_AclBinding_destroy_array(
         acl_bindings: *mut *mut rd_kafka_AclBinding_t,
         acl_bindings_cnt: usize,
     );
 }
 unsafe extern "C" {
-    /// @brief Get an array of acl results from a CreateAcls result.
+    /// Get an array of acl results from a CreateAcls result.
     ///
-    /// The returned \p acl result life-time is the same as the \p result object.
-    /// @param result CreateAcls result to get acl results from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// The returned `acl result life-time is the same as the `result object.
+    /// - `result`: CreateAcls result to get acl results from.
+    /// - `cntp`: is updated to the number of elements in the array.
     pub fn rd_kafka_CreateAcls_result_acls(
         result: *const rd_kafka_CreateAcls_result_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_acl_result_t;
 }
 unsafe extern "C" {
-    /// @brief Create acls as specified by the \p new_acls
-    ///        array of size \p new_topic_cnt elements.
+    /// Create acls as specified by the \p new_acls
+    /// array of size `new_topic_cnt elements.
     ///
-    /// @param rk Client instance.
-    /// @param new_acls Array of new acls to create.
-    /// @param new_acls_cnt Number of elements in \p new_acls array.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `new_acls`: Array of new acls to create.
+    /// - `new_acls_cnt`: Number of elements in \p new_acls array.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// Supported admin options:
-    ///  - rd_kafka_AdminOptions_set_request_timeout() - default socket.timeout.ms
+    /// - rd_kafka_AdminOptions_set_request_timeout() - default socket.timeout.ms
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_CREATEACLS_RESULT
+    /// `RD_KAFKA_EVENT_CREATEACLS_RESULT
     pub fn rd_kafka_CreateAcls(
         rk: *mut rd_kafka_t,
         new_acls: *mut *mut rd_kafka_AclBinding_t,
@@ -8891,29 +8890,29 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get an array of resource results from a DescribeAcls result.
+    /// Get an array of resource results from a DescribeAcls result.
     ///
-    /// The returned \p resources life-time is the same as the \p result object.
-    /// @param result DescribeAcls result to get acls from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// The returned `resources life-time is the same as the `result object.
+    /// - `result`: DescribeAcls result to get acls from.
+    /// - `cntp`: is updated to the number of elements in the array.
     pub fn rd_kafka_DescribeAcls_result_acls(
         result: *const rd_kafka_DescribeAcls_result_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_AclBinding_t;
 }
 unsafe extern "C" {
-    /// @brief Describe acls matching the filter provided in \p acl_filter
+    /// Describe acls matching the filter provided in \p acl_filter
     ///
-    /// @param rk Client instance.
-    /// @param acl_filter Filter for the returned acls.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `acl_filter`: Filter for the returned acls.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// Supported admin options:
-    ///  - rd_kafka_AdminOptions_set_operation_timeout() - default 0
+    /// - rd_kafka_AdminOptions_set_operation_timeout() - default 0
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_DESCRIBEACLS_RESULT
+    /// `RD_KAFKA_EVENT_DESCRIBEACLS_RESULT
     pub fn rd_kafka_DescribeAcls(
         rk: *mut rd_kafka_t,
         acl_filter: *mut rd_kafka_AclBindingFilter_t,
@@ -8927,28 +8926,27 @@ pub struct rd_kafka_DeleteAcls_result_response_s {
     _unused: [u8; 0],
 }
 /// DeleteAcls - delete access control lists.
-///
 pub type rd_kafka_DeleteAcls_result_response_t = rd_kafka_DeleteAcls_result_response_s;
 unsafe extern "C" {
-    /// @brief Get an array of DeleteAcls result responses from a DeleteAcls result.
+    /// Get an array of DeleteAcls result responses from a DeleteAcls result.
     ///
-    /// The returned \p responses life-time is the same as the \p result object.
-    /// @param result DeleteAcls result to get responses from.
-    /// @param cntp is updated to the number of elements in the array.
+    /// The returned `responses life-time is the same as the `result object.
+    /// - `result`: DeleteAcls result to get responses from.
+    /// - `cntp`: is updated to the number of elements in the array.
     pub fn rd_kafka_DeleteAcls_result_responses(
         result: *const rd_kafka_DeleteAcls_result_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_DeleteAcls_result_response_t;
 }
 unsafe extern "C" {
-    /// @returns the error object for the given DeleteAcls result response,
-    ///          or NULL on success.
+    /// Returns the error object for the given DeleteAcls result response,
+    /// or NULL on success.
     pub fn rd_kafka_DeleteAcls_result_response_error(
         result_response: *const rd_kafka_DeleteAcls_result_response_t,
     ) -> *const rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @returns the matching acls array for the given DeleteAcls result response.
+    /// Returns the matching acls array for the given DeleteAcls result response.
     ///
     /// @remark lifetime of the returned acl bindings is the same as the \p
     /// result_response.
@@ -8958,20 +8956,20 @@ unsafe extern "C" {
     ) -> *mut *const rd_kafka_AclBinding_t;
 }
 unsafe extern "C" {
-    /// @brief Delete acls matching the filteres provided in \p del_acls
-    /// array of size \p del_acls_cnt.
+    /// Delete acls matching the filteres provided in \p del_acls
+    /// array of size `del_acls_cnt.
     ///
-    /// @param rk Client instance.
-    /// @param del_acls Filters for the acls to delete.
-    /// @param del_acls_cnt Number of elements in \p del_acls array.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `del_acls`: Filters for the acls to delete.
+    /// - `del_acls_cnt`: Number of elements in \p del_acls array.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// Supported admin options:
-    ///  - rd_kafka_AdminOptions_set_operation_timeout() - default 0
+    /// - rd_kafka_AdminOptions_set_operation_timeout() - default 0
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_DELETEACLS_RESULT
+    /// `RD_KAFKA_EVENT_DELETEACLS_RESULT
     pub fn rd_kafka_DeleteAcls(
         rk: *mut rd_kafka_t,
         del_acls: *mut *mut rd_kafka_AclBindingFilter_t,
@@ -8985,64 +8983,64 @@ unsafe extern "C" {
 pub struct rd_kafka_ElectLeaders_s {
     _unused: [u8; 0],
 }
-/// @brief Represents elect leaders request.
+/// Represents elect leaders request.
 pub type rd_kafka_ElectLeaders_t = rd_kafka_ElectLeaders_s;
 #[repr(u32)]
 /// @enum rd_kafka_ElectionType_t
-/// @brief Apache Kafka Election Types
+/// Apache Kafka Election Types
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum rd_kafka_ElectionType_t {
-    ///< Preferred Replica Election
+    /// < Preferred Replica Election
     RD_KAFKA_ELECTION_TYPE_PREFERRED = 0,
-    ///< Unclean Election
+    /// < Unclean Election
     RD_KAFKA_ELECTION_TYPE_UNCLEAN = 1,
 }
 unsafe extern "C" {
-    /// @brief Create a new rd_kafka_ElectLeaders_t object. This object is later
-    ///        passed to rd_kafka_ElectLeaders().
+    /// Create a new rd_kafka_ElectLeaders_t object. This object is later
+    /// passed to rd_kafka_ElectLeaders().
     ///
-    /// @param election_type The election type that needs to be performed,
-    ///        preferred or unclean.
-    /// @param partitions The topic partitions for which the leader election
-    ///        needs to be performed.
+    /// - `election_type`: The election type that needs to be performed,
+    /// preferred or unclean.
+    /// - `partitions`: The topic partitions for which the leader election
+    /// needs to be performed.
     ///
-    /// @returns a new allocated elect leaders object or returns NULL in case
-    ///          of invalid election_type.
-    ///          Use rd_kafka_ElectLeaders_destroy() to free object when done.
+    /// Returns a new allocated elect leaders object or returns NULL in case
+    /// of invalid election_type.
+    /// Use rd_kafka_ElectLeaders_destroy() to free object when done.
     pub fn rd_kafka_ElectLeaders_new(
         election_type: rd_kafka_ElectionType_t,
         partitions: *mut rd_kafka_topic_partition_list_t,
     ) -> *mut rd_kafka_ElectLeaders_t;
 }
 unsafe extern "C" {
-    /// @brief Destroy and free a rd_kafka_ElectLeaders_t object previously created
-    ///        with rd_kafka_ElectLeaders_new()
+    /// Destroy and free a rd_kafka_ElectLeaders_t object previously created
+    /// with rd_kafka_ElectLeaders_new()
     ///
-    /// @param elect_leaders The rd_kafka_ElectLeaders_t object to be destroyed.
+    /// - `elect_leaders`: The rd_kafka_ElectLeaders_t object to be destroyed.
     pub fn rd_kafka_ElectLeaders_destroy(elect_leaders: *mut rd_kafka_ElectLeaders_t);
 }
 unsafe extern "C" {
-    /// @brief Elect Leaders for the provided Topic Partitions
-    ///        according to the specified election type.
+    /// Elect Leaders for the provided Topic Partitions
+    /// according to the specified election type.
     ///
-    /// @param rk Client instance.
-    /// @param elect_leaders The elect leaders request containing
-    ///        election type and partitions information.
-    /// @param options Optional admin options, or NULL for defaults.
-    /// @param rkqu Queue to emit result on.
+    /// - `rk`: Client instance.
+    /// - `elect_leaders`: The elect leaders request containing
+    /// election type and partitions information.
+    /// - `options`: Optional admin options, or NULL for defaults.
+    /// - `rkqu`: Queue to emit result on.
     ///
     /// Supported admin options:
-    ///  - rd_kafka_AdminOptions_set_operation_timeout() - default 60 seconds.
-    ///    Controls how long the brokers will wait for records to be deleted.
-    ///  - rd_kafka_AdminOptions_set_request_timeout() - default socket.timeout.ms.
-    ///    Controls how long \c rdkafka will wait for the request to complete.
+    /// - rd_kafka_AdminOptions_set_operation_timeout() - default 60 seconds.
+    /// Controls how long the brokers will wait for records to be deleted.
+    /// - rd_kafka_AdminOptions_set_request_timeout() - default socket.timeout.ms.
+    /// Controls how long `rdkafka will wait for the request to complete.
     ///
     /// @remark The result event type emitted on the supplied queue is of type
-    ///         \c RD_KAFKA_EVENT_ELECTLEADERS_RESULT
+    /// `RD_KAFKA_EVENT_ELECTLEADERS_RESULT
     /// @remark If we are passing partitions as NULL, then the broker
-    ///         will attempt leader election for all partitions, but the results
-    ///         will contain only partitions for which there was an election or
-    ///         resulted in an error.
+    /// will attempt leader election for all partitions, but the results
+    /// will contain only partitions for which there was an election or
+    /// resulted in an error.
     pub fn rd_kafka_ElectLeaders(
         rk: *mut rd_kafka_t,
         elect_leaders: *mut rd_kafka_ElectLeaders_t,
@@ -9051,60 +9049,60 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    /// @brief Get the array of topic partition result objects from the
-    ///        elect leaders result event and populates the size of the
-    ///        array in \p cntp.
+    /// Get the array of topic partition result objects from the
+    /// elect leaders result event and populates the size of the
+    /// array in `cntp.
     ///
-    /// @param result The elect leaders result.
-    /// @param cntp The number of elements in the array.
+    /// - `result`: The elect leaders result.
+    /// - `cntp`: The number of elements in the array.
     ///
-    /// @returns the array of topic partition result objects from the
-    ///          elect leaders result event.
+    /// Returns the array of topic partition result objects from the
+    /// elect leaders result event.
     pub fn rd_kafka_ElectLeaders_result_partitions(
         result: *const rd_kafka_ElectLeaders_result_t,
         cntp: *mut usize,
     ) -> *mut *const rd_kafka_topic_partition_result_t;
 }
 unsafe extern "C" {
-    /// @brief Set SASL/OAUTHBEARER token and metadata
+    /// Set SASL/OAUTHBEARER token and metadata
     ///
-    /// @param rk Client instance.
-    /// @param token_value the mandatory token value to set, often (but not
-    ///  necessarily) a JWS compact serialization as per
-    ///  https://tools.ietf.org/html/rfc7515#section-3.1.
-    /// @param md_lifetime_ms when the token expires, in terms of the number of
-    ///  milliseconds since the epoch.
-    /// @param md_principal_name the mandatory Kafka principal name associated
-    ///  with the token.
-    /// @param extensions optional SASL extensions key-value array with
-    ///  \p extensions_size elements (number of keys * 2), where [i] is the key and
-    ///  [i+1] is the key's value, to be communicated to the broker
-    ///  as additional key-value pairs during the initial client response as per
-    ///  https://tools.ietf.org/html/rfc7628#section-3.1. The key-value pairs are
-    ///  copied.
-    /// @param extension_size the number of SASL extension keys plus values,
-    ///  which must be a non-negative multiple of 2.
-    /// @param errstr A human readable error string (nul-terminated) is written to
-    ///               this location that must be of at least \p errstr_size bytes.
-    ///               The \p errstr is only written in case of error.
-    /// @param errstr_size Writable size in \p errstr.
+    /// - `rk`: Client instance.
+    /// - `token_value`: the mandatory token value to set, often (but not
+    /// necessarily) a JWS compact serialization as per
+    /// <https://tools.ietf.org/html/rfc7515#section-3.1.>
+    /// - `md_lifetime_ms`: when the token expires, in terms of the number of
+    /// milliseconds since the epoch.
+    /// - `md_principal_name`: the mandatory Kafka principal name associated
+    /// with the token.
+    /// - `extensions`: optional SASL extensions key-value array with
+    /// `extensions_size elements (number of keys * 2), where \[i\] is the key and
+    /// [i+1] is the key's value, to be communicated to the broker
+    /// as additional key-value pairs during the initial client response as per
+    /// <https://tools.ietf.org/html/rfc7628#section-3.1.> The key-value pairs are
+    /// copied.
+    /// - `extension_size`: the number of SASL extension keys plus values,
+    /// which must be a non-negative multiple of 2.
+    /// - `errstr`: A human readable error string (nul-terminated) is written to
+    /// this location that must be of at least `errstr_size bytes.
+    /// The `errstr is only written in case of error.
+    /// - `errstr_size`: Writable size in \p errstr.
     ///
     /// The SASL/OAUTHBEARER token refresh callback or event handler should invoke
     /// this method upon success. The extension keys must not include the reserved
     /// key "`auth`", and all extension keys and values must conform to the required
-    /// format as per https://tools.ietf.org/html/rfc7628#section-3.1:
+    /// format as per <https://tools.ietf.org/html/rfc7628#section-3.1:>
     ///
-    ///     key            = 1*(ALPHA)
-    ///     value          = *(VCHAR / SP / HTAB / CR / LF )
+    /// key            = 1*(ALPHA)
+    /// value          = *(VCHAR / SP / HTAB / CR / LF )
     ///
-    /// @returns \c RD_KAFKA_RESP_ERR_NO_ERROR on success, otherwise \p errstr set
-    ///              and:<br>
-    ///          \c RD_KAFKA_RESP_ERR__INVALID_ARG if any of the arguments are
-    ///              invalid;<br>
-    ///          \c RD_KAFKA_RESP_ERR__NOT_IMPLEMENTED if SASL/OAUTHBEARER is not
-    ///              supported by this build;<br>
-    ///          \c RD_KAFKA_RESP_ERR__STATE if SASL/OAUTHBEARER is supported but is
-    ///              not configured as the client's authentication mechanism.<br>
+    /// Returns \c RD_KAFKA_RESP_ERR_NO_ERROR on success, otherwise \p errstr set
+    /// and:<br>
+    /// `RD_KAFKA_RESP_ERR__INVALID_ARG if any of the arguments are
+    /// invalid;<br>
+    /// `RD_KAFKA_RESP_ERR__NOT_IMPLEMENTED if SASL/OAUTHBEARER is not
+    /// supported by this build;<br>
+    /// `RD_KAFKA_RESP_ERR__STATE if SASL/OAUTHBEARER is supported but is
+    /// not configured as the client's authentication mechanism.<br>
     ///
     /// @sa rd_kafka_oauthbearer_set_token_failure
     /// @sa rd_kafka_conf_set_oauthbearer_token_refresh_cb
@@ -9120,21 +9118,21 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief SASL/OAUTHBEARER token refresh failure indicator.
+    /// SASL/OAUTHBEARER token refresh failure indicator.
     ///
-    /// @param rk Client instance.
-    /// @param errstr mandatory human readable error reason for failing to acquire
-    ///  a token.
+    /// - `rk`: Client instance.
+    /// - `errstr`: mandatory human readable error reason for failing to acquire
+    /// a token.
     ///
     /// The SASL/OAUTHBEARER token refresh callback or event handler should invoke
     /// this method upon failure.
     ///
-    /// @returns \c RD_KAFKA_RESP_ERR_NO_ERROR on success, otherwise:<br>
-    ///          \c RD_KAFKA_RESP_ERR__NOT_IMPLEMENTED if SASL/OAUTHBEARER is not
-    ///              supported by this build;<br>
-    ///          \c RD_KAFKA_RESP_ERR__STATE if SASL/OAUTHBEARER is supported but is
-    ///              not configured as the client's authentication mechanism,<br>
-    ///          \c RD_KAFKA_RESP_ERR__INVALID_ARG if no error string is supplied.
+    /// Returns \c RD_KAFKA_RESP_ERR_NO_ERROR on success, otherwise:<br>
+    /// `RD_KAFKA_RESP_ERR__NOT_IMPLEMENTED if SASL/OAUTHBEARER is not
+    /// supported by this build;<br>
+    /// `RD_KAFKA_RESP_ERR__STATE if SASL/OAUTHBEARER is supported but is
+    /// not configured as the client's authentication mechanism,<br>
+    /// `RD_KAFKA_RESP_ERR__INVALID_ARG if no error string is supplied.
     ///
     /// @sa rd_kafka_oauthbearer_set_token
     /// @sa rd_kafka_conf_set_oauthbearer_token_refresh_cb
@@ -9144,14 +9142,14 @@ unsafe extern "C" {
     ) -> rd_kafka_resp_err_t;
 }
 unsafe extern "C" {
-    /// @brief Initialize transactions for the producer instance.
+    /// Initialize transactions for the producer instance.
     ///
     /// This function ensures any transactions initiated by previous instances
-    /// of the producer with the same \c transactional.id are completed.
+    /// of the producer with the same `transactional.id are completed.
     /// If the previous instance failed with a transaction in progress the
     /// previous transaction will be aborted.
     /// This function needs to be called before any other transactional or
-    /// produce functions are called when the \c transactional.id is configured.
+    /// produce functions are called when the `transactional.id is configured.
     ///
     /// If the last transaction had begun completion (following transaction commit)
     /// but not yet finished, this function will await the previous transaction's
@@ -9161,65 +9159,65 @@ unsafe extern "C" {
     /// will acquire the internal producer id and epoch, used in all future
     /// transactional messages issued by this producer instance.
     ///
-    /// @param rk Producer instance.
-    /// @param timeout_ms The maximum time to block. On timeout the operation
-    ///                   may continue in the background, depending on state,
-    ///                   and it is okay to call init_transactions() again.
-    ///                   If an infinite timeout (-1) is passed, the timeout will
-    ///                   be adjusted to 2 * \c transaction.timeout.ms.
+    /// - `rk`: Producer instance.
+    /// - `timeout_ms`: The maximum time to block. On timeout the operation
+    /// may continue in the background, depending on state,
+    /// and it is okay to call init_transactions() again.
+    /// If an infinite timeout (-1) is passed, the timeout will
+    /// be adjusted to 2 * `transaction.timeout.ms.
     ///
-    /// @remark This function may block up to \p timeout_ms milliseconds.
+    /// @remark This function may block up to `timeout_ms milliseconds.
     ///
     /// @remark This call is resumable when a retriable timeout error is returned.
-    ///         Calling the function again will resume the operation that is
-    ///         progressing in the background.
+    /// Calling the function again will resume the operation that is
+    /// progressing in the background.
     ///
-    /// @returns NULL on success or an error object on failure.
-    ///          Check whether the returned error object permits retrying
-    ///          by calling rd_kafka_error_is_retriable(), or whether a fatal
-    ///          error has been raised by calling rd_kafka_error_is_fatal().
-    ///          Error codes:
-    ///          RD_KAFKA_RESP_ERR__TIMED_OUT if the transaction coordinator
-    ///          could be not be contacted within \p timeout_ms (retriable),
-    ///          RD_KAFKA_RESP_ERR_COORDINATOR_NOT_AVAILABLE if the transaction
-    ///          coordinator is not available (retriable),
-    ///          RD_KAFKA_RESP_ERR_CONCURRENT_TRANSACTIONS if a previous transaction
-    ///          would not complete within \p timeout_ms (retriable),
-    ///          RD_KAFKA_RESP_ERR__STATE if transactions have already been started
-    ///          or upon fatal error,
-    ///          RD_KAFKA_RESP_ERR__UNSUPPORTED_FEATURE if the broker(s) do not
-    ///          support transactions (<Apache Kafka 0.11), this also raises a
-    ///          fatal error,
-    ///          RD_KAFKA_RESP_ERR_INVALID_TRANSACTION_TIMEOUT if the configured
-    ///          \c transaction.timeout.ms is outside the broker-configured range,
-    ///          this also raises a fatal error,
-    ///          RD_KAFKA_RESP_ERR__NOT_CONFIGURED if transactions have not been
-    ///          configured for the producer instance,
-    ///          RD_KAFKA_RESP_ERR__INVALID_ARG if \p rk is not a producer instance,
-    ///          or \p timeout_ms is out of range.
-    ///          Other error codes not listed here may be returned, depending on
-    ///          broker version.
+    /// Returns NULL on success or an error object on failure.
+    /// Check whether the returned error object permits retrying
+    /// by calling rd_kafka_error_is_retriable(), or whether a fatal
+    /// error has been raised by calling rd_kafka_error_is_fatal().
+    /// Error codes:
+    /// RD_KAFKA_RESP_ERR__TIMED_OUT if the transaction coordinator
+    /// could be not be contacted within `timeout_ms (retriable),
+    /// RD_KAFKA_RESP_ERR_COORDINATOR_NOT_AVAILABLE if the transaction
+    /// coordinator is not available (retriable),
+    /// RD_KAFKA_RESP_ERR_CONCURRENT_TRANSACTIONS if a previous transaction
+    /// would not complete within `timeout_ms (retriable),
+    /// RD_KAFKA_RESP_ERR__STATE if transactions have already been started
+    /// or upon fatal error,
+    /// RD_KAFKA_RESP_ERR__UNSUPPORTED_FEATURE if the broker(s) do not
+    /// support transactions (<Apache Kafka 0.11), this also raises a
+    /// fatal error,
+    /// RD_KAFKA_RESP_ERR_INVALID_TRANSACTION_TIMEOUT if the configured
+    /// `transaction.timeout.ms is outside the broker-configured range,
+    /// this also raises a fatal error,
+    /// RD_KAFKA_RESP_ERR__NOT_CONFIGURED if transactions have not been
+    /// configured for the producer instance,
+    /// RD_KAFKA_RESP_ERR__INVALID_ARG if `rk is not a producer instance,
+    /// or `timeout_ms is out of range.
+    /// Other error codes not listed here may be returned, depending on
+    /// broker version.
     ///
     /// @remark The returned error object (if not NULL) must be destroyed with
-    ///         rd_kafka_error_destroy().
+    /// rd_kafka_error_destroy().
     pub fn rd_kafka_init_transactions(
         rk: *mut rd_kafka_t,
         timeout_ms: ::std::os::raw::c_int,
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Begin a new transaction.
+    /// Begin a new transaction.
     ///
     /// rd_kafka_init_transactions() must have been called successfully (once)
     /// before this function is called.
     ///
     /// Upon successful return from this function the application has to perform at
-    /// least one of the following operations within \c transaction.timeout.ms to
+    /// least one of the following operations within `transaction.timeout.ms to
     /// avoid timing out the transaction on the broker:
-    ///   * rd_kafka_produce() (et.al)
-    ///   * rd_kafka_send_offsets_to_transaction()
-    ///   * rd_kafka_commit_transaction()
-    ///   * rd_kafka_abort_transaction()
+    /// * rd_kafka_produce() (et.al)
+    /// * rd_kafka_send_offsets_to_transaction()
+    /// * rd_kafka_commit_transaction()
+    /// * rd_kafka_abort_transaction()
     ///
     /// Any messages produced, offsets sent (rd_kafka_send_offsets_to_transaction()),
     /// etc, after the successful return of this function will be part of
@@ -9228,100 +9226,100 @@ unsafe extern "C" {
     /// Finish the transaction by calling rd_kafka_commit_transaction() or
     /// abort the transaction by calling rd_kafka_abort_transaction().
     ///
-    /// @param rk Producer instance.
+    /// - `rk`: Producer instance.
     ///
-    /// @returns NULL on success or an error object on failure.
-    ///          Check whether a fatal error has been raised by
-    ///          calling rd_kafka_error_is_fatal().
-    ///          Error codes:
-    ///          RD_KAFKA_RESP_ERR__STATE if a transaction is already in progress
-    ///          or upon fatal error,
-    ///          RD_KAFKA_RESP_ERR__NOT_CONFIGURED if transactions have not been
-    ///          configured for the producer instance,
-    ///          RD_KAFKA_RESP_ERR__INVALID_ARG if \p rk is not a producer instance.
-    ///          Other error codes not listed here may be returned, depending on
-    ///          broker version.
+    /// Returns NULL on success or an error object on failure.
+    /// Check whether a fatal error has been raised by
+    /// calling rd_kafka_error_is_fatal().
+    /// Error codes:
+    /// RD_KAFKA_RESP_ERR__STATE if a transaction is already in progress
+    /// or upon fatal error,
+    /// RD_KAFKA_RESP_ERR__NOT_CONFIGURED if transactions have not been
+    /// configured for the producer instance,
+    /// RD_KAFKA_RESP_ERR__INVALID_ARG if `rk is not a producer instance.
+    /// Other error codes not listed here may be returned, depending on
+    /// broker version.
     ///
     /// @remark With the transactional producer, rd_kafka_produce(),
-    ///         rd_kafka_producev(), et.al, are only allowed during an on-going
-    ///         transaction, as started with this function.
-    ///         Any produce call outside an on-going transaction, or for a failed
-    ///         transaction, will fail.
+    /// rd_kafka_producev(), et.al, are only allowed during an on-going
+    /// transaction, as started with this function.
+    /// Any produce call outside an on-going transaction, or for a failed
+    /// transaction, will fail.
     ///
     /// @remark The returned error object (if not NULL) must be destroyed with
-    ///         rd_kafka_error_destroy().
+    /// rd_kafka_error_destroy().
     pub fn rd_kafka_begin_transaction(rk: *mut rd_kafka_t) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Sends a list of topic partition offsets to the consumer group
-    ///        coordinator for \p cgmetadata, and marks the offsets as part
-    ///        part of the current transaction.
-    ///        These offsets will be considered committed only if the transaction is
-    ///        committed successfully.
+    /// Sends a list of topic partition offsets to the consumer group
+    /// coordinator for `cgmetadata, and marks the offsets as part
+    /// part of the current transaction.
+    /// These offsets will be considered committed only if the transaction is
+    /// committed successfully.
     ///
-    ///        The offsets should be the next message your application will consume,
-    ///        i.e., the last processed message's offset + 1 for each partition.
-    ///        Either track the offsets manually during processing or use
-    ///        rd_kafka_position() (on the consumer) to get the current offsets for
-    ///        the partitions assigned to the consumer.
+    /// The offsets should be the next message your application will consume,
+    /// i.e., the last processed message's offset + 1 for each partition.
+    /// Either track the offsets manually during processing or use
+    /// rd_kafka_position() (on the consumer) to get the current offsets for
+    /// the partitions assigned to the consumer.
     ///
-    ///        Use this method at the end of a consume-transform-produce loop prior
-    ///        to committing the transaction with rd_kafka_commit_transaction().
+    /// Use this method at the end of a consume-transform-produce loop prior
+    /// to committing the transaction with rd_kafka_commit_transaction().
     ///
-    /// @param rk Producer instance.
-    /// @param offsets List of offsets to commit to the consumer group upon
-    ///                successful commit of the transaction. Offsets should be
-    ///                the next message to consume, e.g., last processed message + 1.
-    /// @param cgmetadata The current consumer group metadata as returned by
-    ///                   rd_kafka_consumer_group_metadata() on the consumer
-    ///                   instance the provided offsets were consumed from.
-    /// @param timeout_ms Maximum time allowed to register the offsets on the broker.
+    /// - `rk`: Producer instance.
+    /// - `offsets`: List of offsets to commit to the consumer group upon
+    /// successful commit of the transaction. Offsets should be
+    /// the next message to consume, e.g., last processed message + 1.
+    /// - `cgmetadata`: The current consumer group metadata as returned by
+    /// rd_kafka_consumer_group_metadata() on the consumer
+    /// instance the provided offsets were consumed from.
+    /// - `timeout_ms`: Maximum time allowed to register the offsets on the broker.
     ///
     /// @remark This function must be called on the transactional producer instance,
-    ///         not the consumer.
+    /// not the consumer.
     ///
     /// @remark The consumer must disable auto commits
-    ///         (set \c enable.auto.commit to false on the consumer).
+    /// (set `enable.auto.commit to false on the consumer).
     ///
     /// @remark Logical and invalid offsets (such as RD_KAFKA_OFFSET_INVALID) in
-    ///         \p offsets will be ignored, if there are no valid offsets in
-    ///         \p offsets the function will return NULL and no action will be taken.
+    /// `offsets will be ignored, if there are no valid offsets in
+    /// `offsets the function will return NULL and no action will be taken.
     ///
     /// @remark This call is retriable but not resumable, which means a new request
-    ///         with a new set of provided offsets and group metadata will be
-    ///         sent to the transaction coordinator if the call is retried.
+    /// with a new set of provided offsets and group metadata will be
+    /// sent to the transaction coordinator if the call is retried.
     ///
     /// @remark It is highly recommended to retry the call (upon retriable error)
-    ///         with identical \p offsets and \p cgmetadata parameters.
-    ///         Failure to do so risks inconsistent state between what is actually
-    ///         included in the transaction and what the application thinks is
-    ///         included in the transaction.
+    /// with identical `offsets and `cgmetadata parameters.
+    /// Failure to do so risks inconsistent state between what is actually
+    /// included in the transaction and what the application thinks is
+    /// included in the transaction.
     ///
-    /// @returns NULL on success or an error object on failure.
-    ///          Check whether the returned error object permits retrying
-    ///          by calling rd_kafka_error_is_retriable(), or whether an abortable
-    ///          or fatal error has been raised by calling
-    ///          rd_kafka_error_txn_requires_abort() or rd_kafka_error_is_fatal()
-    ///          respectively.
-    ///          Error codes:
-    ///          RD_KAFKA_RESP_ERR__STATE if not currently in a transaction,
-    ///          RD_KAFKA_RESP_ERR_INVALID_PRODUCER_EPOCH if the current producer
-    ///          transaction has been fenced by a newer producer instance,
-    ///          RD_KAFKA_RESP_ERR_TRANSACTIONAL_ID_AUTHORIZATION_FAILED if the
-    ///          producer is no longer authorized to perform transactional
-    ///          operations,
-    ///          RD_KAFKA_RESP_ERR_GROUP_AUTHORIZATION_FAILED if the producer is
-    ///          not authorized to write the consumer offsets to the group
-    ///          coordinator,
-    ///          RD_KAFKA_RESP_ERR__NOT_CONFIGURED if transactions have not been
-    ///          configured for the producer instance,
-    ///          RD_KAFKA_RESP_ERR__INVALID_ARG if \p rk is not a producer instance,
-    ///          or if the \p consumer_group_id or \p offsets are empty.
-    ///          Other error codes not listed here may be returned, depending on
-    ///          broker version.
+    /// Returns NULL on success or an error object on failure.
+    /// Check whether the returned error object permits retrying
+    /// by calling rd_kafka_error_is_retriable(), or whether an abortable
+    /// or fatal error has been raised by calling
+    /// rd_kafka_error_txn_requires_abort() or rd_kafka_error_is_fatal()
+    /// respectively.
+    /// Error codes:
+    /// RD_KAFKA_RESP_ERR__STATE if not currently in a transaction,
+    /// RD_KAFKA_RESP_ERR_INVALID_PRODUCER_EPOCH if the current producer
+    /// transaction has been fenced by a newer producer instance,
+    /// RD_KAFKA_RESP_ERR_TRANSACTIONAL_ID_AUTHORIZATION_FAILED if the
+    /// producer is no longer authorized to perform transactional
+    /// operations,
+    /// RD_KAFKA_RESP_ERR_GROUP_AUTHORIZATION_FAILED if the producer is
+    /// not authorized to write the consumer offsets to the group
+    /// coordinator,
+    /// RD_KAFKA_RESP_ERR__NOT_CONFIGURED if transactions have not been
+    /// configured for the producer instance,
+    /// RD_KAFKA_RESP_ERR__INVALID_ARG if `rk is not a producer instance,
+    /// or if the `consumer_group_id or `offsets are empty.
+    /// Other error codes not listed here may be returned, depending on
+    /// broker version.
     ///
     /// @remark The returned error object (if not NULL) must be destroyed with
-    ///         rd_kafka_error_destroy().
+    /// rd_kafka_error_destroy().
     pub fn rd_kafka_send_offsets_to_transaction(
         rk: *mut rd_kafka_t,
         offsets: *const rd_kafka_topic_partition_list_t,
@@ -9330,133 +9328,133 @@ unsafe extern "C" {
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Commit the current transaction (as started with
-    ///        rd_kafka_begin_transaction()).
+    /// Commit the current transaction (as started with
+    /// rd_kafka_begin_transaction()).
     ///
-    ///        Any outstanding messages will be flushed (delivered) before actually
-    ///        committing the transaction.
+    /// Any outstanding messages will be flushed (delivered) before actually
+    /// committing the transaction.
     ///
-    ///        If any of the outstanding messages fail permanently the current
-    ///        transaction will enter the abortable error state and this
-    ///        function will return an abortable error, in this case the application
-    ///        must call rd_kafka_abort_transaction() before attempting a new
-    ///        transaction with rd_kafka_begin_transaction().
+    /// If any of the outstanding messages fail permanently the current
+    /// transaction will enter the abortable error state and this
+    /// function will return an abortable error, in this case the application
+    /// must call rd_kafka_abort_transaction() before attempting a new
+    /// transaction with rd_kafka_begin_transaction().
     ///
-    /// @param rk Producer instance.
-    /// @param timeout_ms The maximum time to block. On timeout the operation
-    ///                   may continue in the background, depending on state,
-    ///                   and it is okay to call this function again.
-    ///                   Pass -1 to use the remaining transaction timeout,
-    ///                   this is the recommended use.
+    /// - `rk`: Producer instance.
+    /// - `timeout_ms`: The maximum time to block. On timeout the operation
+    /// may continue in the background, depending on state,
+    /// and it is okay to call this function again.
+    /// Pass -1 to use the remaining transaction timeout,
+    /// this is the recommended use.
     ///
     /// @remark It is strongly recommended to always pass -1 (remaining transaction
-    ///         time) as the \p timeout_ms. Using other values risk internal
-    ///         state desynchronization in case any of the underlying protocol
-    ///         requests fail.
+    /// time) as the `timeout_ms. Using other values risk internal
+    /// state desynchronization in case any of the underlying protocol
+    /// requests fail.
     ///
     /// @remark This function will block until all outstanding messages are
-    ///         delivered and the transaction commit request has been successfully
-    ///         handled by the transaction coordinator, or until \p timeout_ms
-    ///         expires, which ever comes first. On timeout the application may
-    ///         call the function again.
+    /// delivered and the transaction commit request has been successfully
+    /// handled by the transaction coordinator, or until `timeout_ms
+    /// expires, which ever comes first. On timeout the application may
+    /// call the function again.
     ///
     /// @remark Will automatically call rd_kafka_flush() to ensure all queued
-    ///         messages are delivered before attempting to commit the
-    ///         transaction.
-    ///         If the application has enabled RD_KAFKA_EVENT_DR it must
-    ///         serve the event queue in a separate thread since rd_kafka_flush()
-    ///         will not serve delivery reports in this mode.
+    /// messages are delivered before attempting to commit the
+    /// transaction.
+    /// If the application has enabled RD_KAFKA_EVENT_DR it must
+    /// serve the event queue in a separate thread since rd_kafka_flush()
+    /// will not serve delivery reports in this mode.
     ///
     /// @remark This call is resumable when a retriable timeout error is returned.
-    ///         Calling the function again will resume the operation that is
-    ///         progressing in the background.
+    /// Calling the function again will resume the operation that is
+    /// progressing in the background.
     ///
-    /// @returns NULL on success or an error object on failure.
-    ///          Check whether the returned error object permits retrying
-    ///          by calling rd_kafka_error_is_retriable(), or whether an abortable
-    ///          or fatal error has been raised by calling
-    ///          rd_kafka_error_txn_requires_abort() or rd_kafka_error_is_fatal()
-    ///          respectively.
-    ///          Error codes:
-    ///          RD_KAFKA_RESP_ERR__STATE if not currently in a transaction,
-    ///          RD_KAFKA_RESP_ERR__TIMED_OUT if the transaction could not be
-    ///          complete commmitted within \p timeout_ms, this is a retriable
-    ///          error as the commit continues in the background,
-    ///          RD_KAFKA_RESP_ERR_INVALID_PRODUCER_EPOCH if the current producer
-    ///          transaction has been fenced by a newer producer instance,
-    ///          RD_KAFKA_RESP_ERR_TRANSACTIONAL_ID_AUTHORIZATION_FAILED if the
-    ///          producer is no longer authorized to perform transactional
-    ///          operations,
-    ///          RD_KAFKA_RESP_ERR__NOT_CONFIGURED if transactions have not been
-    ///          configured for the producer instance,
-    ///          RD_KAFKA_RESP_ERR__INVALID_ARG if \p rk is not a producer instance,
-    ///          Other error codes not listed here may be returned, depending on
-    ///          broker version.
+    /// Returns NULL on success or an error object on failure.
+    /// Check whether the returned error object permits retrying
+    /// by calling rd_kafka_error_is_retriable(), or whether an abortable
+    /// or fatal error has been raised by calling
+    /// rd_kafka_error_txn_requires_abort() or rd_kafka_error_is_fatal()
+    /// respectively.
+    /// Error codes:
+    /// RD_KAFKA_RESP_ERR__STATE if not currently in a transaction,
+    /// RD_KAFKA_RESP_ERR__TIMED_OUT if the transaction could not be
+    /// complete commmitted within `timeout_ms, this is a retriable
+    /// error as the commit continues in the background,
+    /// RD_KAFKA_RESP_ERR_INVALID_PRODUCER_EPOCH if the current producer
+    /// transaction has been fenced by a newer producer instance,
+    /// RD_KAFKA_RESP_ERR_TRANSACTIONAL_ID_AUTHORIZATION_FAILED if the
+    /// producer is no longer authorized to perform transactional
+    /// operations,
+    /// RD_KAFKA_RESP_ERR__NOT_CONFIGURED if transactions have not been
+    /// configured for the producer instance,
+    /// RD_KAFKA_RESP_ERR__INVALID_ARG if `rk is not a producer instance,
+    /// Other error codes not listed here may be returned, depending on
+    /// broker version.
     ///
     /// @remark The returned error object (if not NULL) must be destroyed with
-    ///         rd_kafka_error_destroy().
+    /// rd_kafka_error_destroy().
     pub fn rd_kafka_commit_transaction(
         rk: *mut rd_kafka_t,
         timeout_ms: ::std::os::raw::c_int,
     ) -> *mut rd_kafka_error_t;
 }
 unsafe extern "C" {
-    /// @brief Aborts the ongoing transaction.
+    /// Aborts the ongoing transaction.
     ///
-    ///        This function should also be used to recover from non-fatal abortable
-    ///        transaction errors.
+    /// This function should also be used to recover from non-fatal abortable
+    /// transaction errors.
     ///
-    ///        Any outstanding messages will be purged and fail with
-    ///        RD_KAFKA_RESP_ERR__PURGE_INFLIGHT or RD_KAFKA_RESP_ERR__PURGE_QUEUE.
-    ///        See rd_kafka_purge() for details.
+    /// Any outstanding messages will be purged and fail with
+    /// RD_KAFKA_RESP_ERR__PURGE_INFLIGHT or RD_KAFKA_RESP_ERR__PURGE_QUEUE.
+    /// See rd_kafka_purge() for details.
     ///
-    /// @param rk Producer instance.
-    /// @param timeout_ms The maximum time to block. On timeout the operation
-    ///                   may continue in the background, depending on state,
-    ///                   and it is okay to call this function again.
-    ///                   Pass -1 to use the remaining transaction timeout,
-    ///                   this is the recommended use.
+    /// - `rk`: Producer instance.
+    /// - `timeout_ms`: The maximum time to block. On timeout the operation
+    /// may continue in the background, depending on state,
+    /// and it is okay to call this function again.
+    /// Pass -1 to use the remaining transaction timeout,
+    /// this is the recommended use.
     ///
     /// @remark It is strongly recommended to always pass -1 (remaining transaction
-    ///         time) as the \p timeout_ms. Using other values risk internal
-    ///         state desynchronization in case any of the underlying protocol
-    ///         requests fail.
+    /// time) as the `timeout_ms. Using other values risk internal
+    /// state desynchronization in case any of the underlying protocol
+    /// requests fail.
     ///
     /// @remark This function will block until all outstanding messages are purged
-    ///         and the transaction abort request has been successfully
-    ///         handled by the transaction coordinator, or until \p timeout_ms
-    ///         expires, which ever comes first. On timeout the application may
-    ///         call the function again.
-    ///         If the application has enabled RD_KAFKA_EVENT_DR it must
-    ///         serve the event queue in a separate thread since rd_kafka_flush()
-    ///         will not serve delivery reports in this mode.
+    /// and the transaction abort request has been successfully
+    /// handled by the transaction coordinator, or until `timeout_ms
+    /// expires, which ever comes first. On timeout the application may
+    /// call the function again.
+    /// If the application has enabled RD_KAFKA_EVENT_DR it must
+    /// serve the event queue in a separate thread since rd_kafka_flush()
+    /// will not serve delivery reports in this mode.
     ///
     /// @remark This call is resumable when a retriable timeout error is returned.
-    ///         Calling the function again will resume the operation that is
-    ///         progressing in the background.
+    /// Calling the function again will resume the operation that is
+    /// progressing in the background.
     ///
-    /// @returns NULL on success or an error object on failure.
-    ///          Check whether the returned error object permits retrying
-    ///          by calling rd_kafka_error_is_retriable(), or whether a fatal error
-    ///          has been raised by calling rd_kafka_error_is_fatal().
-    ///          Error codes:
-    ///          RD_KAFKA_RESP_ERR__STATE if not currently in a transaction,
-    ///          RD_KAFKA_RESP_ERR__TIMED_OUT if the transaction could not be
-    ///          complete commmitted within \p timeout_ms, this is a retriable
-    ///          error as the commit continues in the background,
-    ///          RD_KAFKA_RESP_ERR_INVALID_PRODUCER_EPOCH if the current producer
-    ///          transaction has been fenced by a newer producer instance,
-    ///          RD_KAFKA_RESP_ERR_TRANSACTIONAL_ID_AUTHORIZATION_FAILED if the
-    ///          producer is no longer authorized to perform transactional
-    ///          operations,
-    ///          RD_KAFKA_RESP_ERR__NOT_CONFIGURED if transactions have not been
-    ///          configured for the producer instance,
-    ///          RD_KAFKA_RESP_ERR__INVALID_ARG if \p rk is not a producer instance,
-    ///          Other error codes not listed here may be returned, depending on
-    ///          broker version.
+    /// Returns NULL on success or an error object on failure.
+    /// Check whether the returned error object permits retrying
+    /// by calling rd_kafka_error_is_retriable(), or whether a fatal error
+    /// has been raised by calling rd_kafka_error_is_fatal().
+    /// Error codes:
+    /// RD_KAFKA_RESP_ERR__STATE if not currently in a transaction,
+    /// RD_KAFKA_RESP_ERR__TIMED_OUT if the transaction could not be
+    /// complete commmitted within `timeout_ms, this is a retriable
+    /// error as the commit continues in the background,
+    /// RD_KAFKA_RESP_ERR_INVALID_PRODUCER_EPOCH if the current producer
+    /// transaction has been fenced by a newer producer instance,
+    /// RD_KAFKA_RESP_ERR_TRANSACTIONAL_ID_AUTHORIZATION_FAILED if the
+    /// producer is no longer authorized to perform transactional
+    /// operations,
+    /// RD_KAFKA_RESP_ERR__NOT_CONFIGURED if transactions have not been
+    /// configured for the producer instance,
+    /// RD_KAFKA_RESP_ERR__INVALID_ARG if `rk is not a producer instance,
+    /// Other error codes not listed here may be returned, depending on
+    /// broker version.
     ///
     /// @remark The returned error object (if not NULL) must be destroyed with
-    ///         rd_kafka_error_destroy().
+    /// rd_kafka_error_destroy().
     pub fn rd_kafka_abort_transaction(
         rk: *mut rd_kafka_t,
         timeout_ms: ::std::os::raw::c_int,

@@ -43,6 +43,76 @@ where
 #[derive(Debug)]
 struct Parser;
 
+fn parse_doxygen(comment: &str) -> String {
+    let url_regex = regex::Regex::new(r"(http[s]?://[^\s)]+)").unwrap();
+    let mut result = String::new();
+    let mut inside_list = false;
+
+    for line in comment.lines() {
+        let trimmed = line.trim_start();
+
+        if trimmed.is_empty() {
+            result.push('\n');
+            continue;
+        }
+
+        let line = url_regex
+            .replace_all(trimmed, "<$1>")
+            .replace(r"\c ", "`")
+            .replace(r"\p ", "`")
+            .replace(r"\ref ", "[")
+            .replace(r"[all]", r"\[all\]")
+            .replace(r"[producer]", r"\[producer\]")
+            .replace(r"[:port]", r"\[:port\]")
+            .replace(r"[i]", r"\[i\]");
+
+        if trimmed.starts_with("@brief") {
+            result.push_str(trimmed.trim_start_matches("@brief").trim_start());
+            result.push('\n');
+            continue;
+        }
+
+        if let Some(rest) = trimmed.strip_prefix("@param ") {
+            if let Some((name, desc)) = rest.trim().split_once(' ') {
+                result.push_str(&format!("- `{}`: {}\n", name, desc.trim()));
+                inside_list = true;
+                continue;
+            }
+        }
+
+        if trimmed.starts_with("@return") || trimmed.starts_with("@returns") {
+            let desc = trimmed
+                .trim_start_matches("@return")
+                .trim_start_matches("s")
+                .trim_start();
+            result.push_str(&format!("Returns {}\n", desc));
+            continue;
+        }
+
+        if inside_list && line.starts_with("    ") {
+            result.push_str(line.trim_start());
+            result.push('\n');
+            continue;
+        }
+
+        result.push_str(&line);
+        result.push('\n');
+        inside_list = false;
+    }
+
+    result
+        .lines()
+        .map(|l| {
+            if l.trim().is_empty() {
+                "".to_string()
+            } else {
+                format!(" {}", l.trim_end())
+            }
+        })
+        .collect::<Vec<_>>()
+        .join("\n")
+}
+
 impl bindgen::callbacks::ParseCallbacks for Parser {
     fn add_derives(&self, info: &bindgen::callbacks::DeriveInfo<'_>) -> Vec<String> {
         let mut derive_traits = vec![];
@@ -54,6 +124,9 @@ impl bindgen::callbacks::ParseCallbacks for Parser {
         }
 
         derive_traits
+    }
+    fn process_comment(&self, comment: &str) -> Option<String> {
+        Some(parse_doxygen(comment))
     }
 }
 
@@ -90,7 +163,6 @@ fn generate_bindings() {
         .to_string();
 
     fs::write(bindings_path.as_path(), &bindings).expect("Failed to write updated bindings");
-
     Command::new("cargo")
         .arg("+nightly")
         .arg("fmt")
@@ -140,7 +212,7 @@ fn main() {
         }
         if !Path::new("librdkafka/LICENSE").exists() {
             eprintln!("Setting up submodules");
-            run_command_or_fail("../", "git", &["submodule", "update", "--init"]);
+            run_command_or_fail(".", "git", &["submodule", "update", "--init"]);
         }
         eprintln!("Building and linking librdkafka statically");
         build_librdkafka();
