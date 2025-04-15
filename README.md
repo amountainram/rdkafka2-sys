@@ -1,5 +1,11 @@
 # rdkafka2-sys
 
+> This crate is a fork of the original rdkafka-sys crate.
+> It slightly modifies the original rdkafka-sys crate to use the latest version of
+> librdkafka (2.8+).
+> It removes binding renamings and introduces few new enums to make a high level
+> API more idiomatic.
+
 Low level bindings to [librdkafka](https://github.com/confluentinc/librdkafka),
 a C library for the [Apache Kafka] protocol with producer, consumer, and
 admin clients.
