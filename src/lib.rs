@@ -82,7 +82,6 @@
 //! [lz4-sys]: https://crates.io/crates/lz4-sys
 //! [mklove]: https://github.com/edenhill/mklove
 //! [openssl-sys]: https://crates.io/crates/openssl-sys
-//! [rdkafka]: https://docs.rs/rdkafka
 //! [sasl2-sys]: https://docs.rs/sasl2-sys
 //! [zstd-sys]: https://crates.io/crates/zstd-sys
 

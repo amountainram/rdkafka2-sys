@@ -1,17 +1,14 @@
 # rdkafka2-sys
 
-Low level bindings to [librdkafka](https://github.com/edenhill/librdkafka),
+Low level bindings to [librdkafka](https://github.com/confluentinc/librdkafka),
 a C library for the [Apache Kafka] protocol with producer, consumer, and
 admin clients.
 
 ## Version
 
-The rdkafka-sys version number is in the format `X.Y.Z+RX.RY.RZ`, where
+The rdkafka2-sys version number is in the format `X.Y.Z+RX.RY.RZ`, where
 `X.Y.Z` is the version of this crate and follows SemVer conventions, while
 `RX.RY.RZ` is the version of the bundled librdkafka.
-
-Note that versions before v2.0.0+1.4.2 did not follow this convention, and
-instead directly correspond to the bundled librdkafka version.
 
 ## Build
 
@@ -36,16 +33,16 @@ instead directly correspond to the bundled librdkafka version.
 By default a submodule with the librdkafka sources will be used to compile
 and statically link the library.
 
+The **`cmake-build`** feature builds librdkafka with its [CMake] build
+system, rather than its default [mklove]-based build system. This feature
+requires that CMake is installed on the build machine.
+
 The **`dynamic-linking`** feature can be used to link rdkafka to a locally
 installed version of librdkafka: if the feature is enabled, the build script
 will use `pkg-config` to check the version of the library installed in the
 system, and it will configure the compiler to dynamically link against it.
 The system version of librdkafka must exactly match the version of
 librdkafka bundled with this crate.
-
-The **`cmake-build`** feature builds librdkafka with its [CMake] build
-system, rather than its default [mklove]-based build system. This feature
-requires that CMake is installed on the build machine.
 
 The following features directly correspond to librdkafka features (i.e.,
 flags you would pass to `configure` if you were compiling manually).
@@ -76,8 +73,8 @@ flags you would pass to `configure` if you were compiling manually).
     limitations with lz4-sys, it is not yet possible to dynamically link
     against the system's version of liblz4.
 
-All features are disabled by default unless noted otherwise above. The build
-process is defined in [`build.rs`].
+The `libz` and `cmake-build` features are enabled by default.
+The build process is defined in [`build.rs`].
 
 [`build.rs`]: https://github.com/amountainram/rdkafka2-sys/tree/master/build.rs
 [Apache Kafka]: https://kafka.apache.org
@@ -87,6 +84,5 @@ process is defined in [`build.rs`].
 [lz4-sys]: https://crates.io/crates/lz4-sys
 [mklove]: https://github.com/edenhill/mklove
 [openssl-sys]: https://crates.io/crates/openssl-sys
-[rdkafka2]: https://docs.rs/rdkafka2
 [sasl2-sys]: https://docs.rs/sasl2-sys
 [zstd-sys]: https://crates.io/crates/zstd-sys
