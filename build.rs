@@ -132,14 +132,19 @@ impl bindgen::callbacks::ParseCallbacks for Parser {
 
 fn copy_license() {
     let license_path = Path::new("librdkafka").join("LICENSE");
-    fs::copy(license_path, Path::new("LICENSE-librdkafka"))
-        .expect("librdkafka license to be copied");
+    if !license_path.exists() {
+        fs::copy(license_path, Path::new("LICENSE-librdkafka"))
+            .expect("librdkafka license to be copied");
+    }
 }
 
 fn generate_bindings() {
     let header_path = Path::new("librdkafka").join("src").join("rdkafka.h");
     let bindings_path = Path::new("src").join("bindings.rs");
-    bindgen::builder()
+
+    let current_bindings =
+        fs::read_to_string(bindings_path.as_path()).expect("failed to read bindings");
+    let bindings = bindgen::builder()
         .header(header_path.to_string_lossy())
         .rustified_enum(".*")
         .allowlist_function("rd_kafka.*")
@@ -153,21 +158,20 @@ fn generate_bindings() {
         .parse_callbacks(Box::new(Parser))
         .generate()
         .expect("bindings to be generated")
-        .write_to_file(bindings_path.as_path())
-        .expect("bindings to be stored at {bindings_path:?}");
-
-    let bindings = fs::read_to_string(bindings_path.as_path()).expect("failed to read bindings");
+        .to_string();
     let bindings = regex::Regex::new(r"(?m)^(\s*)pub fn (rd_kafka_conf_set_open_cb)\(")
         .unwrap()
         .replace_all(&bindings, "${1}#[cfg(unix)]\n${1}pub fn ${2}(")
         .to_string();
 
-    fs::write(bindings_path.as_path(), &bindings).expect("Failed to write updated bindings");
-    Command::new("cargo")
-        .arg("+nightly")
-        .arg("fmt")
-        .output()
-        .expect("fmt to execute");
+    if bindings != current_bindings {
+        fs::write(bindings_path.as_path(), &bindings).expect("Failed to write updated bindings");
+        Command::new("cargo")
+            .arg("+nightly")
+            .arg("fmt")
+            .output()
+            .expect("fmt to execute");
+    }
 }
 
 fn main() {
