@@ -1,6 +1,6 @@
 [package]
 name = "rdkafka2-sys"
-version = "0.1.1+2.8.0"
+version = "0.1.2+2.8.0"
 links = "rdkafka"
 repository = "https://github.com/amountainram/rdkafka2-sys"
 keywords = ["kafka", "rdkafka"]
