@@ -222,8 +222,10 @@ fn main() {
         build_librdkafka();
     }
 
-    generate_bindings();
-    copy_license();
+    if let Err(env::VarError::NotPresent) = env::var("DOCS_RS") {
+        generate_bindings();
+        copy_license();
+    }
 }
 
 #[cfg(not(feature = "cmake-build"))]
