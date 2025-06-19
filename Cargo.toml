@@ -1,6 +1,6 @@
 [package]
 name = "rdkafka2-sys"
-version = "0.1.2+2.8.0"
+version = "0.1.2+2.10.1"
 links = "rdkafka"
 repository = "https://github.com/amountainram/rdkafka2-sys"
 keywords = ["kafka", "rdkafka"]
@@ -29,7 +29,7 @@ sasl2-sys = { version = "0.1", optional = true }
 zstd-sys = { version = "2", optional = true }
 
 [build-dependencies]
-bindgen = "0.71.1"
+bindgen = "0.72.0"
 cmake = { version = "0.1.54", optional = true }
 pkg-config = "0.3.32"
 regex = "1.11.1"

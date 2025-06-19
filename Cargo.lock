@@ -21,6 +21,24 @@ dependencies = [
  "cexpr",
  "clang-sys",
  "itertools",
+ "proc-macro2",
+ "quote",
+ "regex",
+ "rustc-hash",
+ "shlex",
+ "syn",
+]
+
+[[package]]
+name = "bindgen"
+version = "0.72.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4f72209734318d0b619a5e0f5129918b848c416e122a3c4ce054e03cb87b726f"
+dependencies = [
+ "bitflags",
+ "cexpr",
+ "clang-sys",
+ "itertools",
  "log",
  "prettyplease",
  "proc-macro2",
@@ -360,9 +378,9 @@ checksum = "74765f6d916ee2faa39bc8e68e4f3ed8949b48cccdac59983d287a7cb71ce9c5"
 
 [[package]]
 name = "rdkafka2-sys"
-version = "0.1.2+2.8.0"
+version = "0.1.2+2.10.1"
 dependencies = [
- "bindgen",
+ "bindgen 0.72.0",
  "cmake",
  "curl-sys",
  "libc",
@@ -659,7 +677,7 @@ version = "2.0.15+zstd.1.5.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "eb81183ddd97d0c74cedf1d50d85c8d08c1b8b68ee863bdee9e706eedba1a237"
 dependencies = [
- "bindgen",
+ "bindgen 0.71.1",
  "cc",
  "pkg-config",
 ]
