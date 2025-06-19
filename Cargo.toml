@@ -102,8 +102,6 @@ pre-release-hook = [
     "--bump",
     "--tag",
     "v{{version}}",
-    "--tag-pattern",
-    "v[0-9]+\\.[0-9]+\\.[0-9]+\\+v[0-9]+\\.[0-9]+\\.[0-9]+$",
 ]
 pre-release-commit-message = "'rdkafka2-sys' tagged to version '{{version}}'"
 push = false
