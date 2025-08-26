@@ -32,7 +32,7 @@ zstd-sys = { version = "2", optional = true }
 bindgen = "0.72.0"
 cmake = { version = "0.1.54", optional = true }
 pkg-config = "0.3.32"
-regex = "1.11.1"
+regex = "1.11.2"
 
 [features]
 default = ["libz", "cmake-build"]
