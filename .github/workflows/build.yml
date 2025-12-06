@@ -11,6 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         target: ${{ fromJson(inputs.targets) }}
         include:
@@ -41,7 +42,7 @@ jobs:
         if: contains(matrix.target, 'musl')
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake clang libclang-dev patch musl-tools musl-dev
+          sudo apt-get install -y cmake clang libclang-dev patch musl-tools musl-dev linux-headers-generic
           # Install musl-compatible OpenSSL
           wget https://www.openssl.org/source/openssl-3.0.13.tar.gz
           tar xzf openssl-3.0.13.tar.gz
