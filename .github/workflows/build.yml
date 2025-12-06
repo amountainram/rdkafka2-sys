@@ -29,7 +29,6 @@ jobs:
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: stable
           targets: ${{ matrix.target }}
       
       - name: Install dependencies (GNU)
@@ -42,16 +41,7 @@ jobs:
         if: contains(matrix.target, 'musl')
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake clang libclang-dev patch musl-tools musl-dev linux-headers-generic
-          # Install musl-compatible OpenSSL
-          wget https://www.openssl.org/source/openssl-3.0.13.tar.gz
-          tar xzf openssl-3.0.13.tar.gz
-          cd openssl-3.0.13
-          CC=musl-gcc ./Configure no-shared no-async --prefix=/usr/local/musl --openssldir=/usr/local/musl/ssl linux-x86_64
-          make -j$(nproc)
-          sudo make install_sw install_ssldirs
-          echo "OPENSSL_DIR=/usr/local/musl" >> $GITHUB_ENV
-          echo "OPENSSL_STATIC=1" >> $GITHUB_ENV
+          sudo apt-get install -y cmake clang libclang-dev patch musl-tools musl-dev
 
       - name: Cache cargo registry + target
         uses: actions/cache@v4
@@ -65,5 +55,15 @@ jobs:
             ${{ runner.os }}-${{ matrix.target }}-cargo-
 
       - name: Build for ${{ matrix.target }}
-        run: cargo build --features=${{ matrix.features }} --target ${{ matrix.target }} --release
+        env:
+          # Use vendored OpenSSL for musl to avoid compilation issues
+          OPENSSL_STATIC: ${{ contains(matrix.target, 'musl') && '1' || '' }}
+          OPENSSL_NO_VENDOR: ${{ contains(matrix.target, 'gnu') && '1' || '' }}
+        run: |
+          if [[ "${{ matrix.target }}" == *"musl"* ]]; then
+            # For musl, use openssl-sys vendored feature
+            cargo build --features=${{ matrix.features }},openssl-sys/vendored --target ${{ matrix.target }} --release
+          else
+            cargo build --features=${{ matrix.features }} --target ${{ matrix.target }} --release
+          fi
 
