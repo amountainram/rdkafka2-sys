@@ -51,6 +51,22 @@ conventional_commits = true
 filter_unconventional = true
 # process each line of a commit as an individual commit
 split_commits = false
+# protect breaking changes from being skipped due to matching a skipping commit_parser
+protect_breaking_commits = false
+# filter out the commits that are not matched by commit parsers
+filter_commits = true
+# regex for matching git tags
+# tag_pattern = "v[0-9].*"
+# regex for skipping tags
+skip_tags = "beta|alpha"
+# regex for ignoring tags
+ignore_tags = "rc"
+# sort the tags topologically
+topo_order = false
+# sort the commits inside sections by oldest/newest order
+sort_commits = "newest"
+# limit the number of commits included in the changelog.
+# limit_commits = 42
 commit_preprocessors = [
     { pattern = "Merge branch '([0-9A-Za-z/-_:()])'", replace = "$1" },
 ]
@@ -70,15 +86,5 @@ commit_parsers = [
     { message = "^.*: remove", group = "Removed" },
     { message = "^.*: delete", group = "Removed" },
     { message = "^.*: replace", group = "Changed" },
+    { path = "librdkafka/.*", skip = true },
 ]
-# filter out the commits that are not matched by commit parsers
-filter_commits = true
-# sort the tags topologically
-topo_order = false
-# sort the commits inside sections by oldest/newest order
-sort_commits = "newest"
-
-# regex for skipping tags
-skip_tags = "beta|alpha"
-# regex for ignoring tags
-ignore_tags = "rc"

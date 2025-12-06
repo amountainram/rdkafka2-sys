@@ -1,6 +1,6 @@
 [package]
 name = "rdkafka2-sys"
-version = "0.1.2+2.12.1"
+version = "0.1.3+2.12.1"
 links = "rdkafka"
 repository = "https://github.com/amountainram/rdkafka2-sys"
 keywords = ["kafka", "rdkafka"]
@@ -94,6 +94,10 @@ external-lz4 = ["lz4-sys"]
 features = ["cmake-build"]
 
 [package.metadata.release]
+# Don't automatically set version - we use metadata format
+# Manual workflow: update version in Cargo.toml, then run cargo release --execute --no-confirm
+tag = true
+# Extract version without metadata for git operations
 pre-release-hook = [
     "git",
     "cliff",
