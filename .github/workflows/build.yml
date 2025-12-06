@@ -13,21 +13,44 @@ jobs:
     strategy:
       matrix:
         target: ${{ fromJson(inputs.targets) }}
+        include:
+          - target: x86_64-unknown-linux-gnu
+            features: ssl,sasl
+          - target: x86_64-unknown-linux-musl
+            features: ssl,sasl
 
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
           targets: ${{ matrix.target }}
-
-      - name: Install dependencies
+      
+      - name: Install dependencies (GNU)
+        if: contains(matrix.target, 'gnu')
         run: |
-          sudo apt-get update;
-          sudo apt-get install -y musl-dev clang libclang-dev cmake libsasl2-dev libssl-dev libcurl4-openssl-dev;
+          sudo apt-get update
+          sudo apt-get install -y cmake clang libclang-dev patch libsasl2-dev libssl-dev
+
+      - name: Install dependencies (musl)
+        if: contains(matrix.target, 'musl')
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake clang libclang-dev patch musl-tools musl-dev
+          # Install musl-compatible OpenSSL
+          wget https://www.openssl.org/source/openssl-3.0.13.tar.gz
+          tar xzf openssl-3.0.13.tar.gz
+          cd openssl-3.0.13
+          CC=musl-gcc ./Configure no-shared no-async --prefix=/usr/local/musl --openssldir=/usr/local/musl/ssl linux-x86_64
+          make -j$(nproc)
+          sudo make install_sw install_ssldirs
+          echo "OPENSSL_DIR=/usr/local/musl" >> $GITHUB_ENV
+          echo "OPENSSL_STATIC=1" >> $GITHUB_ENV
 
       - name: Cache cargo registry + target
         uses: actions/cache@v4
@@ -36,8 +59,10 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-${{ matrix.target }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.target }}-cargo-
 
       - name: Build for ${{ matrix.target }}
-        run: cargo build --features=ssl,sasl --target ${{ matrix.target }}
+        run: cargo build --features=${{ matrix.features }} --target ${{ matrix.target }} --release
 

@@ -4,7 +4,7 @@ use libc::{FILE, sockaddr};
 #[cfg(unix)]
 use libc::{addrinfo, mode_t};
 
-pub const RD_KAFKA_VERSION: i32 = 34275839;
+pub const RD_KAFKA_VERSION: i32 = 34341375;
 pub const RD_KAFKA_DEBUG_CONTEXTS : & [u8 ; 138] = b"all,generic,broker,topic,metadata,feature,queue,msg,protocol,cgrp,security,fetch,interceptor,plugin,consumer,admin,eos,mock,assignor,conf\0" ;
 pub const RD_KAFKA_DESTROY_F_NO_CONSUMER_CLOSE: i32 = 8;
 pub const RD_KAFKA_OFFSET_BEGINNING: i32 = -2;

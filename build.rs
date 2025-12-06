@@ -174,6 +174,39 @@ fn generate_bindings() {
     }
 }
 
+fn apply_librdkafka_patch() {
+    let patch_file = Path::new("librdkafka-curl-fix.patch");
+    if !patch_file.exists() {
+        eprintln!("Warning: librdkafka-curl-fix.patch not found, skipping patch");
+        return;
+    }
+
+    // Check if patch is already applied by checking the exact line that gets changed
+    let rdkafka_conf = Path::new("librdkafka/src/rdkafka_conf.c");
+    if let Ok(content) = fs::read_to_string(rdkafka_conf) {
+        // Get lines around line 59 (the line being patched)
+        let lines: Vec<&str> = content.lines().collect();
+        if lines.len() > 59 {
+            let line_59 = lines[58]; // 0-indexed, so line 59 is at index 58
+
+            // Check if the line has already been patched
+            if line_59.contains("#if WITH_OAUTHBEARER_OIDC") {
+                eprintln!("Patch already applied (line 59 has '#if'), skipping");
+                return;
+            } else if line_59.contains("#ifdef WITH_OAUTHBEARER_OIDC") {
+                eprintln!("Patch needs to be applied (line 59 has '#ifdef')");
+            }
+        }
+    }
+
+    eprintln!("Applying librdkafka curl fix patch");
+    run_command_or_fail(
+        "librdkafka",
+        "patch",
+        &["-N", "-p1", "-i", "../librdkafka-curl-fix.patch"],
+    );
+}
+
 fn main() {
     if env::var("CARGO_FEATURE_DYNAMIC_LINKING").is_ok() {
         eprintln!("librdkafka will be linked dynamically");
@@ -218,6 +251,9 @@ fn main() {
             eprintln!("Setting up submodules");
             run_command_or_fail(".", "git", &["submodule", "update", "--init"]);
         }
+
+        apply_librdkafka_patch();
+
         eprintln!("Building and linking librdkafka statically");
         build_librdkafka();
     }
@@ -280,6 +316,9 @@ fn build_librdkafka() {
         }
     } else {
         configure_flags.push("--disable-curl".into());
+        // Explicitly disable OAUTHBEARER OIDC support when curl is disabled
+        // to prevent build failures due to missing curl headers
+        configure_flags.push("--disable-oauthbearer-oidc".into());
     }
 
     if env::var("CARGO_FEATURE_ZSTD").is_ok() {
@@ -391,6 +430,9 @@ fn build_librdkafka() {
         }
     } else {
         config.define("WITH_CURL", "0");
+        // Explicitly disable OAUTHBEARER OIDC support when curl is disabled
+        // to prevent build failures due to missing curl headers
+        config.define("WITH_OAUTHBEARER_OIDC", "0");
     }
 
     if env::var("CARGO_FEATURE_SSL").is_ok() {
