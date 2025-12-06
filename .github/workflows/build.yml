@@ -41,7 +41,7 @@ jobs:
         if: contains(matrix.target, 'musl')
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake clang libclang-dev patch musl-tools musl-dev
+          sudo apt-get install -y cmake clang libclang-dev patch musl-tools musl-dev g++-x86-64-linux-gnu
 
       - name: Cache cargo registry + target
         uses: actions/cache@v4
