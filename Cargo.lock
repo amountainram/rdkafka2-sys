@@ -378,7 +378,7 @@ checksum = "74765f6d916ee2faa39bc8e68e4f3ed8949b48cccdac59983d287a7cb71ce9c5"
 
 [[package]]
 name = "rdkafka2-sys"
-version = "0.1.4+2.12.1"
+version = "0.1.5+2.12.1"
 dependencies = [
  "bindgen 0.72.1",
  "cmake",
