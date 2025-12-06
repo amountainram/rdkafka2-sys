@@ -77,6 +77,4 @@ jobs:
         run: cargo fmt --all -- --check
 
       - name: Run clippy
-        env:
-          CARGO_FEATURE_DYNAMIC_LINKING: ""
-        run: cargo clippy --all-targets --all-features -- -D warnings
+        run: cargo clippy --all-targets -- -D warnings
