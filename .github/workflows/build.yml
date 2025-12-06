@@ -55,14 +55,10 @@ jobs:
             ${{ runner.os }}-${{ matrix.target }}-cargo-
 
       - name: Build for ${{ matrix.target }}
-        env:
-          # Use vendored OpenSSL for musl to avoid compilation issues
-          OPENSSL_STATIC: ${{ contains(matrix.target, 'musl') && '1' || '' }}
-          OPENSSL_NO_VENDOR: ${{ contains(matrix.target, 'gnu') && '1' || '' }}
         run: |
           if [[ "${{ matrix.target }}" == *"musl"* ]]; then
-            # For musl, use openssl-sys vendored feature
-            cargo build --features=${{ matrix.features }},openssl-sys/vendored --target ${{ matrix.target }} --release
+            # For musl, use vendored OpenSSL and SASL
+            cargo build --features=${{ matrix.features }},openssl-sys/vendored,sasl2-sys/vendored --target ${{ matrix.target }} --release
           else
             cargo build --features=${{ matrix.features }} --target ${{ matrix.target }} --release
           fi
