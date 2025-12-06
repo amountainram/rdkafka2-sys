@@ -13,6 +13,7 @@ include = [
     "build.rs",
     "/src",
     "/librdkafka",
+    "librdkafka-curl-fix.patch",
     "LICENSE",
     "LICENSE-librdkafka",
     "NOTICE",
