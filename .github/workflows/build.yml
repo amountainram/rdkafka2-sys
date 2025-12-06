@@ -55,6 +55,8 @@ jobs:
             ${{ runner.os }}-${{ matrix.target }}-cargo-
 
       - name: Build for ${{ matrix.target }}
+        env:
+          CXX: ${{ contains(matrix.target, 'musl') && 'g++' || '' }}
         run: |
           if [[ "${{ matrix.target }}" == *"musl"* ]]; then
             # For musl, use vendored OpenSSL and SASL
