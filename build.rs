@@ -175,6 +175,12 @@ fn generate_bindings() {
 }
 
 fn apply_librdkafka_patch() {
+    // Skip patching on docs.rs since the filesystem is read-only
+    if env::var("DOCS_RS").is_ok() {
+        eprintln!("Building on docs.rs, skipping patch (not needed for documentation)");
+        return;
+    }
+
     let patch_file = Path::new("librdkafka-curl-fix.patch");
     if !patch_file.exists() {
         eprintln!("Warning: librdkafka-curl-fix.patch not found, skipping patch");
